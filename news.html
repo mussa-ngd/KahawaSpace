@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kahawa Space - Coffee News & Market Intelligence</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="news.html" class="active"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
+            <div class="mobile-menu" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Coffee News & Market Intelligence</h1>
+        <p>Stay ahead with global coffee updates, market movements, and industry insights</p>
+    </div>
+
+    <div class="news-filter">
+        <div class="filter-container" id="filterContainer">
+            <button class="filter-btn active" data-category="all">All News</button>
+            <button class="filter-btn" data-category="origin">Origin & Production</button>
+            <button class="filter-btn" data-category="market">Market & Trade</button>
+            <button class="filter-btn" data-category="innovation">Industry & Innovation</button>
+            <button class="filter-btn" data-category="competitions">Competitions</button>
+            <button class="filter-btn" data-category="business">Business News</button>
+        </div>
+    </div>
+
+    <main class="news-main" id="newsMain"></main>
+
+    <section class="newsletter">
+        <h2>Get the Latest Coffee News</h2>
+        <p>Weekly market intelligence, origin stories, and industry updates</p>
+        <div class="newsletter-form">
+            <input type="email" placeholder="Your email address" id="newsletterEmail">
+            <button id="subscribeBtn">Subscribe</button>
+        </div>
+        <div id="subscribeMsg" style="margin-top: 12px; font-size: 0.85rem; color: #d4a373;"></div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Trust &amp; Safety</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Sell</h4>
+                <ul>
+                    <li><a href="#">List Green Coffee</a></li>
+                    <li><a href="#">Seller Verification</a></li>
+                    <li><a href="#">Pricing &amp; Fees</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Buy</h4>
+                <ul>
+                    <li><a href="#">Green Coffee</a></li>
+                    <li><a href="#">Roasted Coffee</a></li>
+                    <li><a href="#">Equipment</a></li>
+                    <li><a href="#">Education</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Market Reports</a></li>
+                    <li><a href="#">Shipping Guide</a></li>
+                    <li><a href="#">Coffee Calculator</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Dispute Resolution</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+            <div class="social-links">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ---------- NEWS DATA (enhanced) ----------
+        const articles = [
+            { id: 1, title: 'Tanzania Harvest Report: Record Quality from Kilimanjaro', category: 'origin', date: 'March 5, 2026', excerpt: 'Early harvest samples show exceptional cup scores as farmers adopt new processing methods.', author: 'James Mwangi', location: 'Moshi, Tanzania', readTime: '5 min' },
+            { id: 2, title: 'C-Market Analysis: Volatility and Opportunities', category: 'market', date: 'March 4, 2026', excerpt: 'Currency impacts and supply chain updates affecting green coffee prices this quarter.', author: 'Market Analyst', location: 'Global', readTime: '4 min' },
+            { id: 3, title: 'New Fermentation Techniques Reshaping Specialty Coffee', category: 'innovation', date: 'March 3, 2026', excerpt: 'How producers in Colombia and Kenya are experimenting with controlled fermentation.', author: 'Maria Santos', location: 'Bogotá', readTime: '6 min' },
+            { id: 4, title: 'World Barista Championship: Meet the Finalists', category: 'competitions', date: 'March 2, 2026', excerpt: 'Live coverage from the stage as competitors showcase their signature drinks.', author: 'Coffee Events', location: 'Melbourne', readTime: '8 min' },
+            { id: 5, title: 'Café Expansion Trends: 2026 Market Report', category: 'business', date: 'March 1, 2026', excerpt: 'Analysis of global café openings and investment trends in key markets.', author: 'Business Desk', location: 'London', readTime: '5 min' },
+            { id: 6, title: 'Ethiopia: New Coffee Varieties Show Disease Resistance', category: 'origin', date: 'February 28, 2026', excerpt: 'Research center releases promising new varieties for smallholder farmers.', author: 'Agri Report', location: 'Addis Ababa', readTime: '4 min' },
+            { id: 7, title: 'Sustainable Packaging Innovations in Coffee Industry', category: 'innovation', date: 'February 27, 2026', excerpt: 'New biodegradable materials set to revolutionize coffee packaging.', author: 'Green Coffee', location: 'Berlin', readTime: '5 min' }
+        ];
+
+        // Category label helper
+        function getCategoryLabel(cat) {
+            const map = {
+                origin: 'Origin & Production',
+                market: 'Market Intelligence',
+                innovation: 'Innovation',
+                competitions: 'Competitions',
+                business: 'Business News'
+            };
+            return map[cat] || 'Coffee News';
+        }
+
+        let currentCategory = 'all';
+
+        function renderNews() {
+            const filtered = currentCategory === 'all' ? articles : articles.filter(a => a.category === currentCategory);
+            const container = document.getElementById('newsMain');
+            if (!container) return;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="featured-main" style="text-align:center; padding: 3rem;"><div class="featured-content"><i class="fas fa-coffee" style="font-size:3rem; color:#6f5c4d; opacity:0.5;"></i><h3 style="margin-top:1rem;">No articles in this category</h3><p>Check back soon for more coffee insights.</p></div></div>`;
+                return;
+            }
+
+            // Featured article (first)
+            const featured = filtered[0];
+            const sideArticles = filtered.slice(1, 4);
+
+            // Build featured section
+            let featuredHTML = `
+            <div class="featured-news">
+                <div class="featured-main">
+                    <div class="featured-image" style="background: linear-gradient(135deg, #8b5a2b, #3d2a1c);">
+                        <span class="featured-tag">Featured Story</span>
+                    </div>
+                    <div class="featured-content">
+                        <div class="news-date">${featured.date}</div>
+                        <h2>${escapeHtml(featured.title)}</h2>
+                        <p>${escapeHtml(featured.excerpt)}</p>
+                        <div class="featured-meta">
+                            <span><i class="fas fa-user"></i> By ${escapeHtml(featured.author)}</span>
+                            <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(featured.location)}</span>
+                            <span><i class="fas fa-clock"></i> ${escapeHtml(featured.readTime)} read</span>
+                        </div>
+                        <a href="#" class="read-more" data-id="${featured.id}">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="featured-side">
+                    ${sideArticles.map(art => `
+                        <div class="side-news-card">
+                            <span class="news-tag" style="position:relative; top:0; left:0; display:inline-block; margin-bottom:8px;">${getCategoryLabel(art.category)}</span>
+                            <h4>${escapeHtml(art.title)}</h4>
+                            <p class="news-date">${art.date}</p>
+                            <a href="#" class="read-more" data-id="${art.id}" style="font-size:0.85rem;">Read more →</a>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            <h2 class="section-title">Latest News</h2>
+            <div class="news-grid">
+                ${filtered.map(art => `
+                    <div class="news-card">
+                        <div class="news-image">
+                            <div class="news-tag">${getCategoryLabel(art.category)}</div>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-date">${art.date}</div>
+                            <h3>${escapeHtml(art.title)}</h3>
+                            <p>${escapeHtml(art.excerpt)}</p>
+                            <a href="#" class="read-more" data-id="${art.id}">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="pagination">
+                <button class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        `;
+            container.innerHTML = featuredHTML;
+
+            // Attach read-more click handlers (prevent default, show alert for demo)
+            document.querySelectorAll('.read-more').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const id = link.getAttribute('data-id');
+                    const article = articles.find(a => a.id == id);
+                    if (article) {
+                        alert(`📰 "${article.title}"\n\nFull article preview coming soon.\nStay tuned for in-depth coffee intelligence.`);
+                    } else {
+                        alert("Article preview: more insights coming soon!");
+                    }
+                });
+            });
+        }
+
+        // simple XSS protection
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function (m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function (c) {
+                return c;
+            });
+        }
+
+        // filter event listeners
+        function initFilters() {
+            const btns = document.querySelectorAll('.filter-btn');
+            btns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentCategory = btn.getAttribute('data-category');
+                    renderNews();
+                    // scroll to top of news section for better UX
+                    const newsMain = document.getElementById('newsMain');
+                    if (newsMain) newsMain.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+        }
+
+        // ----- MOBILE MENU LOGIC (fully functional) -----
+        function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navLinksElem = document.getElementById('navLinks');
+            if (!mobileToggle || !navLinksElem) return;
+
+            const closeMenu = () => {
+                navLinksElem.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                // reset icon
+                const icon = mobileToggle.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
+            };
+
+            const toggleMenu = () => {
+                const isActive = navLinksElem.classList.contains('active');
+                if (isActive) {
+                    closeMenu();
+                } else {
+                    navLinksElem.classList.add('active');
+                    mobileToggle.classList.add('active');
+                    document.body.classList.add('menu-open');
+                    const icon = mobileToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-times';
+                }
+            };
+
+            mobileToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMenu();
+            });
+
+            // close when clicking on any nav link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            // close when clicking outside (if menu open)
+            document.addEventListener('click', (e) => {
+                if (navLinksElem.classList.contains('active') &&
+                    !navLinksElem.contains(e.target) &&
+                    !mobileToggle.contains(e.target)) {
+                    closeMenu();
+                }
+            });
+
+            // ESC key closes menu
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMenu();
+            });
+        }
+
+        // Newsletter subscription simulation
+        function initNewsletter() {
+            const subBtn = document.getElementById('subscribeBtn');
+            const emailInput = document.getElementById('newsletterEmail');
+            const msgDiv = document.getElementById('subscribeMsg');
+            if (subBtn && emailInput && msgDiv) {
+                subBtn.addEventListener('click', () => {
+                    const email = emailInput.value.trim();
+                    if (!email || !email.includes('@') || !email.includes('.')) {
+                        msgDiv.innerHTML = '<span style="color:#e8b4a0;">✉️ Please enter a valid email address.</span>';
+                        setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 2500);
+                        return;
+                    }
+                    msgDiv.innerHTML = '<span style="color:#d4a373;">✅ Thanks! You\'ll receive weekly coffee intelligence.</span>';
+                    emailInput.value = '';
+                    setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 3000);
+                });
+            }
+        }
+
+        // fix broken logo link + add safe handling for missing pages (prevent navigation errors)
+        function initGlobalFixes() {
+            const logoDiv = document.querySelector('.logo');
+            if (logoDiv) {
+                logoDiv.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = 'index.html';
+                });
+            }
+            // disable actual redirects for demo links that would 404, but keep user-friendly
+            const allFooterLinks = document.querySelectorAll('.footer-col ul li a');
+            allFooterLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert("🚀 Kahawa Space is expanding! This feature will be available soon.");
+                });
+            });
+            // also auth buttons demo
+            const loginBtn = document.querySelector('.btn-login');
+            const signupBtn = document.querySelector('.btn-signup');
+            if (loginBtn) loginBtn.addEventListener('click', (e) => { e.preventDefault(); alert("🔐 Login portal opening soon – join our coffee community!"); });
+            if (signupBtn) signupBtn.addEventListener('click', (e) => { e.preventDefault(); alert("☕ Join Kahawa Space – early access perks coming!"); });
+
+            // handle pagination buttons (demo)
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.page-btn') && !e.target.closest('.page-btn').disabled) {
+                    e.preventDefault();
+                    alert("📄 More coffee news articles on the way. Stay tuned for pagination updates.");
+                }
+            });
+        }
+
+        // run all
+        function init() {
+            renderNews();
+            initFilters();
+            initMobileMenu();
+            initNewsletter();
+            initGlobalFixes();
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kahawa Space - Coffee Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="marketplace.html" class="active"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
+            <div class="mobile-menu" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>The Coffee Marketplace</h1>
+        <p>Source green coffee directly from origin, discover specialty roasters, and equip your café</p>
+    </div>
+
+    <div class="marketplace-categories">
+        <div class="category-tabs" id="mainCategoryTabs">
+            <button class="category-tab active" data-category="green"><i class="fas fa-seedling"></i> Green
+                Coffee</button>
+            <button class="category-tab" data-category="roasted"><i class="fas fa-fire"></i> Roasted Coffee</button>
+            <button class="category-tab" data-category="equipment"><i class="fas fa-blender"></i> Equipment</button>
+            <button class="category-tab" data-category="apparel"><i class="fas fa-tshirt"></i> Coffee Apparel &amp;
+                Merch</button>
+            <button class="category-tab" data-category="books"><i class="fas fa-book"></i> Books &amp;
+                Education</button>
+        </div>
+    </div>
+
+    <!-- Equipment Subcategories -->
+    <div class="subcategories-section" id="equipmentSubcategories">
+        <div class="subcategory-tabs" id="subcategoryTabs">
+            <button class="subcategory-tab active" data-subcategory="all">All Equipment</button>
+            <button class="subcategory-tab" data-subcategory="espresso-machines">☕ Espresso Machines</button>
+            <button class="subcategory-tab" data-subcategory="grinders">🔪 Grinders</button>
+            <button class="subcategory-tab" data-subcategory="brew-machines">🫖 Brew Machines</button>
+            <button class="subcategory-tab" data-subcategory="specialty-systems">❄️ Specialty Systems</button>
+            <button class="subcategory-tab" data-subcategory="barista-tools">🛠️ Barista Tools</button>
+            <button class="subcategory-tab" data-subcategory="spare-parts">🔧 Spare Parts</button>
+        </div>
+    </div>
+
+    <!-- Apparel Subcategories -->
+    <div class="subcategories-section" id="apparelSubcategories">
+        <div class="subcategory-tabs" id="apparelSubcategoryTabs">
+            <button class="subcategory-tab active" data-subcategory="all">All Merchandise</button>
+            <button class="subcategory-tab" data-subcategory="t-shirts">👕 T-Shirts</button>
+            <button class="subcategory-tab" data-subcategory="barista-uniform">👔 Barista Uniforms</button>
+            <button class="subcategory-tab" data-subcategory="aprons">🧥 Aprons</button>
+            <button class="subcategory-tab" data-subcategory="headwear">🧢 Headwear</button>
+            <button class="subcategory-tab" data-subcategory="accessories">🎒 Accessories &amp; Extra</button>
+        </div>
+    </div>
+
+    <div class="filters-section">
+        <div class="filters-container">
+            <div id="greenFilters" class="category-filters active">
+                <select class="filter-select" id="originFilter">
+                    <option value="all">All Origins</option>
+                    <option value="Tanzania">Tanzania</option>
+                    <option value="Ethiopia">Ethiopia</option>
+                    <option value="Kenya">Kenya</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Rwanda">Rwanda</option>
+                </select>
+                <select class="filter-select" id="processFilter">
+                    <option value="all">Processing Method</option>
+                    <option value="Washed">Washed</option>
+                    <option value="Natural">Natural</option>
+                    <option value="Honey">Honey</option>
+                    <option value="Pulped Natural">Pulped Natural</option>
+                </select>
+                <select class="filter-select" id="gradeFilter">
+                    <option value="all">Grade</option>
+                    <option value="Specialty">Specialty (SCA 80+)</option>
+                    <option value="Premium">Premium (SCA 84+)</option>
+                    <option value="Micro-lot">Micro-lot (SCA 86+)</option>
+                </select>
+            </div>
+            <div id="equipmentFilters" class="category-filters">
+                <select class="filter-select" id="brandFilter">
+                    <option value="all">All Brands</option>
+                    <option value="La Marzocco">La Marzocco</option>
+                    <option value="Victor">Victor</option>
+                    <option value="Rancilio">Rancilio</option>
+                    <option value="Nuova Simonelli">Nuova Simonelli</option>
+                    <option value="Mahlkönig">Mahlkönig</option>
+                    <option value="Fellow">Fellow</option>
+                    <option value="Baratza">Baratza</option>
+                    <option value="Comandante">Comandante</option>
+                    <option value="Hario">Hario</option>
+                    <option value="Chemex">Chemex</option>
+                    <option value="AeroPress">AeroPress</option>
+                    <option value="Acaia">Acaia</option>
+                    <option value="Normcore">Normcore</option>
+                    <option value="Urnex">Urnex</option>
+                    <option value="Aillio">Aillio</option>
+                    <option value="BWT">BWT</option>
+                </select>
+                <select class="filter-select" id="conditionFilter">
+                    <option value="all">All Conditions</option>
+                    <option value="New">New</option>
+                    <option value="Refurbished">Refurbished</option>
+                    <option value="Used">Used</option>
+                </select>
+            </div>
+            <div id="apparelFilters" class="category-filters">
+                <select class="filter-select" id="apparelSizeFilter">
+                    <option value="all">All Sizes</option>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
+                <select class="filter-select" id="apparelColorFilter">
+                    <option value="all">All Colors</option>
+                    <option value="Black">Black</option>
+                    <option value="White">White</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Green">Green</option>
+                    <option value="Blue">Blue</option>
+                </select>
+            </div>
+            <div class="price-range"><input type="number" id="minPrice" placeholder="Min $"><span>-</span><input
+                    type="number" id="maxPrice" placeholder="Max $"></div>
+            <button class="btn-primary" id="applyFiltersBtn">Apply Filters</button>
+        </div>
+    </div>
+
+    <div class="marketplace-main">
+        <div class="marketplace-header">
+            <p id="resultCount">Showing 24 of 156 green coffee lots</p><select class="filter-select" id="sortBy"
+                style="width: auto;">
+                <option value="latest">Sort by: Latest</option>
+                <option value="price_low">Price: Low to High</option>
+                <option value="price_high">Price: High to Low</option>
+                <option value="sca">SCA Score</option>
+            </select>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <div class="seller-spotlight">
+        <div class="section-header">
+            <h2>Verified Sellers Spotlight</h2>
+            <p>Connect with trusted cooperatives and exporters</p>
+        </div>
+        <div class="seller-grid" id="sellerGrid"></div>
+    </div>
+
+    <section class="newsletter">
+        <h2>Get Marketplace Updates</h2>
+        <p>New green coffee arrivals, equipment deals, and seller opportunities</p>
+        <div class="newsletter-form"><input type="email" id="newsletterEmail" placeholder="Your email address"><button
+                id="subscribeBtn">Subscribe</button></div>
+        <div id="subscribeMsg" style="margin-top:12px;font-size:0.85rem;color:#d4a373;"></div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Trust &amp; Safety</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Sell</h4>
+                <ul>
+                    <li><a href="#">List Green Coffee</a></li>
+                    <li><a href="#">Seller Verification</a></li>
+                    <li><a href="#">Pricing &amp; Fees</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Buy</h4>
+                <ul>
+                    <li><a href="#">Green Coffee</a></li>
+                    <li><a href="#">Roasted Coffee</a></li>
+                    <li><a href="#">Equipment</a></li>
+                    <li><a href="#">Education</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Market Reports</a></li>
+                    <li><a href="#">Shipping Guide</a></li>
+                    <li><a href="#">Coffee Calculator</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Dispute Resolution</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+            <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i
+                        class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i
+                        class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+        </div>
+    </footer>
+
+    <script>
+        // ============ COMPREHENSIVE PRODUCT DATA ============
+        const products = {
+            green: [
+                { id: 1, name: 'Tanzania Peaberry AA Reserve', origin: 'Tanzania', process: 'Washed', grade: 'Specialty', price: 8.50, sca: 86, lot: 350, seller: 'Kilimanjaro Cooperative', verified: true, image: 'coffee-bean' },
+                { id: 2, name: 'Ethiopia Yirgacheffe Natural G1', origin: 'Ethiopia', process: 'Natural', grade: 'Specialty', price: 9.20, sca: 88, lot: 500, seller: 'Yirgacheffe Farmers', verified: true, image: 'coffee-bean' },
+                { id: 3, name: 'Brazil Yellow Bourbon', origin: 'Brazil', process: 'Pulped Natural', grade: 'Premium', price: 7.80, sca: 84, lot: 1200, seller: 'Minas Gerais Estate', verified: true, image: 'coffee-bean' }
+            ],
+            roasted: [
+                { id: 101, name: 'Kilimanjaro Espresso Blend', roaster: 'Moshi Roasters', roast: 'Medium', price: 18.50, weight: '250g', verified: true, image: 'fire' },
+                { id: 102, name: 'Ethiopia Sidama Natural', roaster: 'Addis Coffee', roast: 'Light', price: 22.00, weight: '250g', verified: true, image: 'fire' }
+            ],
+            equipment: [
+                // Espresso Machines - Commercial, Home, Manual Lever
+                { id: 201, name: 'La Marzocco Linea PB 3-Group', brand: 'La Marzocco', type: 'Espresso Machine', subcategory: 'espresso-machines', condition: 'New', price: 21500, warranty: 3, verified: true, image: 'blender', seller: 'La Marzocco Commercial' },
+                { id: 202, name: 'La Marzocco Linea Mini', brand: 'La Marzocco', type: 'Espresso Machine', subcategory: 'espresso-machines', condition: 'New', price: 5900, warranty: 2, verified: true, image: 'blender', seller: 'La Marzocco Home' },
+                { id: 203, name: 'Rancilio Silvia Pro X', brand: 'Rancilio', type: 'Espresso Machine', subcategory: 'espresso-machines', condition: 'New', price: 1890, warranty: 2, verified: true, image: 'blender', seller: 'Rancilio Official' },
+                { id: 204, name: 'Nuova Simonelli Appia Life 2-Group', brand: 'Nuova Simonelli', type: 'Espresso Machine', subcategory: 'espresso-machines', condition: 'Refurbished', price: 6500, warranty: 1, verified: true, image: 'blender', seller: 'Certified Refurb' },
+                { id: 205, name: 'Flair 58 Manual Lever', brand: 'Flair', type: 'Espresso Machine', subcategory: 'espresso-machines', condition: 'New', price: 579, warranty: 2, verified: true, image: 'blender', seller: 'Flair Espresso' },
+                { id: 206, name: 'Cafelat Robot Manual Lever', brand: 'Cafelat', type: 'Espresso Machine', subcategory: 'espresso-machines', condition: 'New', price: 425, warranty: 2, verified: true, image: 'blender', seller: 'Cafelat' },
+                // Brew Machines
+                { id: 207, name: 'Marco SP-9 Pour-Over Brewer', brand: 'Marco', type: 'Brew Machine', subcategory: 'brew-machines', condition: 'New', price: 895, warranty: 2, verified: true, image: 'blender', seller: 'Marco Beverage' },
+                { id: 208, name: 'Moccamaster KBGV Select', brand: 'Moccamaster', type: 'Brew Machine', subcategory: 'brew-machines', condition: 'New', price: 359, warranty: 5, verified: true, image: 'blender', seller: 'Technivorm' },
+                { id: 209, name: 'Ratio Six Coffee Maker', brand: 'Ratio', type: 'Brew Machine', subcategory: 'brew-machines', condition: 'New', price: 495, warranty: 2, verified: true, image: 'blender', seller: 'Ratio' },
+                // Specialty Systems (Cold brew, Nitro)
+                { id: 210, name: 'Toddy Cold Brew System - Commercial', brand: 'Toddy', type: 'Specialty System', subcategory: 'specialty-systems', condition: 'New', price: 189, warranty: 1, verified: true, image: 'blender', seller: 'Toddy LLC' },
+                { id: 211, name: 'NitroBrew Cold Brew System', brand: 'NitroBrew', type: 'Specialty System', subcategory: 'specialty-systems', condition: 'New', price: 450, warranty: 1, verified: true, image: 'blender', seller: 'NitroBrew' },
+                // Grinders
+                { id: 301, name: 'Mahlkönig E65S GBW', brand: 'Mahlkönig', type: 'Grinder', subcategory: 'grinders', condition: 'New', price: 3100, warranty: 2, verified: true, image: 'blender', seller: 'Mahlkönig' },
+                { id: 302, name: 'Fellow Ode Gen 2', brand: 'Fellow', type: 'Grinder', subcategory: 'grinders', condition: 'New', price: 349, warranty: 1, verified: true, image: 'blender', seller: 'Fellow' },
+                { id: 303, name: 'Baratza Encore ESP', brand: 'Baratza', type: 'Grinder', subcategory: 'grinders', condition: 'New', price: 199, warranty: 1, verified: true, image: 'blender', seller: 'Baratza' },
+                { id: 304, name: 'Comandante C40 MK4', brand: 'Comandante', type: 'Grinder', subcategory: 'grinders', condition: 'New', price: 325, warranty: 2, verified: true, image: 'blender', seller: 'Comandante' },
+                // Barista Tools
+                { id: 401, name: 'Acaia Pearl S Scale', brand: 'Acaia', type: 'Barista Tool', subcategory: 'barista-tools', condition: 'New', price: 189, warranty: 2, verified: true, image: 'blender', seller: 'Acaia' },
+                { id: 402, name: 'Normcore Tamper 58.5mm', brand: 'Normcore', type: 'Barista Tool', subcategory: 'barista-tools', condition: 'New', price: 69, warranty: 1, verified: true, image: 'blender', seller: 'Normcore' },
+                { id: 403, name: 'Motta Milk Pitcher 350ml', brand: 'Motta', type: 'Barista Tool', subcategory: 'barista-tools', condition: 'New', price: 35, warranty: 0, verified: true, image: 'blender', seller: 'Motta' },
+                // Spare Parts
+                { id: 501, name: 'La Marzocco Group Gasket Set', brand: 'La Marzocco', type: 'Spare Part', subcategory: 'spare-parts', condition: 'New', price: 24, warranty: 0, verified: true, image: 'blender', seller: 'Espresso Parts' },
+                { id: 502, name: 'Mahlkönig Burr Set 65mm', brand: 'Mahlkönig', type: 'Spare Part', subcategory: 'spare-parts', condition: 'New', price: 350, warranty: 0, verified: true, image: 'blender', seller: 'Mahlkönig' },
+                { id: 503, name: 'IMS Competition Shower Screen', brand: 'IMS', type: 'Spare Part', subcategory: 'spare-parts', condition: 'New', price: 28, warranty: 0, verified: true, image: 'blender', seller: 'IMS Filtri' }
+            ],
+            apparel: [
+                { id: 601, name: 'Kahawa Space Logo T-Shirt', brand: 'Kahawa Space', type: 'T-Shirt', subcategory: 't-shirts', size: 'M', color: 'Black', price: 29, condition: 'New', verified: true, image: 'tshirt', seller: 'Kahawa Space Merch' },
+                { id: 602, name: 'Barista Uniform - Coffee Print', brand: 'Kahawa Space', type: 'Uniform', subcategory: 'barista-uniform', size: 'L', color: 'Brown', price: 49, condition: 'New', verified: true, image: 'tshirt', seller: 'Kahawa Space Merch' },
+                { id: 603, name: 'Waxed Canvas Apron', brand: 'Kahawa Space', type: 'Apron', subcategory: 'aprons', size: 'One Size', color: 'Brown', price: 65, condition: 'New', verified: true, image: 'tshirt', seller: 'Kahawa Space Merch' },
+                { id: 604, name: 'Coffee Bean Snapback Cap', brand: 'Kahawa Space', type: 'Cap', subcategory: 'headwear', size: 'Adjustable', color: 'Black', price: 25, condition: 'New', verified: true, image: 'tshirt', seller: 'Kahawa Space Merch' },
+                { id: 605, name: 'Barista Starter Kit', brand: 'Kahawa Space', type: 'Accessory', subcategory: 'accessories', price: 149, condition: 'New', verified: true, image: 'tshirt', seller: 'Kahawa Space Academy' },
+                { id: 606, name: 'Coffee Enamel Pin Set', brand: 'Kahawa Space', type: 'Accessory', subcategory: 'accessories', price: 15, condition: 'New', verified: true, image: 'tshirt', seller: 'Kahawa Space Merch' }
+            ],
+            books: [
+                { id: 701, name: 'The World Atlas of Coffee', author: 'James Hoffmann', price: 35, format: 'Hardcover', verified: true, image: 'book' },
+                { id: 702, name: 'The Coffee Roaster\'s Companion', author: 'Scott Rao', price: 49, format: 'Paperback', verified: true, image: 'book' }
+            ]
+        };
+
+        const sellers = [
+            { name: 'Kilimanjaro Native Cooperative', location: 'Moshi, Tanzania', lots: 12, rating: 4.9, description: 'Direct from 2,500 smallholder farmers' },
+            { name: 'Yirgacheffe Women Producers', location: 'Yirgacheffe, Ethiopia', lots: 8, rating: 5.0, description: 'Women-led cooperative' },
+            { name: 'Nyeri Hill Estate', location: 'Nyeri, Kenya', lots: 15, rating: 4.8, description: 'Multi-generation farm' }
+        ];
+
+        let currentCategory = 'green';
+        let currentEquipmentSubcategory = 'all';
+        let currentApparelSubcategory = 'all';
+
+        function updateFilterVisibility() {
+            document.querySelectorAll('.category-filters').forEach(f => f.classList.remove('active'));
+            document.getElementById('greenFilters')?.classList.toggle('active', currentCategory === 'green');
+            document.getElementById('equipmentFilters')?.classList.toggle('active', currentCategory === 'equipment');
+            document.getElementById('apparelFilters')?.classList.toggle('active', currentCategory === 'apparel');
+            document.getElementById('equipmentSubcategories')?.classList.toggle('active', currentCategory === 'equipment');
+            document.getElementById('apparelSubcategories')?.classList.toggle('active', currentCategory === 'apparel');
+            const sortBy = document.getElementById('sortBy');
+            if (currentCategory === 'green') sortBy.innerHTML = `<option value="latest">Sort by: Latest</option><option value="price_low">Price: Low to High</option><option value="price_high">Price: High to Low</option><option value="sca">SCA Score</option>`;
+            else if (currentCategory === 'equipment') sortBy.innerHTML = `<option value="latest">Sort by: Latest</option><option value="price_low">Price: Low to High</option><option value="price_high">Price: High to Low</option><option value="brand">Brand: A-Z</option>`;
+            else if (currentCategory === 'apparel') sortBy.innerHTML = `<option value="latest">Sort by: Latest</option><option value="price_low">Price: Low to High</option><option value="price_high">Price: High to Low</option>`;
+            else sortBy.innerHTML = `<option value="latest">Sort by: Latest</option><option value="price_low">Price: Low to High</option><option value="price_high">Price: High to Low</option>`;
+        }
+
+        function renderProducts() {
+            let filtered = [...(products[currentCategory] || [])];
+            if (currentCategory === 'equipment' && currentEquipmentSubcategory !== 'all') filtered = filtered.filter(p => p.subcategory === currentEquipmentSubcategory);
+            if (currentCategory === 'apparel' && currentApparelSubcategory !== 'all') filtered = filtered.filter(p => p.subcategory === currentApparelSubcategory);
+            if (currentCategory === 'green') {
+                const origin = document.getElementById('originFilter')?.value;
+                if (origin && origin !== 'all') filtered = filtered.filter(p => p.origin === origin);
+                const proc = document.getElementById('processFilter')?.value;
+                if (proc && proc !== 'all') filtered = filtered.filter(p => p.process === proc);
+                const grade = document.getElementById('gradeFilter')?.value;
+                if (grade && grade !== 'all') filtered = filtered.filter(p => p.grade === grade);
+            }
+            if (currentCategory === 'equipment') {
+                const brand = document.getElementById('brandFilter')?.value;
+                if (brand && brand !== 'all') filtered = filtered.filter(p => p.brand === brand);
+                const cond = document.getElementById('conditionFilter')?.value;
+                if (cond && cond !== 'all') filtered = filtered.filter(p => p.condition === cond);
+            }
+            if (currentCategory === 'apparel') {
+                const size = document.getElementById('apparelSizeFilter')?.value;
+                if (size && size !== 'all') filtered = filtered.filter(p => p.size === size);
+                const color = document.getElementById('apparelColorFilter')?.value;
+                if (color && color !== 'all') filtered = filtered.filter(p => p.color === color);
+            }
+            const minP = document.getElementById('minPrice')?.value;
+            if (minP) filtered = filtered.filter(p => p.price >= parseFloat(minP));
+            const maxP = document.getElementById('maxPrice')?.value;
+            if (maxP) filtered = filtered.filter(p => p.price <= parseFloat(maxP));
+            const sortBy = document.getElementById('sortBy')?.value;
+            if (sortBy === 'price_low') filtered.sort((a, b) => a.price - b.price);
+            else if (sortBy === 'price_high') filtered.sort((a, b) => b.price - a.price);
+            else if (sortBy === 'sca' && currentCategory === 'green') filtered.sort((a, b) => (b.sca || 0) - (a.sca || 0));
+            else if (sortBy === 'brand') filtered.sort((a, b) => (a.brand || '').localeCompare(b.brand || ''));
+            const container = document.getElementById('productGrid');
+            if (filtered.length === 0) { container.innerHTML = `<div style="text-align:center;padding:3rem;grid-column:1/-1;"><i class="fas fa-coffee" style="font-size:3rem;color:#6f5c4d;"></i><p>No products found</p></div>`; return; }
+            container.innerHTML = filtered.map(p => {
+                let metaText = '', priceUnit = '', badgeText = '';
+                if (currentCategory === 'green') { metaText = `${p.process} • ${p.grade} • SCA ${p.sca}`; priceUnit = `/kg FOB`; badgeText = 'B2B'; }
+                else if (currentCategory === 'roasted') { metaText = `${p.roast} Roast • ${p.weight}`; priceUnit = `/${p.weight}`; badgeText = 'Roaster'; }
+                else if (currentCategory === 'equipment') { metaText = `${p.brand} • ${p.type} • ${p.condition}`; if (p.warranty > 0) metaText += ` • ${p.warranty}yr Warranty`; priceUnit = `/unit`; badgeText = p.type; }
+                else if (currentCategory === 'apparel') { metaText = `${p.brand} • ${p.type} • ${p.size || 'One Size'} • ${p.color}`; priceUnit = `/item`; badgeText = p.type; }
+                else { metaText = `${p.author} • ${p.format}`; priceUnit = `/book`; badgeText = 'Book'; }
+                return `<div class="product-card"><span class="product-badge">${badgeText}</span><div class="product-image"><span class="product-origin-flag">${p.origin || p.roaster || p.brand || p.author || 'KS'}</span><i class="fas fa-${p.image}"></i></div><div class="product-details"><div class="product-seller"><i class="fas fa-store"></i><span>${p.seller || p.roaster || p.brand || p.author}</span><i class="fas fa-check-circle seller-verified"></i></div><div class="product-title">${p.name}</div><div class="product-meta">${metaText}</div><div class="product-price">$${p.price.toLocaleString()}<small>${priceUnit}</small></div><div class="product-actions"><button class="btn-primary" onclick="contactSeller('${p.name.replace(/'/g, "\\'")}')">${currentCategory === 'green' ? 'Contact Seller' : currentCategory === 'roasted' ? 'Add to Cart' : 'View Details'}</button><button class="btn-secondary" onclick="saveItem('${p.name.replace(/'/g, "\\'")}')"><i class="far fa-heart"></i></button></div></div></div>`;
+            }).join('');
+            document.getElementById('resultCount').textContent = `Showing ${filtered.length} of ${products[currentCategory]?.length || 0} items`;
+        }
+
+        function renderSellers() { document.getElementById('sellerGrid').innerHTML = sellers.map(s => `<div class="seller-card"><div class="seller-avatar"><i class="fas fa-users"></i></div><div class="seller-name">${s.name}</div><div class="seller-location"><i class="fas fa-map-marker-alt"></i> ${s.location}</div><div class="seller-stats"><span><i class="fas fa-coffee"></i> ${s.lots} lots</span><span><i class="fas fa-star"></i> ${s.rating}</span></div><p>${s.description}</p><button class="btn-primary" style="width:100%;" onclick="viewSeller('${s.name.replace(/'/g, "\\'")}')">View Profile</button></div>`).join(''); }
+        function applyFilters() { renderProducts(); }
+        function contactSeller(p) { alert(`🤝 Contacting seller about "${p}"`); }
+        function saveItem(p) { alert(`❤️ "${p}" saved to wishlist`); }
+        function viewSeller(s) { alert(`👤 Viewing profile of ${s}`); }
+
+        document.querySelectorAll('#mainCategoryTabs .category-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('#mainCategoryTabs .category-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentCategory = tab.dataset.category;
+                currentEquipmentSubcategory = 'all';
+                currentApparelSubcategory = 'all';
+                const equipAll = document.querySelector('#subcategoryTabs [data-subcategory="all"]');
+                if (equipAll) equipAll.classList.add('active');
+                const apparelAll = document.querySelector('#apparelSubcategoryTabs [data-subcategory="all"]');
+                if (apparelAll) {
+                    document.querySelectorAll('#apparelSubcategoryTabs .subcategory-tab').forEach(t => t.classList.remove('active'));
+                    apparelAll.classList.add('active');
+                }
+                updateFilterVisibility();
+                renderProducts();
+            });
+        });
+        document.querySelectorAll('#subcategoryTabs .subcategory-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('#subcategoryTabs .subcategory-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentEquipmentSubcategory = tab.dataset.subcategory;
+                renderProducts();
+            });
+        });
+        document.querySelectorAll('#apparelSubcategoryTabs .subcategory-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('#apparelSubcategoryTabs .subcategory-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentApparelSubcategory = tab.dataset.subcategory;
+                renderProducts();
+            });
+        });
+        ['originFilter', 'processFilter', 'gradeFilter', 'brandFilter', 'conditionFilter', 'apparelSizeFilter', 'apparelColorFilter', 'minPrice', 'maxPrice', 'sortBy'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener(el.tagName === 'INPUT' ? 'input' : 'change', applyFilters);
+        });
+        document.getElementById('applyFiltersBtn')?.addEventListener('click', applyFilters);
+        function initNewsletter() {
+            const btn = document.getElementById('subscribeBtn'), inp = document.getElementById('newsletterEmail'), msg = document.getElementById('subscribeMsg');
+            if (btn && inp && msg) btn.addEventListener('click', () => { const e = inp.value.trim(); if (!e || !e.includes('@')) { msg.innerHTML = '<span style="color:#e8b4a0;">✉️ Valid email required</span>'; setTimeout(() => msg.innerHTML = '', 2500); } else { msg.innerHTML = '<span style="color:#d4a373;">✅ Thanks for subscribing!</span>'; inp.value = ''; setTimeout(() => msg.innerHTML = '', 3000); } });
+        }
+        function initMobileMenu() {
+            const toggle = document.getElementById('mobileMenuToggle'), nav = document.getElementById('navLinks');
+            if (!toggle || !nav) return;
+            const close = () => { nav.classList.remove('active'); toggle.classList.remove('active'); document.body.classList.remove('menu-open'); const icon = toggle.querySelector('i'); if (icon) icon.className = 'fas fa-bars'; };
+            const open = (e) => { e.stopPropagation(); if (nav.classList.contains('active')) close(); else { nav.classList.add('active'); toggle.classList.add('active'); document.body.classList.add('menu-open'); const icon = toggle.querySelector('i'); if (icon) icon.className = 'fas fa-times'; } };
+            toggle.addEventListener('click', open);
+            document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', close));
+            document.addEventListener('click', (e) => { if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) close(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+        }
+        function initFooterLinks() {
+            document.querySelectorAll('.footer-col ul li a').forEach(link => link.addEventListener('click', e => { e.preventDefault(); alert('✨ Feature coming soon!'); }));
+            document.querySelectorAll('.social-links a').forEach(link => link.addEventListener('click', e => { e.preventDefault(); alert('🌐 Connect with us!'); }));
+        }
+        function initAuthButtons() {
+            document.querySelector('.btn-login')?.addEventListener('click', e => { e.preventDefault(); alert('🔐 Login to access your dashboard'); });
+            document.querySelector('.btn-signup')?.addEventListener('click', e => { e.preventDefault(); alert('☕ Join Kahawa Space!'); });
+            document.querySelector('.logo')?.addEventListener('click', () => window.location.href = 'index.html');
+        }
+        updateFilterVisibility();
+        renderProducts();
+        renderSellers();
+        initNewsletter();
+        initMobileMenu();
+        initFooterLinks();
+        initAuthButtons();
+    </script>
+</body>
+
+</html>

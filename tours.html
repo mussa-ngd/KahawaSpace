@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kahawa Space - Coffee Origin Tours</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
+            <a href="tours.html" class="active"><i class="fas fa-plane"></i> Coffee Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
+            <div class="mobile-menu" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Coffee Origin Tours</h1>
+        <p>Experience coffee at its source. Visit farms, meet producers, and immerse yourself in coffee culture.</p>
+    </div>
+
+    <div class="tour-search">
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchTours" placeholder="Search tours by destination, date, or experience...">
+            <button onclick="searchTours()">Search Tours</button>
+        </div>
+    </div>
+
+    <div class="featured-tours">
+        <div class="section-header">
+            <h2>Tour Spotlight</h2>
+            <p>Our most immersive coffee experiences</p>
+        </div>
+        <div class="tour-spotlight">
+            <div class="spotlight-image"><i class="fas fa-mountain"></i></div>
+            <div class="spotlight-content">
+                <span
+                    style="background:#c9a227;padding:0.3rem 1rem;border-radius:20px;display:inline-block;font-weight:700;font-size:0.8rem;color:#2c1810;width:fit-content;">FEATURED
+                    TOUR</span>
+                <h3>Tanzania: The Kilimanjaro Coffee Trail</h3>
+                <p>Experience the magic of Tanzanian coffee on the slopes of Africa's highest mountain.</p>
+                <div class="spotlight-features">
+                    <div class="feature"><i class="fas fa-calendar"></i>
+                        <div><strong>8 Days</strong>
+                            <p>Full itinerary</p>
+                        </div>
+                    </div>
+                    <div class="feature"><i class="fas fa-users"></i>
+                        <div><strong>Max 12</strong>
+                            <p>Intimate groups</p>
+                        </div>
+                    </div>
+                    <div class="feature"><i class="fas fa-home"></i>
+                        <div><strong>Farm Stays</strong>
+                            <p>Local homestays</p>
+                        </div>
+                    </div>
+                    <div class="feature"><i class="fas fa-coffee"></i>
+                        <div><strong>Cupping</strong>
+                            <p>Daily tastings</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn-tour" onclick="viewItinerary()">View Full Itinerary</button>
+                    <button class="btn-tour" style="background:transparent;border:2px solid #2c1810;color:#2c1810;"
+                        onclick="checkDates()">Check Dates</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="destinations">
+        <div class="section-header">
+            <h2>Upcoming Tours</h2>
+            <p>Join us on a journey to the world's most exciting coffee origins</p>
+        </div>
+        <div class="destination-grid" id="toursGrid"></div>
+        <div style="text-align:center;margin-top:3rem;">
+            <button class="btn-outline" onclick="loadMoreTours()">Load More Tours</button>
+        </div>
+    </div>
+
+    <div class="why-tour">
+        <div class="section-header">
+            <h2>Why Travel with Kahawa Space?</h2>
+            <p>We don't just visit coffee farms - we create meaningful connections</p>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon"><i class="fas fa-handshake"></i></div>
+                <h3>Direct Connections</h3>
+                <p>Meet producers face-to-face</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Educational Focus</h3>
+                <p>Learn from master farmers</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon"><i class="fas fa-users"></i></div>
+                <h3>Small Groups</h3>
+                <p>8-12 people per tour</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon"><i class="fas fa-leaf"></i></div>
+                <h3>Sustainable Tourism</h3>
+                <p>Support local communities</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="newsletter">
+        <h2>Get Tour Updates</h2>
+        <p>New tours, early bird discounts, and origin stories</p>
+        <div class="newsletter-form">
+            <input type="email" id="newsletterEmail" placeholder="Your email address">
+            <button id="subscribeBtn">Subscribe</button>
+        </div>
+        <div id="subscribeMsg" style="margin-top: 12px; font-size: 0.85rem; color: #d4a373;"></div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Trust &amp; Safety</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Sell</h4>
+                <ul>
+                    <li><a href="#">List Green Coffee</a></li>
+                    <li><a href="#">Seller Verification</a></li>
+                    <li><a href="#">Pricing &amp; Fees</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Buy</h4>
+                <ul>
+                    <li><a href="#">Green Coffee</a></li>
+                    <li><a href="#">Roasted Coffee</a></li>
+                    <li><a href="#">Equipment</a></li>
+                    <li><a href="#">Education</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Market Reports</a></li>
+                    <li><a href="#">Shipping Guide</a></li>
+                    <li><a href="#">Coffee Calculator</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Dispute Resolution</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tour Data
+        const tours = [
+            { country: '🇹🇿 Tanzania', title: 'Kilimanjaro Coffee Trail', dates: 'Jun 15-22, 2026', days: 8, highlights: ['Farm visits', 'Cupping sessions', 'Homestay'], desc: 'Visit cooperative farms on the slopes of Kilimanjaro.', price: 2850, spots: 8 },
+            { country: '🇪🇹 Ethiopia', title: 'Origins of Coffee: Ethiopia', dates: 'Aug 5-14, 2026', days: 10, highlights: ['Yirgacheffe', 'Sidama', 'Addis Ababa'], desc: 'Trace coffee\'s heritage in Yirgacheffe and Sidama.', price: 3250, spots: 12 },
+            { country: '🇰🇪 Kenya', title: 'Kenya Coffee Experience', dates: 'Sep 10-18, 2026', days: 9, highlights: ['Nyeri', 'Nairobi', 'Auction visit'], desc: 'Explore Kenya\'s famous coffee regions.', price: 2950, spots: 6 },
+            { country: '🇨🇴 Colombia', title: 'Colombian Coffee Triangle', dates: 'Oct 5-13, 2026', days: 9, highlights: ['Salento', 'Coffee farms', 'Medellín'], desc: 'Journey through Colombia\'s Coffee Triangle.', price: 3150, spots: 10 },
+            { country: '🇧🇷 Brazil', title: 'Minas Gerais Harvest', dates: 'Jul 20-28, 2026', days: 9, highlights: ['Large estates', 'Harvest experience', 'São Paulo'], desc: 'Experience Brazilian coffee production.', price: 2750, spots: 15 },
+            { country: '🇨🇷 Costa Rica', title: 'Sustainable Coffee Tour', dates: 'Nov 3-11, 2026', days: 9, highlights: ['Micro-mills', 'Sustainability', 'Tarrazú'], desc: 'Discover innovative micro-mills.', price: 3450, spots: 8 }
+        ];
+
+        function renderTours(filteredTours = tours) {
+            const container = document.getElementById('toursGrid');
+            if (!container) return;
+
+            if (filteredTours.length === 0) {
+                container.innerHTML = `<div style="text-align:center;padding:3rem;grid-column:1/-1;"><i class="fas fa-search" style="font-size:3rem;color:#6f5c4d;"></i><p style="margin-top:1rem;">No tours found matching your search.</p></div>`;
+                return;
+            }
+
+            container.innerHTML = filteredTours.map(t => `
+            <div class="destination-card">
+                <div class="destination-image">
+                    <span class="destination-country">${t.country}</span>
+                </div>
+                <div class="destination-content">
+                    <div class="destination-title">${escapeHtml(t.title)}</div>
+                    <div class="destination-meta">
+                        <span><i class="fas fa-calendar"></i> ${t.dates}</span>
+                        <span><i class="fas fa-clock"></i> ${t.days} days</span>
+                    </div>
+                    <div class="destination-highlights">
+                        ${t.highlights.map(h => `<span class="highlight-tag">${escapeHtml(h)}</span>`).join('')}
+                    </div>
+                    <p style="color:#4d3a2e;margin:1rem 0;">${escapeHtml(t.desc)}</p>
+                    <div class="destination-price">
+                        <div><span class="price">$${t.price}<small>/person</small></span></div>
+                        <span class="spots-left"><i class="fas fa-users"></i> ${t.spots} spots left</span>
+                    </div>
+                    <button class="btn-tour" onclick="bookTour('${escapeHtml(t.title)}')">Book Now</button>
+                </div>
+            </div>
+        `).join('');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function (m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // Search Function
+        function searchTours() {
+            const query = document.getElementById('searchTours').value.toLowerCase().trim();
+            if (!query) {
+                renderTours(tours);
+                return;
+            }
+            const filtered = tours.filter(t =>
+                t.title.toLowerCase().includes(query) ||
+                t.country.toLowerCase().includes(query) ||
+                t.desc.toLowerCase().includes(query) ||
+                t.highlights.some(h => h.toLowerCase().includes(query))
+            );
+            renderTours(filtered);
+
+            if (filtered.length === 0) {
+                showNotification(`No tours found matching "${query}"`, 'info');
+            }
+        }
+
+        // Interactive Functions
+        function viewItinerary() {
+            showNotification('Full itinerary with daily schedule, accommodations, and pricing details coming soon!', 'info');
+        }
+
+        function checkDates() {
+            showNotification('Available dates: June 15-22, 2026 | August 5-14, 2026 | October 5-13, 2026', 'info');
+        }
+
+        function bookTour(tourName) {
+            showNotification(`✨ Booking request for "${tourName}" sent! A travel specialist will contact you within 24 hours.`, 'success');
+        }
+
+        function loadMoreTours() {
+            showNotification('More tours for 2026-2027 coming soon! Subscribe for updates.', 'info');
+        }
+
+        // Notification
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? '#2e7d32' : type === 'error' ? '#d32f2f' : '#ff9800';
+            const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
+            notification.style.cssText = `position: fixed; bottom: 20px; right: 20px; background: ${bgColor}; color: white; padding: 1rem 1.5rem; border-radius: 12px; z-index: 3000; animation: fadeIn 0.3s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-family: 'Inter', sans-serif;`;
+            notification.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // Newsletter
+        function initNewsletter() {
+            const subBtn = document.getElementById('subscribeBtn');
+            const emailInput = document.getElementById('newsletterEmail');
+            const msgDiv = document.getElementById('subscribeMsg');
+            if (subBtn && emailInput && msgDiv) {
+                subBtn.addEventListener('click', () => {
+                    const email = emailInput.value.trim();
+                    if (!email || !email.includes('@') || !email.includes('.')) {
+                        msgDiv.innerHTML = '<span style="color:#e8b4a0;">✉️ Please enter a valid email address.</span>';
+                        setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 2500);
+                        return;
+                    }
+                    msgDiv.innerHTML = '<span style="color:#d4a373;">✅ Thanks! You\'ll receive tour updates and early bird discounts.</span>';
+                    emailInput.value = '';
+                    setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 3000);
+                });
+            }
+        }
+
+        // Mobile Menu
+        function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navLinksElem = document.getElementById('navLinks');
+            if (!mobileToggle || !navLinksElem) return;
+
+            const closeMenu = () => {
+                navLinksElem.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                const icon = mobileToggle.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
+            };
+
+            const toggleMenu = (e) => {
+                e.stopPropagation();
+                if (navLinksElem.classList.contains('active')) {
+                    closeMenu();
+                } else {
+                    navLinksElem.classList.add('active');
+                    mobileToggle.classList.add('active');
+                    document.body.classList.add('menu-open');
+                    const icon = mobileToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-times';
+                }
+            };
+
+            mobileToggle.addEventListener('click', toggleMenu);
+            document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+            document.addEventListener('click', (e) => {
+                if (navLinksElem.classList.contains('active') && !navLinksElem.contains(e.target) && !mobileToggle.contains(e.target)) closeMenu();
+            });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        }
+
+        // Footer and Auth
+        function initFooterLinks() {
+            document.querySelectorAll('.footer-col ul li a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showNotification(`"${link.textContent}" page coming soon!`, 'info');
+                });
+            });
+            document.querySelectorAll('.social-links a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showNotification('Connect with Kahawa Space on social media!', 'info');
+                });
+            });
+        }
+
+        function initAuthButtons() {
+            const loginBtn = document.querySelector('.btn-login');
+            const signupBtn = document.querySelector('.btn-signup');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showNotification('🔐 Login to save your favorite tours and manage bookings.', 'info');
+                });
+            }
+            if (signupBtn) {
+                signupBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showNotification('☕ Join Kahawa Space to book tours and connect with the coffee community!', 'info');
+                });
+            }
+        }
+
+        function initLogo() {
+            document.querySelector('.logo')?.addEventListener('click', () => window.location.href = 'index.html');
+        }
+
+        // Initialize
+        renderTours();
+        initNewsletter();
+        initMobileMenu();
+        initFooterLinks();
+        initAuthButtons();
+        initLogo();
+
+        // Make functions globally available
+        window.searchTours = searchTours;
+        window.viewItinerary = viewItinerary;
+        window.checkDates = checkDates;
+        window.bookTour = bookTour;
+        window.loadMoreTours = loadMoreTours;
+        window.showNotification = showNotification;
+    </script>
+</body>
+
+</html>

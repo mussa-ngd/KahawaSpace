@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kahawa Space - Coffee Video & Reels</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
+            <a href="reels.html" class="active"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
+            <div class="mobile-menu" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Video & Reels</h1>
+        <p>Stories from origin • Barista interviews • Equipment reviews • Behind-the-scenes content</p>
+    </div>
+
+    <div class="video-categories">
+        <div class="category-scroll" id="categoryScroll"></div>
+    </div>
+
+    <div class="featured-reel">
+        <div class="featured-container">
+            <div class="featured-video" onclick="watchVideo('Life on Kilimanjaro: A Farmer\'s Story')">
+                <div class="play-button"><i class="fas fa-play"></i></div>
+            </div>
+            <div class="featured-info">
+                <span
+                    style="background:#c9a227;padding:0.3rem 1rem;border-radius:20px;display:inline-block;margin-bottom:1rem;font-weight:700;font-size:0.8rem;color:#2c1810;">FEATURED</span>
+                <h2>Life on Kilimanjaro: A Farmer's Story</h2>
+                <p>Follow Mama Esther, a coffee farmer on the slopes of Kilimanjaro, through harvest season.</p>
+                <div class="featured-meta">
+                    <span><i class="fas fa-eye"></i> 12.5K views</span>
+                    <span><i class="fas fa-heart"></i> 2.3K likes</span>
+                    <span><i class="fas fa-comment"></i> 187 comments</span>
+                </div>
+                <div>
+                    <button class="btn-signup" onclick="watchVideo('Life on Kilimanjaro: A Farmer\'s Story')"
+                        style="background:#d4a373;color:#2c1810;border:none;padding:0.5rem 1.5rem;border-radius:30px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;">Watch
+                        Now</button>
+                    <button class="btn-login" onclick="saveVideo()"
+                        style="background:transparent;border:2px solid #2c1810;color:#2c1810;padding:0.5rem 1.5rem;border-radius:30px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-left:0.5rem;">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stories-section">
+        <div class="section-header">
+            <h2>Stories from the Community</h2>
+            <p>Follow your favorite creators and producers</p>
+        </div>
+        <div class="stories-carousel" id="storiesCarousel"></div>
+    </div>
+
+    <div class="reels-section">
+        <div class="section-header">
+            <h2>Latest Videos</h2>
+            <p>Fresh content from the coffee world</p>
+        </div>
+        <div class="reels-grid" id="reelsGrid"></div>
+        <div style="text-align:center; margin-top:3rem;">
+            <button class="btn-outline" onclick="loadMoreVideos()">Load More Videos</button>
+        </div>
+    </div>
+
+    <div class="upload-section">
+        <h2>Share Your Story</h2>
+        <p>Are you a coffee professional? Share your videos with the Kahawa Space community.</p>
+        <button class="btn-signup"
+            style="background:#c9a227;color:#2c1810;border:none;padding:0.7rem 2rem;border-radius:30px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;"
+            onclick="uploadVideo()">Upload Your Video</button>
+    </div>
+
+    <section class="newsletter">
+        <h2>Get Video Updates</h2>
+        <p>New videos, live streams, and exclusive content</p>
+        <div class="newsletter-form">
+            <input type="email" id="newsletterEmail" placeholder="Your email address">
+            <button id="subscribeBtn">Subscribe</button>
+        </div>
+        <div id="subscribeMsg" style="margin-top: 12px; font-size: 0.85rem; color: #d4a373;"></div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Buy</h4>
+                <ul>
+                    <li><a href="#">Green Coffee</a></li>
+                    <li><a href="#">Roasted Coffee</a></li>
+                    <li><a href="#">Equipment</a></li>
+                    <li><a href="#">Education</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="resources.html">Market Reports</a></li>
+                    <li><a href="#">Shipping Guide</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+            <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i
+                        class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i
+                        class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+        </div>
+    </footer>
+    <script>
+        // Data
+        const categories = ['All Videos', 'Farmer Stories', 'Barista Skills', 'Equipment Reviews', 'Origin Tours', 'Brewing Tutorials', 'Roasting', 'Competitions', 'Interviews'];
+
+        const videos = [
+            { title: 'How to Cup Coffee Like a Pro', duration: '4:30', views: '8.2K', time: '2 days ago', creator: 'Specialty Coffee Association', category: 'Barista Skills' },
+            { title: 'La Marzocco Linea Mini Review', duration: '6:15', views: '15.3K', time: '5 days ago', creator: 'Espresso Lab', category: 'Equipment Reviews' },
+            { title: 'Inside a Tanzanian Washing Station', duration: '3:45', views: '21.7K', time: '1 week ago', creator: 'Origin Stories', category: 'Farmer Stories' },
+            { title: 'V60 vs Chemex: Which is Better?', duration: '5:20', views: '9.8K', time: '1 week ago', creator: 'Brew Masters', category: 'Brewing Tutorials' },
+            { title: 'World Barista Championship Finals', duration: '8:10', views: '32.1K', time: '2 weeks ago', creator: 'WBC Official', category: 'Competitions' },
+            { title: 'Sustainable Farming in Ethiopia', duration: '4:50', views: '6.4K', time: '2 weeks ago', creator: 'TechnoServe', category: 'Origin Tours' },
+            { title: 'Roasting Profile Explained', duration: '7:30', views: '11.2K', time: '3 weeks ago', creator: 'Roast Institute', category: 'Roasting' },
+            { title: 'Coffee Cherry Processing', duration: '3:15', views: '5.7K', time: '3 weeks ago', creator: 'Farm to Cup', category: 'Farmer Stories' }
+        ];
+
+        const stories = [
+            { name: 'James Mwangi', role: 'Barista Champion', icon: 'user-tie' },
+            { name: 'Maria Santos', role: 'Farm Owner', icon: 'female' },
+            { name: 'David Kim', role: 'Roaster', icon: 'user-graduate' },
+            { name: 'Sarah Johnson', role: 'Q Grader', icon: 'user' },
+            { name: 'Carlos Mendez', role: 'Producer', icon: 'user-check' }
+        ];
+
+        let currentCategory = 'All Videos';
+
+        // Helper functions
+        function getCategoryIcon(category) {
+            const icons = {
+                'Farmer Stories': 'fa-seedling',
+                'Barista Skills': 'fa-mug-hot',
+                'Equipment Reviews': 'fa-microchip',
+                'Origin Tours': 'fa-globe',
+                'Brewing Tutorials': 'fa-mug-saucer',
+                'Roasting': 'fa-fire',
+                'Competitions': 'fa-trophy',
+                'Interviews': 'fa-microphone'
+            };
+            return icons[category] || 'fa-play-circle';
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categoryScroll');
+            if (!container) return;
+            container.innerHTML = categories.map(c =>
+                `<button class="category-pill ${c === currentCategory ? 'active' : ''}" data-category="${c}">${c}</button>`
+            ).join('');
+
+            // Add event listeners
+            document.querySelectorAll('.category-pill').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentCategory = btn.getAttribute('data-category');
+                    renderCategories();
+                    renderVideos();
+                });
+            });
+        }
+
+        function renderVideos() {
+            const container = document.getElementById('reelsGrid');
+            if (!container) return;
+            const filtered = currentCategory === 'All Videos' ? videos : videos.filter(v => v.category === currentCategory);
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div style="text-align:center; padding:3rem; grid-column:1/-1;"><i class="fas fa-video-slash" style="font-size:3rem; color:#6f5c4d;"></i><p style="margin-top:1rem;">No videos in this category yet.</p></div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(v => `
+            <div class="reel-card" onclick="playVideo('${escapeHtml(v.title)}')">
+                <div class="reel-thumbnail">
+                    <i class="fas ${getCategoryIcon(v.category)}"></i>
+                    <span class="reel-duration">${v.duration}</span>
+                </div>
+                <div class="reel-info">
+                    <div class="reel-meta">
+                        <span><i class="fas fa-eye"></i> ${v.views} views</span>
+                        <span>${v.time}</span>
+                    </div>
+                    <div class="reel-title">${escapeHtml(v.title)}</div>
+                    <div class="reel-creator">
+                        <div class="creator-avatar"><i class="fas fa-user"></i></div>
+                        <span>${escapeHtml(v.creator)}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        }
+
+        function renderStories() {
+            const container = document.getElementById('storiesCarousel');
+            if (!container) return;
+            container.innerHTML = stories.map(s => `
+            <div class="story-card" onclick="viewStory('${escapeHtml(s.name)}')">
+                <div class="story-avatar">
+                    <div class="story-avatar-inner">
+                        <i class="fas fa-${s.icon}"></i>
+                    </div>
+                </div>
+                <div class="story-name">${escapeHtml(s.name)}</div>
+                <div class="story-role">${escapeHtml(s.role)}</div>
+            </div>
+        `).join('');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function (m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // Interactive functions
+        function playVideo(title) {
+            alert(`🎬 Playing: "${title}"\n\nThis video would start playing. Stay tuned for full video integration!`);
+        }
+
+        function watchVideo(title) {
+            alert(`🎥 Now watching: "${title}"\n\nEnjoy this coffee story from the Kahawa Space community.`);
+        }
+
+        function saveVideo() {
+            alert(`📌 Video saved to your playlist. Sign in to access your saved content.`);
+        }
+
+        function viewStory(name) {
+            alert(`📖 Viewing story from ${name}\n\nStories feature coming soon with video highlights from coffee professionals.`);
+        }
+
+        function loadMoreVideos() {
+            alert(`📹 More coffee videos coming soon! Subscribe to get notified when new content drops.`);
+        }
+
+        function uploadVideo() {
+            alert(`📤 Video upload portal coming soon!\n\nShare your coffee journey with the Kahawa Space community.`);
+        }
+
+        // Newsletter subscription
+        function initNewsletter() {
+            const subBtn = document.getElementById('subscribeBtn');
+            const emailInput = document.getElementById('newsletterEmail');
+            const msgDiv = document.getElementById('subscribeMsg');
+            if (subBtn && emailInput && msgDiv) {
+                subBtn.addEventListener('click', () => {
+                    const email = emailInput.value.trim();
+                    if (!email || !email.includes('@') || !email.includes('.')) {
+                        msgDiv.innerHTML = '<span style="color:#e8b4a0;">✉️ Please enter a valid email address.</span>';
+                        setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 2500);
+                        return;
+                    }
+                    msgDiv.innerHTML = '<span style="color:#d4a373;">✅ Thanks! You\'ll receive video updates and exclusive content.</span>';
+                    emailInput.value = '';
+                    setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 3000);
+                });
+            }
+        }
+
+        // Mobile Menu Logic
+        function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navLinksElem = document.getElementById('navLinks');
+            if (!mobileToggle || !navLinksElem) return;
+
+            const closeMenu = () => {
+                navLinksElem.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                const icon = mobileToggle.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
+            };
+
+            const toggleMenu = (e) => {
+                e.stopPropagation();
+                if (navLinksElem.classList.contains('active')) {
+                    closeMenu();
+                } else {
+                    navLinksElem.classList.add('active');
+                    mobileToggle.classList.add('active');
+                    document.body.classList.add('menu-open');
+                    const icon = mobileToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-times';
+                }
+            };
+
+            mobileToggle.addEventListener('click', toggleMenu);
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (navLinksElem.classList.contains('active') &&
+                    !navLinksElem.contains(e.target) &&
+                    !mobileToggle.contains(e.target)) {
+                    closeMenu();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMenu();
+            });
+        }
+
+        // Footer link handlers
+        function initFooterLinks() {
+            const footerLinks = document.querySelectorAll('.footer-col ul li a');
+            footerLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`✨ "${link.textContent}" feature coming soon! Stay tuned.`);
+                });
+            });
+
+            const socialLinks = document.querySelectorAll('.social-links a');
+            socialLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`🌐 Connect with Kahawa Space on social media. Our community is growing!`);
+                });
+            });
+        }
+
+        // Auth buttons demo
+        function initAuthButtons() {
+            const loginBtn = document.querySelector('.btn-login');
+            const signupBtn = document.querySelector('.btn-signup');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`🔐 Login to access your saved videos, playlists, and community features.`);
+                });
+            }
+            if (signupBtn) {
+                signupBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`☕ Join Kahawa Space! Get exclusive video content, coffee insights, and connect with the community.`);
+                });
+            }
+        }
+
+        // Logo click
+        function initLogo() {
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    window.location.href = 'index.html';
+                });
+            }
+        }
+
+        // Initialize everything
+        function init() {
+            renderCategories();
+            renderVideos();
+            renderStories();
+            initMobileMenu();
+            initNewsletter();
+            initFooterLinks();
+            initAuthButtons();
+            initLogo();
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

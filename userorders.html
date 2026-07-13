@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kahawa Space - My Orders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <div class="user-menu">
+                <div class="user-avatar"><i class="fas fa-user"></i></div>
+                <span class="user-name">John Doe</span>
+                <div class="user-dropdown">
+                    <a href="user.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="ordersforuser.html" class="active"><i class="fas fa-shopping-bag"></i> Orders</a>
+                    <a href="settingsforuser.html"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="index.html" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+            <div class="mobile-menu" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>My Orders</h1>
+        <p>Track and manage all your coffee purchases and sales</p>
+    </div>
+
+    <div class="orders-container">
+        <div class="order-tabs">
+            <button class="tab-btn active" data-type="all">All Orders</button>
+            <button class="tab-btn" data-type="buying">Orders I've Made</button>
+            <button class="tab-btn" data-type="selling">Orders I've Received</button>
+        </div>
+        <div class="filters-bar">
+            <div class="filter-group">
+                <select class="filter-select" id="statusFilter">
+                    <option value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="shipped">Shipped</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+                <select class="filter-select" id="dateFilter">
+                    <option value="all">All Time</option>
+                    <option value="30">Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
+                    <option value="365">Last Year</option>
+                </select>
+            </div>
+            <div class="search-orders">
+                <input type="text" id="searchInput" placeholder="Search by order ID or product...">
+                <i class="fas fa-search" onclick="filterOrders()"></i>
+            </div>
+        </div>
+        <div class="orders-list" id="ordersList"></div>
+    </div>
+
+    <div id="trackingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Order Tracking</h3>
+                <button class="modal-close" onclick="closeTrackingModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="trackingContent"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Account</h4>
+                <ul>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="ordersforuser.html">Orders</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+    </footer>
+
+    <script>
+        // Order Data
+        let orders = [
+            { id: 'KAH-24015', type: 'buying', date: '2026-03-15', status: 'shipped', total: 2975, items: [{ name: 'Tanzania Peaberry AA Reserve', origin: 'Tanzania', quantity: 350, unitPrice: 8.50, total: 2975, image: 'coffee-bean' }], seller: 'Kilimanjaro Cooperative', tracking: { carrier: 'DHL Express', number: 'DH123456789TZ', timeline: [{ status: 'Order Placed', date: '2026-03-15 10:30', completed: true }, { status: 'Confirmed', date: '2026-03-16 09:15', completed: true }, { status: 'Shipped', date: '2026-03-17 14:20', completed: true }, { status: 'In Transit', date: '2026-03-18 08:00', completed: false }, { status: 'Delivered', date: null, completed: false }] } },
+            { id: 'KAH-24018', type: 'buying', date: '2026-03-10', status: 'delivered', total: 1840, items: [{ name: 'Ethiopia Yirgacheffe Natural G1', origin: 'Ethiopia', quantity: 200, unitPrice: 9.20, total: 1840, image: 'coffee-bean' }], seller: 'Yirgacheffe Farmers Coop', tracking: { carrier: 'FedEx', number: 'FX987654321TZ', timeline: [{ status: 'Order Placed', date: '2026-03-10 14:20', completed: true }, { status: 'Confirmed', date: '2026-03-11 10:45', completed: true }, { status: 'Shipped', date: '2026-03-12 16:30', completed: true }, { status: 'In Transit', date: '2026-03-13 09:00', completed: true }, { status: 'Delivered', date: '2026-03-18 11:15', completed: true }] } },
+            { id: 'KAH-24022', type: 'selling', date: '2026-03-05', status: 'pending', total: 2550, items: [{ name: 'Kenya AA SL28 & SL34', origin: 'Kenya', quantity: 250, unitPrice: 10.20, total: 2550, image: 'coffee-bean' }], buyer: 'Blue Bottle Coffee', tracking: null },
+            { id: 'KAH-24025', type: 'selling', date: '2026-02-28', status: 'confirmed', total: 4750, items: [{ name: 'Tanzania Peaberry AA Reserve', origin: 'Tanzania', quantity: 500, unitPrice: 9.50, total: 4750, image: 'coffee-bean' }], buyer: 'Intelligentsia Coffee', tracking: null }
+        ];
+
+        let currentTab = 'all', currentStatus = 'all', currentDateFilter = 'all', currentSearch = '';
+
+        function formatDate(d) {
+            const date = new Date(d);
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? '#2e7d32' : type === 'error' ? '#d32f2f' : '#ff9800';
+            const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
+            notification.style.cssText = `position: fixed; bottom: 20px; right: 20px; background: ${bgColor}; color: white; padding: 1rem 1.5rem; border-radius: 12px; z-index: 3000; animation: fadeInUp 0.3s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.2);`;
+            notification.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        function renderOrders() {
+            let filtered = orders.filter(o => {
+                if (currentTab !== 'all' && o.type !== currentTab) return false;
+                if (currentStatus !== 'all' && o.status !== currentStatus) return false;
+                if (currentDateFilter !== 'all') {
+                    const d = new Date(o.date), days = (new Date() - d) / (1000 * 60 * 60 * 24);
+                    if (days > parseInt(currentDateFilter)) return false;
+                }
+                if (currentSearch && !o.id.toLowerCase().includes(currentSearch.toLowerCase()) &&
+                    !o.items.some(i => i.name.toLowerCase().includes(currentSearch.toLowerCase()))) return false;
+                return true;
+            });
+
+            const container = document.getElementById('ordersList');
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="empty-state"><i class="fas fa-box-open"></i><h3>No Orders Found</h3><p>You haven't placed any orders yet.</p><a href="marketplace.html" class="btn-primary" style="display:inline-block;">Start Shopping</a></div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(o => `
+            <div class="order-card">
+                <div class="order-header">
+                    <div class="order-info">
+                        <span class="order-id">Order #${o.id}</span>
+                        <span class="order-date">${formatDate(o.date)}</span>
+                        <span class="order-status status-${o.status}">${o.status.charAt(0).toUpperCase() + o.status.slice(1)}</span>
+                    </div>
+                    <div class="order-total">Total: $${o.total.toLocaleString()}</div>
+                </div>
+                <div class="order-body">
+                    <div class="order-items">
+                        ${o.items.map(i => `
+                            <div class="order-item">
+                                <div class="item-image"><i class="fas fa-${i.image}"></i></div>
+                                <div class="item-details">
+                                    <div class="item-name">${escapeHtml(i.name)}</div>
+                                    <div class="item-meta">${i.origin} • ${i.quantity} kg @ $${i.unitPrice}/kg</div>
+                                </div>
+                                <div class="item-price">$${i.total.toLocaleString()}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="order-footer">
+                        <div>${o.type === 'buying' ? `<span><i class="fas fa-store"></i> Seller: ${escapeHtml(o.seller)}</span>` : `<span><i class="fas fa-user"></i> Buyer: ${escapeHtml(o.buyer)}</span>`}</div>
+                        <div class="order-actions">
+                            ${o.tracking && o.tracking.timeline ? `<button class="btn-outline" onclick="viewTracking('${o.id}')"><i class="fas fa-truck"></i> Track Order</button>` : ''}
+                            ${o.status === 'pending' && o.type === 'selling' ? `<button class="btn-primary" onclick="confirmOrder('${o.id}')"><i class="fas fa-check"></i> Confirm Order</button>` : ''}
+                            ${o.status === 'pending' && o.type === 'buying' ? `<button class="btn-outline" onclick="cancelOrder('${o.id}')"><i class="fas fa-times"></i> Cancel Order</button>` : ''}
+                            <button class="btn-outline" onclick="viewOrderDetails('${o.id}')"><i class="fas fa-eye"></i> View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        }
+
+        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, function (m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+
+        function filterOrders() {
+            currentStatus = document.getElementById('statusFilter').value;
+            currentDateFilter = document.getElementById('dateFilter').value;
+            currentSearch = document.getElementById('searchInput').value;
+            renderOrders();
+        }
+
+        function viewTracking(id) {
+            const order = orders.find(o => o.id === id);
+            if (order && order.tracking) {
+                const modal = document.getElementById('trackingModal');
+                const content = document.getElementById('trackingContent');
+                content.innerHTML = `
+                <div><p><strong>Carrier:</strong> ${order.tracking.carrier}</p><p><strong>Tracking Number:</strong> ${order.tracking.number}</p></div>
+                <div class="tracking-timeline">
+                    ${order.tracking.timeline.map(s => `
+                        <div class="tracking-step ${s.completed ? 'completed' : ''}">
+                            <div class="step-title">${s.status}</div>
+                            <div class="step-date">${s.date ? s.date : 'Pending'}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+                modal.classList.add('active');
+            }
+        }
+
+        function closeTrackingModal() { document.getElementById('trackingModal').classList.remove('active'); }
+
+        function confirmOrder(id) {
+            if (confirm('Confirm this order? The buyer will be notified.')) {
+                const order = orders.find(o => o.id === id);
+                if (order) { order.status = 'confirmed'; showNotification('Order confirmed successfully!', 'success'); renderOrders(); }
+            }
+        }
+
+        function cancelOrder(id) {
+            if (confirm('Cancel this order? This action cannot be undone.')) {
+                const order = orders.find(o => o.id === id);
+                if (order) { order.status = 'cancelled'; showNotification('Order cancelled.', 'info'); renderOrders(); }
+            }
+        }
+
+        function viewOrderDetails(id) { showNotification('Order details page coming soon!', 'info'); }
+
+        // Tab listeners
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentTab = btn.dataset.type;
+                renderOrders();
+            });
+        });
+
+        // Filter listeners
+        document.getElementById('statusFilter').addEventListener('change', filterOrders);
+        document.getElementById('dateFilter').addEventListener('change', filterOrders);
+        document.getElementById('searchInput').addEventListener('keyup', filterOrders);
+
+        // Mobile Menu
+        function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navLinksElem = document.getElementById('navLinks');
+            if (!mobileToggle || !navLinksElem) return;
+            const closeMenu = () => {
+                navLinksElem.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                const icon = mobileToggle.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
+            };
+            const toggleMenu = (e) => {
+                e.stopPropagation();
+                if (navLinksElem.classList.contains('active')) closeMenu();
+                else {
+                    navLinksElem.classList.add('active');
+                    mobileToggle.classList.add('active');
+                    document.body.classList.add('menu-open');
+                    const icon = mobileToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-times';
+                }
+            };
+            mobileToggle.addEventListener('click', toggleMenu);
+            document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+            document.addEventListener('click', (e) => {
+                if (navLinksElem.classList.contains('active') && !navLinksElem.contains(e.target) && !mobileToggle.contains(e.target)) closeMenu();
+            });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        }
+
+        function initFooterLinks() {
+            document.querySelectorAll('.footer-col ul li a').forEach(link => {
+                link.addEventListener('click', (e) => { e.preventDefault(); showNotification(`"${link.textContent}" page coming soon!`, 'info'); });
+            });
+            const logoutLink = document.getElementById('logoutLink');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (confirm('Log out from Kahawa Space?')) {
+                        localStorage.removeItem('kahawa_session');
+                        sessionStorage.removeItem('kahawa_session');
+                        showNotification('Logged out successfully!', 'success');
+                        setTimeout(() => window.location.href = 'index.html', 1000);
+                    }
+                });
+            }
+        }
+
+        function initLogo() { document.querySelector('.logo')?.addEventListener('click', () => window.location.href = 'index.html'); }
+
+        // Modal click outside
+        window.onclick = function (e) {
+            const modal = document.getElementById('trackingModal');
+            if (e.target === modal) closeTrackingModal();
+        };
+
+        initMobileMenu();
+        initFooterLinks();
+        initLogo();
+        renderOrders();
+
+        window.filterOrders = filterOrders;
+        window.viewTracking = viewTracking;
+        window.closeTrackingModal = closeTrackingModal;
+        window.confirmOrder = confirmOrder;
+        window.cancelOrder = cancelOrder;
+        window.viewOrderDetails = viewOrderDetails;
+    </script>
+</body>
+
+</html>

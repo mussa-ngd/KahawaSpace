@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kahawa Space - Help Center | Support & FAQs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
+            <div class="mobile-menu" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>How can we help you?</h1>
+        <p>Find answers, get support, and learn how to make the most of Kahawa Space</p>
+    </div>
+
+    <div class="help-search">
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search for help articles, FAQs, or topics...">
+            <div id="searchResults" class="search-results"></div>
+        </div>
+    </div>
+
+    <div class="help-container">
+        <!-- Categories -->
+        <div class="categories-grid">
+            <div class="category-card" data-category="getting-started">
+                <div class="category-icon"><i class="fas fa-rocket"></i></div>
+                <h3>Getting Started</h3>
+                <p>New to Kahawa Space? Learn the basics here.</p>
+            </div>
+            <div class="category-card" data-category="buying">
+                <div class="category-icon"><i class="fas fa-shopping-cart"></i></div>
+                <h3>Buying Coffee</h3>
+                <p>How to purchase green coffee, roasted beans, and equipment.</p>
+            </div>
+            <div class="category-card" data-category="account">
+                <div class="category-icon"><i class="fas fa-user-circle"></i></div>
+                <h3>Account Management</h3>
+                <p>Profile settings, verification, and security.</p>
+            </div>
+            <div class="category-card" data-category="payments">
+                <div class="category-icon"><i class="fas fa-credit-card"></i></div>
+                <h3>Payments & Billing</h3>
+                <p>Payment methods, invoices, and transaction issues.</p>
+            </div>
+            <div class="category-card" data-category="shipping">
+                <div class="category-icon"><i class="fas fa-truck"></i></div>
+                <h3>Shipping & Logistics</h3>
+                <p>Shipping options, tracking, and customs information.</p>
+            </div>
+        </div>
+
+        <!-- Popular FAQs -->
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid" id="faqGrid">
+                <!-- FAQs will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Contact Support -->
+        <div class="contact-support">
+            <h2>Still need help?</h2>
+            <p>Our support team is available Monday-Friday, 9 AM - 6 PM EAT. We'll get back to you within 24 hours.</p>
+            <div class="contact-buttons">
+                <a href="contact.html" class="btn-support btn-primary"><i class="fas fa-envelope"></i> Contact
+                    Support</a>
+                <button class="btn-support btn-outline" onclick="startLiveChat()"><i class="fas fa-comments"></i> Live
+                    Chat</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="newsletter">
+        <h2>Stay Updated</h2>
+        <p>Get coffee industry insights, platform updates, and origin stories</p>
+        <div class="newsletter-form">
+            <input type="email" id="newsletterEmail" placeholder="Your email address">
+            <button id="subscribeBtn">Subscribe</button>
+        </div>
+        <div id="subscribeMsg" style="margin-top: 12px; font-size: 0.85rem; color: #d4a373;"></div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Trust & Safety</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Sell</h4>
+                <ul>
+                    <li><a href="#">List Green Coffee</a></li>
+                    <li><a href="#">Seller Verification</a></li>
+                    <li><a href="#">Pricing & Fees</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Buy</h4>
+                <ul>
+                    <li><a href="#">Green Coffee</a></li>
+                    <li><a href="#">Roasted Coffee</a></li>
+                    <li><a href="#">Equipment</a></li>
+                    <li><a href="#">Education</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Market Reports</a></li>
+                    <li><a href="#">Shipping Guide</a></li>
+                    <li><a href="#">Coffee Calculator</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Dispute Resolution</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Data
+        const faqs = [
+            { category: "getting-started1", question: "How do I create an account on Kahawa Space?", answer: "Click the 'Join' button in the top right corner. Choose your account type (Buyer, Seller, or Coffee Lover) and fill in your details. Sellers will need to complete verification with business documents." },
+            { category: "getting-started2", question: "What's the difference between Buyer, Seller, and Coffee Lover accounts?", answer: "Buyers can purchase coffee and equipment. Sellers can list products for sale. Coffee Lovers can explore content, take courses, and connect with the community. You can upgrade your account type later." },
+            { category: "buying", question: "How do I purchase green coffee?", answer: "Browse listings in the Marketplace, filter by origin or processing method, and click 'Contact Seller' to negotiate pricing. Once agreed, you can complete the purchase through our secure payment system." },
+            { category: "buying", question: "Can I request samples before buying?", answer: "Yes! Many sellers offer sample programs. You can request samples through the listing page or contact the seller directly to discuss sample options and pricing." },
+            { category: "account", question: "How do I reset my password?", answer: "Click 'Log In' and select 'Forgot Password'. Enter your email address and we'll send you a link to reset your password. Follow the instructions in the email." },
+            { category: "account", question: "How do I update my profile information?", answer: "Log in to your account, go to 'Profile' in the user menu. You can update your personal information, business details, and preferences there." },
+            { category: "payments", question: "What payment methods are accepted?", answer: "We accept bank transfers, credit/debit cards, and offer escrow services for high-value transactions. All payments are processed securely through our platform." },
+            { category: "payments", question: "When will I receive payment for my sales?", answer: "Payments are released to sellers once the buyer confirms receipt of goods or after the tracking shows delivery, depending on the transaction terms agreed upon." },
+            { category: "shipping", question: "How does shipping work?", answer: "Sellers are responsible for shipping. Shipping costs and timelines are specified in each listing. You'll receive tracking information once your order ships." },
+            { category: "shipping", question: "What about customs and import duties?", answer: "Import duties and customs fees are the buyer's responsibility. We recommend checking with your local customs office before placing international orders." }
+        ];
+
+        // Render FAQs
+        function renderFaqs(filterCategory = null) {
+            const container = document.getElementById('faqGrid');
+            let filteredFaqs = faqs;
+            if (filterCategory && filterCategory !== 'all') {
+                filteredFaqs = faqs.filter(f => f.category === filterCategory);
+            }
+            // Show top 6 FAQs for main view
+            const displayFaqs = filteredFaqs.slice(0, 6);
+
+            container.innerHTML = displayFaqs.map(faq => `
+            <div class="faq-item" data-category="${faq.category}">
+                <div class="faq-question">
+                    <span>${escapeHtml(faq.question)}</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>${escapeHtml(faq.answer)}</p>
+                </div>
+            </div>
+        `).join('');
+
+            // Re-attach click handlers
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    if (e.target === item.querySelector('.faq-question') ||
+                        e.target.closest('.faq-question') ||
+                        !e.target.closest('.faq-answer')) {
+                        item.classList.toggle('open');
+                    }
+                });
+            });
+        }
+
+        // Category filtering
+        function initCategoryFilters() {
+            const categories = document.querySelectorAll('.category-card');
+            categories.forEach(card => {
+                card.addEventListener('click', () => {
+                    const category = card.getAttribute('data-category');
+                    renderFaqs(category);
+                    // Scroll to FAQ section
+                    document.querySelector('.faq-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+        }
+
+        // Search functionality
+        function initSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                if (query.length < 2) {
+                    searchResults.classList.remove('active');
+                    renderFaqs();
+                    return;
+                }
+
+                const results = faqs.filter(faq =>
+                    faq.question.toLowerCase().includes(query) ||
+                    faq.answer.toLowerCase().includes(query)
+                );
+
+                if (results.length > 0) {
+                    searchResults.classList.add('active');
+                    searchResults.innerHTML = results.map(faq => `
+                    <div class="search-result-item">
+                        <div style="font-weight: 600; color: #2c1810;">${escapeHtml(faq.question)}</div>
+                        <div style="color: #6f5c4d; font-size: 0.85rem; margin-top: 0.25rem;">${escapeHtml(faq.answer.substring(0, 100))}...</div>
+                    </div>
+                `).join('');
+
+                    // Add click handlers to search results
+                    document.querySelectorAll('.search-result-item').forEach((item, idx) => {
+                        item.addEventListener('click', () => {
+                            renderFaqs();
+                            setTimeout(() => {
+                                const faqItems = document.querySelectorAll('.faq-item');
+                                if (faqItems[idx]) {
+                                    faqItems[idx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    faqItems[idx].classList.add('open');
+                                }
+                            }, 100);
+                            searchResults.classList.remove('active');
+                            searchInput.value = '';
+                        });
+                    });
+                } else {
+                    searchResults.classList.add('active');
+                    searchResults.innerHTML = '<div style="background: white; border-radius: 12px; padding: 1rem; text-align: center; color: #6f5c4d;">No results found. Try a different search term.</div>';
+                }
+            });
+
+            // Close search results when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.remove('active');
+                }
+            });
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function (m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // Newsletter Subscription
+        function initNewsletter() {
+            const subBtn = document.getElementById('subscribeBtn');
+            const emailInput = document.getElementById('newsletterEmail');
+            const msgDiv = document.getElementById('subscribeMsg');
+            if (subBtn && emailInput && msgDiv) {
+                subBtn.addEventListener('click', () => {
+                    const email = emailInput.value.trim();
+                    if (!email || !email.includes('@') || !email.includes('.')) {
+                        msgDiv.innerHTML = '<span style="color:#e8b4a0;">✉️ Please enter a valid email address.</span>';
+                        setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 2500);
+                        return;
+                    }
+                    msgDiv.innerHTML = '<span style="color:#d4a373;">✅ Thanks for subscribing! You\'ll receive updates from Kahawa Space.</span>';
+                    emailInput.value = '';
+                    setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 3000);
+                });
+            }
+        }
+
+        // Live Chat
+        function startLiveChat() {
+            alert('💬 Live chat support is coming soon! In the meantime, please email us at support@kahawaspace.com or use the contact form.');
+        }
+
+        // Mobile Menu
+        function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navLinksElem = document.getElementById('navLinks');
+            if (!mobileToggle || !navLinksElem) return;
+
+            const closeMenu = () => {
+                navLinksElem.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                const icon = mobileToggle.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
+            };
+
+            const toggleMenu = (e) => {
+                e.stopPropagation();
+                if (navLinksElem.classList.contains('active')) {
+                    closeMenu();
+                } else {
+                    navLinksElem.classList.add('active');
+                    mobileToggle.classList.add('active');
+                    document.body.classList.add('menu-open');
+                    const icon = mobileToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-times';
+                }
+            };
+
+            mobileToggle.addEventListener('click', toggleMenu);
+            document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+            document.addEventListener('click', (e) => {
+                if (navLinksElem.classList.contains('active') && !navLinksElem.contains(e.target) && !mobileToggle.contains(e.target)) closeMenu();
+            });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        }
+
+        // Footer and Auth Handlers
+        function initFooterLinks() {
+            document.querySelectorAll('.footer-col ul li a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`✨ "${link.textContent}" page coming soon! Stay tuned.`);
+                });
+            });
+            document.querySelectorAll('.social-links a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`🌐 Connect with Kahawa Space on social media. Join our coffee community!`);
+                });
+            });
+        }
+
+        function initAuthButtons() {
+            const loginBtn = document.querySelector('.btn-login');
+            const signupBtn = document.querySelector('.btn-signup');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`🔐 Login to access your dashboard, saved items, and trading features.`);
+                });
+            }
+            if (signupBtn) {
+                signupBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`☕ Join Kahawa Space! Get access to the marketplace, educational content, and global coffee network.`);
+                });
+            }
+        }
+
+        function initLogo() {
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    window.location.href = 'index.html';
+                });
+            }
+        }
+
+        // Initialize
+        renderFaqs();
+        initCategoryFilters();
+        initSearch();
+        initNewsletter();
+        initMobileMenu();
+        initFooterLinks();
+        initAuthButtons();
+        initLogo();
+
+        window.startLiveChat = startLiveChat;
+    </script>
+</body>
+
+</html>

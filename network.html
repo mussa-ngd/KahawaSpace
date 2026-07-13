@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kahawa Space - Professional Coffee Network</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="network.html" class="active">Network <span class="coming-soon-badge-nav">Coming Soon</span></a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
+            <div class="mobile-menu" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="coming-soon-hero">
+        <div class="coming-soon-content">
+            <div class="coming-soon-badge">COMING SOON</div>
+            <h1>Kahawa Network<span>Connect with Coffee Professionals Worldwide</span></h1>
+            <p>A dedicated space for coffee professionals to build relationships, find trade partners, and grow their
+                global network.</p>
+        </div>
+    </div>
+
+    <div class="features-preview">
+        <div class="preview-grid">
+            <div class="preview-card" onclick="showFeaturePreview('Professional Profiles')">
+                <div class="preview-icon"><i class="fas fa-user-tie"></i></div>
+                <h3>Professional Profiles</h3>
+                <p>Create detailed profiles showcasing your expertise, certifications, and coffee journey.</p>
+            </div>
+            <div class="preview-card" onclick="showFeaturePreview('Trade Connections')">
+                <div class="preview-icon"><i class="fas fa-handshake"></i></div>
+                <h3>Trade Connections</h3>
+                <p>Connect with verified buyers, sellers, and industry professionals worldwide.</p>
+            </div>
+            <div class="preview-card" onclick="showFeaturePreview('Industry Groups')">
+                <div class="preview-icon"><i class="fas fa-users"></i></div>
+                <h3>Industry Groups</h3>
+                <p>Join groups for roasters, producers, baristas, and coffee educators.</p>
+            </div>
+            <div class="preview-card" onclick="showFeaturePreview('Networking Events')">
+                <div class="preview-icon"><i class="fas fa-calendar-alt"></i></div>
+                <h3>Networking Events</h3>
+                <p>Access virtual and in-person networking events, webinars, and meetups.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="waitlist-section">
+        <div class="waitlist-container">
+            <h2>Get Early Access</h2>
+            <p>Be among the first to join the Kahawa Network when we launch. Exclusive invites and early bird benefits
+                await.</p>
+            <div class="waitlist-form">
+                <input type="email" id="waitlistEmail" placeholder="Enter your email address">
+                <button id="joinWaitlistBtn">Join Waitlist</button>
+            </div>
+            <div id="waitlistMessage" style="margin-bottom: 2rem; font-size: 0.9rem;"></div>
+            <div class="waitlist-stats">
+                <div class="stat-item">
+                    <div class="stat-number">2,500+</div>
+                    <div class="stat-label">Already Joined</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">85</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Q3 2026</div>
+                    <div class="stat-label">Expected Launch</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="roadmap">
+        <h2>Our Launch Roadmap</h2>
+        <div class="roadmap-timeline">
+            <div class="roadmap-item">
+                <div class="roadmap-date">Q1 2026</div>
+                <div class="roadmap-content">
+                    <h3>Beta Testing</h3>
+                    <p>Invite-only beta for verified sellers and select buyers. Testing core networking features.</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="roadmap-date">Q2 2026</div>
+                <div class="roadmap-content">
+                    <h3>Producer Onboarding</h3>
+                    <p>Onboarding cooperatives from Tanzania, Ethiopia, Kenya, and other origins.</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="roadmap-date">Q3 2026</div>
+                <div class="roadmap-content">
+                    <h3>Public Launch</h3>
+                    <p>Full launch with networking features, messaging, and professional profiles.</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="roadmap-date">Q4 2026</div>
+                <div class="roadmap-content">
+                    <h3>Mobile App Release</h3>
+                    <p>iOS and Android apps for networking on the go with push notifications.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="newsletter">
+        <h2>Stay Updated on Network Launch</h2>
+        <p>Get notified when we launch and receive exclusive invites</p>
+        <div class="newsletter-form">
+            <input type="email" id="newsletterEmail" placeholder="Your email address">
+            <button id="newsletterSubscribeBtn">Subscribe</button>
+        </div>
+        <div id="newsletterMsg" style="margin-top: 12px; font-size: 0.85rem; color: #d4a373;"></div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Trust &amp; Safety</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Sell</h4>
+                <ul>
+                    <li><a href="#">List Green Coffee</a></li>
+                    <li><a href="#">Seller Verification</a></li>
+                    <li><a href="#">Pricing &amp; Fees</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Buy</h4>
+                <ul>
+                    <li><a href="#">Green Coffee</a></li>
+                    <li><a href="#">Roasted Coffee</a></li>
+                    <li><a href="#">Equipment</a></li>
+                    <li><a href="#">Education</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Market Reports</a></li>
+                    <li><a href="#">Shipping Guide</a></li>
+                    <li><a href="#">Coffee Calculator</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Dispute Resolution</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Waitlist Function
+        function joinWaitlist() {
+            const emailInput = document.getElementById('waitlistEmail');
+            const messageDiv = document.getElementById('waitlistMessage');
+            const email = emailInput.value.trim();
+
+            if (!email) {
+                messageDiv.innerHTML = '<span style="color: #d32f2f;">Please enter your email address.</span>';
+                setTimeout(() => { messageDiv.innerHTML = ''; }, 3000);
+                return;
+            }
+
+            if (!email.includes('@') || !email.includes('.')) {
+                messageDiv.innerHTML = '<span style="color: #d32f2f;">Please enter a valid email address.</span>';
+                setTimeout(() => { messageDiv.innerHTML = ''; }, 3000);
+                return;
+            }
+
+            // Simulate API call
+            messageDiv.innerHTML = '<span style="color: #d4a373;">✓ Thanks! You\'ve been added to the waitlist. We\'ll notify you at launch.</span>';
+            emailInput.value = '';
+            setTimeout(() => { messageDiv.innerHTML = ''; }, 4000);
+
+            // Optional: Store in localStorage for demo
+            let waitlist = JSON.parse(localStorage.getItem('kahawa_waitlist') || '[]');
+            if (!waitlist.includes(email)) {
+                waitlist.push(email);
+                localStorage.setItem('kahawa_waitlist', JSON.stringify(waitlist));
+            }
+        }
+
+        // Newsletter Subscription
+        function initNewsletter() {
+            const subBtn = document.getElementById('newsletterSubscribeBtn');
+            const emailInput = document.getElementById('newsletterEmail');
+            const msgDiv = document.getElementById('newsletterMsg');
+            if (subBtn && emailInput && msgDiv) {
+                subBtn.addEventListener('click', () => {
+                    const email = emailInput.value.trim();
+                    if (!email || !email.includes('@') || !email.includes('.')) {
+                        msgDiv.innerHTML = '<span style="color: #e8b4a0;">✉️ Please enter a valid email address.</span>';
+                        setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 2500);
+                        return;
+                    }
+                    msgDiv.innerHTML = '<span style="color: #d4a373;">✅ Thanks! You\'ll receive network launch updates and exclusive invites.</span>';
+                    emailInput.value = '';
+                    setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 3000);
+                });
+            }
+        }
+
+        // Feature preview popup
+        function showFeaturePreview(feature) {
+            alert(`✨ ${feature}\n\nThis feature will be available when Kahawa Network launches in Q3 2026.\nJoin the waitlist to get early access!`);
+        }
+
+        // Mobile Menu
+        function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navLinksElem = document.getElementById('navLinks');
+            if (!mobileToggle || !navLinksElem) return;
+
+            const closeMenu = () => {
+                navLinksElem.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                const icon = mobileToggle.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
+            };
+
+            const toggleMenu = (e) => {
+                e.stopPropagation();
+                if (navLinksElem.classList.contains('active')) {
+                    closeMenu();
+                } else {
+                    navLinksElem.classList.add('active');
+                    mobileToggle.classList.add('active');
+                    document.body.classList.add('menu-open');
+                    const icon = mobileToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-times';
+                }
+            };
+
+            mobileToggle.addEventListener('click', toggleMenu);
+            document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+            document.addEventListener('click', (e) => {
+                if (navLinksElem.classList.contains('active') && !navLinksElem.contains(e.target) && !mobileToggle.contains(e.target)) closeMenu();
+            });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        }
+
+        // Footer and Auth Handlers
+        function initFooterLinks() {
+            document.querySelectorAll('.footer-col ul li a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('✨ This feature is coming soon with the full Network launch!');
+                });
+            });
+            document.querySelectorAll('.social-links a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('🌐 Connect with Kahawa Space on social media. Our community is growing!');
+                });
+            });
+        }
+
+        function initAuthButtons() {
+            const loginBtn = document.querySelector('.btn-login');
+            const signupBtn = document.querySelector('.btn-signup');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('🔐 Login to access the Kahawa Network when it launches. Join the waitlist for early access!');
+                });
+            }
+            if (signupBtn) {
+                signupBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('☕ Join Kahawa Space to connect with coffee professionals worldwide. Network launching soon!');
+                });
+            }
+        }
+
+        function initLogo() {
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    window.location.href = 'index.html';
+                });
+            }
+        }
+
+        // Attach waitlist button event
+        document.getElementById('joinWaitlistBtn')?.addEventListener('click', joinWaitlist);
+        document.getElementById('waitlistEmail')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') joinWaitlist();
+        });
+
+        // Initialize all
+        initNewsletter();
+        initMobileMenu();
+        initFooterLinks();
+        initAuthButtons();
+        initLogo();
+
+        // Make showFeaturePreview globally available
+        window.showFeaturePreview = showFeaturePreview;
+    </script>
+</body>
+
+</html>

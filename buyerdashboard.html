@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Buyer Dashboard - Kahawa Space</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- AUTHENTICATED NAVBAR -->
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="buyer-dashboard.html" class="active"><i class="fas fa-columns"></i> Dashboard</a>
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
+            <a href="messages.html"><i class="fas fa-envelope"></i> Messages</a>
+        </div>
+        <div class="user-menu">
+            <div class="user-avatar">JD</div>
+            <span style="font-weight: 600; font-size: 0.9rem;">John Doe</span>
+            <i class="fas fa-chevron-down" style="font-size: 0.8rem; color: #d4a373;"></i>
+        </div>
+        <div class="mobile-menu" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <!-- DASHBOARD CONTAINER -->
+    <main class="dashboard-wrapper">
+
+        <!-- Welcome Banner -->
+        <section class="welcome-header">
+            <div class="welcome-text">
+                <h1>Welcome Back, John Doe</h1>
+                <p>Manage your orders, communicate with farms, and secure direct-trade micro-lots.</p>
+            </div>
+            <div class="badge-buyer">
+                <i class="fas fa-building"></i> Specialty Roasters Co. • Roaster
+            </div>
+        </section>
+
+        <!-- Metric Cards -->
+        <section class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-box"></i></div>
+                <div class="metric-info">
+                    <h3>3</h3>
+                    <p>Active Orders</p>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-vial"></i></div>
+                <div class="metric-info">
+                    <h3>5</h3>
+                    <p>Samples Requested</p>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-heart"></i></div>
+                <div class="metric-info">
+                    <h3>12</h3>
+                    <p>Saved Cooperatives</p>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-chart-line"></i></div>
+                <div class="metric-info">
+                    <h3>$4.20</h3>
+                    <p>Market Avg (ICX)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Workspace Hub -->
+        <div class="main-hub">
+
+            <!-- Filter Sidebar -->
+            <aside class="filter-sidebar">
+                <h3>Sourcing Filters</h3>
+                <hr style="border: 0; height: 1px; background: #e0d6cc;">
+
+                <!-- Origin Field -->
+                <div class="filter-section">
+                    <h4>Country of Origin</h4>
+                    <select id="originCountry">
+                        <option value="">All Origins</option>
+                        <option value="Tanzania">Tanzania</option>
+                        <option value="Ethiopia">Ethiopia</option>
+                        <option value="Kenya">Kenya</option>
+                        <option value="Uganda">Uganda</option>
+                        <option value="Rwanda">Rwanda</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="Colombia">Colombia</option>
+                    </select>
+                </div>
+
+                <!-- Processing Selection -->
+                <div class="filter-section">
+                    <h4>Processing Methods</h4>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item"><input type="checkbox" value="washed"> Washed</label>
+                        <label class="checkbox-item"><input type="checkbox" value="natural"> Natural</label>
+                        <label class="checkbox-item"><input type="checkbox" value="honey"> Honey</label>
+                        <label class="checkbox-item"><input type="checkbox" value="pulped"> Pulped Natural</label>
+                    </div>
+                </div>
+
+                <!-- Coffee Varieties -->
+                <div class="filter-section">
+                    <h4>Coffee Varieties</h4>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item"><input type="checkbox" value="bourbon"> Bourbon</label>
+                        <label class="checkbox-item"><input type="checkbox" value="typica"> Typica</label>
+                        <label class="checkbox-item"><input type="checkbox" value="kent"> Kent</label>
+                        <label class="checkbox-item"><input type="checkbox" value="sl28"> SL28</label>
+                        <label class="checkbox-item"><input type="checkbox" value="sl34"> SL34</label>
+                        <label class="checkbox-item"><input type="checkbox" value="ruiru11"> Ruiru 11</label>
+                    </div>
+                </div>
+
+                <!-- Altitude Input Ranges -->
+                <div class="filter-section">
+                    <h4>Minimum Altitude (m)</h4>
+                    <input type="number" id="minAltitude" placeholder="e.g., 1200">
+                </div>
+            </aside>
+
+            <!-- Market Listings Grid -->
+            <section class="listings-container">
+                <div class="listings-header">
+                    <h2>Available Coffee Lots</h2>
+                    <span style="font-size: 0.9rem; color: #6f5c4d; font-weight: 500;">Showing 2 Verified Lots</span>
+                </div>
+
+                <div class="listings-grid">
+
+                    <!-- Example Lot Card 1 -->
+                    <div class="lot-card">
+                        <div class="lot-image-placeholder">
+                            <i class="fas fa-seedling"></i>
+                            <div class="origin-badge">🇹🇿 Tanzania • Kilimanjaro</div>
+                        </div>
+                        <div class="lot-content">
+                            <div class="lot-title">
+                                <h3>Kibo Bourbon Peak</h3>
+                                <p>By Mwika Rural Cooperative</p>
+                            </div>
+                            <div class="verification-tags">
+                                <span class="tag tag-brela"><i class="fas fa-check-circle"></i> BRELA Verified</span>
+                                <span class="tag tag-cert"><i class="fas fa-certificate"></i> Organic</span>
+                            </div>
+                            <div class="lot-specs">
+                                <div class="spec-item"><span>Variety:</span> <span>Bourbon, Kent</span></div>
+                                <div class="spec-item"><span>Process:</span> <span>Washed</span></div>
+                                <div class="spec-item"><span>Altitude:</span> <span>1600m</span></div>
+                                <div class="spec-item"><span>SCA Score:</span> <span>86.5</span></div>
+                            </div>
+                            <div class="lot-footer">
+                                <div class="lot-price">
+                                    <span>Price per KG</span>
+                                    <span>$5.40</span>
+                                </div>
+                                <button class="btn-sample">Request Sample</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Lot Card 2 -->
+                    <div class="lot-card">
+                        <div class="lot-image-placeholder">
+                            <i class="fas fa-seedling"></i>
+                            <div class="origin-badge">🇪🇹 Ethiopia • Yirgacheffe</div>
+                        </div>
+                        <div class="lot-content">
+                            <div class="lot-title">
+                                <h3>Achefe Natural Lot 4</h3>
+                                <p>By Gelana Farm Estates</p>
+                            </div>
+                            <div class="verification-tags">
+                                <span class="tag tag-brela"><i class="fas fa-check-circle"></i> Verified Origin</span>
+                                <span class="tag tag-cert"><i class="fas fa-certificate"></i> Fair Trade</span>
+                            </div>
+                            <div class="lot-specs">
+                                <div class="spec-item"><span>Variety:</span> <span>Heirloom</span></div>
+                                <div class="spec-item"><span>Process:</span> <span>Natural</span></div>
+                                <div class="spec-item"><span>Altitude:</span> <span>1950m</span></div>
+                                <div class="spec-item"><span>SCA Score:</span> <span>88.0</span></div>
+                            </div>
+                            <div class="lot-footer">
+                                <div class="lot-price">
+                                    <span>Price per KG</span>
+                                    <span>$6.20</span>
+                                </div>
+                                <button class="btn-sample">Request Sample</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="help.html">Help Center</a>
+        </div>
+        <div class="copyright">© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+    </footer>
+
+    <script>
+        // Simple interactive framework mapping to layout actions
+        document.querySelectorAll('.btn-sample').forEach(button => {
+            button.addEventListener('click', () => {
+                const title = button.closest('.lot-content').querySelector('h3').textContent;
+                alert(`Sample request submitted for: ${title}. The cooperative will be notified.`);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kahawa Space - Where Coffee Connects the World</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">   
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <div class="mobile-menu" id="mobileMenuToggle">
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
+            <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Where Coffee Connects the World<span>Global Platform for Coffee Professionals & Lovers</span></h1>
+        <p>Connect directly with producers, discover specialty coffee, and advance your coffee career through education
+            and trade.</p>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-number">45+</div>
+                <div class="stat-label">Origins</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">2,500+</div>
+                <div class="stat-label">Verified Sellers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">120+</div>
+                <div class="stat-label">Countries</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="search-container">
+        <div class="search-bar"><i class="fas fa-search"></i><input type="text" id="searchInput"
+                placeholder="Search green coffee, equipment, courses..."><button id="searchBtn">Search</button></div>
+    </div>
+
+    <section class="categories">
+        <div class="section-header">
+            <h2>The Marketplace</h2>
+            <p>Source directly from origins, discover roasters, and equip your café</p>
+        </div>
+        <div class="category-grid">
+            <div class="category-card" onclick="exploreCategory('Green Coffee Trade')">
+                <div class="category-icon"><i class="fas fa-seedling"></i></div>
+                <h3>Green Coffee Trade</h3>
+                <p>Micro-lots, specialty grade, and cooperative supplies from Tanzania, Ethiopia, Kenya & Brazil</p>
+                <span class="badge">B2B Opportunity</span>
+            </div>
+            <div class="category-card" onclick="exploreCategory('Roasted Coffee')">
+                <div class="category-icon"><i class="fas fa-fire"></i></div>
+                <h3>Roasted Coffee</h3>
+                <p>Global brands, African specialty roasters, and subscription boxes</p><span class="badge">Direct to
+                    Consumer</span>
+            </div>
+            <div class="category-card" onclick="exploreCategory('Coffee Equipment')">
+                <div class="category-icon"><i class="fas fa-blender"></i></div>
+                <h3>Coffee Equipment</h3>
+                <p>Espresso machines, grinders, brewers, and full café setup packages</p><span
+                    class="badge">Professional Grade</span>
+            </div>
+            <div class="category-card" onclick="exploreCategory('Books & Education')">
+                <div class="category-icon"><i class="fas fa-book"></i></div>
+                <h3>Books & Education</h3>
+                <p>Resources, courses, and proprietary training materials</p><span class="badge">Learn & Grow</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-products">
+        <div class="section-header">
+            <h2>Featured Green Coffee</h2>
+            <p>Direct from origin • Verified sellers • Negotiable pricing</p>
+        </div>
+        <div class="product-grid">
+            <div class="product-card" onclick="negotiatePrice('Tanzania Peaberry AA Reserve')">
+                <div class="product-image"><i class="fas fa-coffee-bean"></i></div>
+                <div class="product-origin">🇹🇿 Tanzania • Kilimanjaro</div>
+                <div class="product-title">Peaberry AA Reserve</div>
+                <div class="product-meta"><span>Washed</span> • <span>Screen 15+</span></div>
+                <div class="product-price">$8.50/kg</div>
+                <div class="product-meta">Lot: 350kg • FOB</div><button class="btn-product">Negotiate Price</button>
+            </div>
+            <div class="product-card" onclick="negotiatePrice('Ethiopia Yirgacheffe Natural G1')">
+                <div class="product-image"><i class="fas fa-coffee-bean"></i></div>
+                <div class="product-origin">🇪🇹 Ethiopia • Yirgacheffe</div>
+                <div class="product-title">Natural G1</div>
+                <div class="product-meta"><span>Natural</span> • <span>Grade 1</span></div>
+                <div class="product-price">$9.20/kg</div>
+                <div class="product-meta">Lot: 500kg • FOB</div><button class="btn-product">Negotiate Price</button>
+            </div>
+            <div class="product-card" onclick="negotiatePrice('Brazil Yellow Bourbon')">
+                <div class="product-image"><i class="fas fa-coffee-bean"></i></div>
+                <div class="product-origin">🇧🇷 Brazil • Minas Gerais</div>
+                <div class="product-title">Yellow Bourbon</div>
+                <div class="product-meta"><span>Pulped Natural</span> • <span>SCA 84+</span></div>
+                <div class="product-price">$7.80/kg</div>
+                <div class="product-meta">Lot: 1,200kg • FOB</div><button class="btn-product">Negotiate Price</button>
+            </div>
+            <div class="product-card" onclick="negotiatePrice('Kenya SL28 & SL34 AA')">
+                <div class="product-image"><i class="fas fa-coffee-bean"></i></div>
+                <div class="product-origin">🇰🇪 Kenya • Nyeri</div>
+                <div class="product-title">SL28 & SL34</div>
+                <div class="product-meta"><span>Washed</span> • <span>AA Top</span></div>
+                <div class="product-price">$10.20/kg</div>
+                <div class="product-meta">Lot: 280kg • FOB</div><button class="btn-product">Negotiate Price</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="news-section">
+        <div class="section-header">
+            <h2>Industry News & Intelligence</h2>
+            <p>Stay ahead with market movements, origin stories, and industry innovation</p>
+        </div>
+        <div class="news-grid">
+            <div class="news-card" onclick="readNews('Tanzania Harvest Report')">
+                <div class="news-image" style="background: linear-gradient(135deg, #8b5a2b, #2c1810);">
+                    <div class="news-tag">Origin & Production</div>
+                </div>
+                <div class="news-content">
+                    <div class="news-date">March 5, 2026</div>
+                    <h3>Tanzania Harvest Report: Record Quality from Kilimanjaro</h3>
+                    <p>Early harvest samples show exceptional cup scores as farmers adopt new processing methods.</p><a
+                        href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="news-card" onclick="readNews('C-Market Analysis')">
+                <div class="news-image" style="background: linear-gradient(135deg, #2c1810, #c9a227);">
+                    <div class="news-tag">Market Intelligence</div>
+                </div>
+                <div class="news-content">
+                    <div class="news-date">March 4, 2026</div>
+                    <h3>C-Market Analysis: Volatility and Opportunities</h3>
+                    <p>Currency impacts and supply chain updates affecting green coffee prices this quarter.</p><a
+                        href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="news-card" onclick="readNews('New Fermentation Techniques')">
+                <div class="news-image" style="background: linear-gradient(135deg, #b87c4b, #8b5a2b);">
+                    <div class="news-tag">Innovation</div>
+                </div>
+                <div class="news-content">
+                    <div class="news-date">March 3, 2026</div>
+                    <h3>New Fermentation Techniques Reshaping Specialty Coffee</h3>
+                    <p>How producers in Colombia and Kenya are experimenting with controlled fermentation.</p><a
+                        href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="news-card" onclick="readNews('World Barista Championship')">
+                <div class="news-image" style="background: linear-gradient(135deg, #c9a227, #b87c4b);">
+                    <div class="news-tag">Competitions</div>
+                </div>
+                <div class="news-content">
+                    <div class="news-date">March 2, 2026</div>
+                    <h3>World Barista Championship: Meet the Finalists</h3>
+                    <p>Live coverage from the stage as competitors showcase their signature drinks.</p><a href="#"
+                        class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reels-section">
+        <div class="section-header">
+            <h2>Video & Reels</h2>
+            <p>Stories from origin • Barista interviews • Equipment reviews</p>
+        </div>
+        <div class="reels-grid">
+            <div class="reel-card" onclick="watchReel('Farmer Story: Tanzania')">
+                <div class="reel-thumbnail"><i class="fas fa-play-circle"></i></div>
+                <div class="reel-info"><strong>Farmer Story: Tanzania</strong>
+                    <div>2:30</div>
+                </div>
+            </div>
+            <div class="reel-card" onclick="watchReel('La Marzocco Review')">
+                <div class="reel-thumbnail"><i class="fas fa-play-circle"></i></div>
+                <div class="reel-info"><strong>La Marzocco Review</strong>
+                    <div>4:15</div>
+                </div>
+            </div>
+            <div class="reel-card" onclick="watchReel('Cupping at Origin')">
+                <div class="reel-thumbnail"><i class="fas fa-play-circle"></i></div>
+                <div class="reel-info"><strong>Cupping at Origin</strong>
+                    <div>3:45</div>
+                </div>
+            </div>
+            <div class="reel-card" onclick="watchReel('Brewing Masterclass')">
+                <div class="reel-thumbnail"><i class="fas fa-play-circle"></i></div>
+                <div class="reel-info"><strong>Brewing Masterclass</strong>
+                    <div>5:20</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tours-section">
+        <div class="section-header">
+            <h2>Coffee Origins Tours</h2>
+            <p>Join curated trips • Visit farms • Meet producers</p>
+        </div>
+        <div class="tour-card" onclick="viewTour('Tanzania: Kilimanjaro Coffee Trail')">
+            <div class="tour-image"><i class="fas fa-mountain"></i></div>
+            <div class="tour-content">
+                <div class="tour-dates">June 15-22, 2026</div>
+                <h3>Tanzania: Kilimanjaro Coffee Trail</h3>
+                <p>Visit cooperative farms, witness harvest, and cup with producers on the slopes of Kilimanjaro.
+                    Includes farm stays and cultural experiences.</p>
+                <div style="margin-top:1rem;display:flex;gap:1rem;flex-wrap:wrap;"><span><i class="fas fa-users"></i> 8
+                        spots left</span><span><i class="fas fa-coffee"></i> 5 farms</span></div><button
+                    class="btn-product" style="width:auto;margin-top:1rem;">View Tour</button>
+            </div>
+        </div>
+        <div class="tour-card" onclick="viewTour('Ethiopia: Origins of Coffee')">
+            <div class="tour-image"><i class="fas fa-leaf"></i></div>
+            <div class="tour-content">
+                <div class="tour-dates">August 5-14, 2026</div>
+                <h3>Ethiopia: Origins of Coffee</h3>
+                <p>Trace the heritage of coffee in Yirgacheffe and Sidama. Visit washing stations, meet legendary
+                    producers, and explore Addis Ababa's coffee culture.</p>
+                <div style="margin-top:1rem;display:flex;gap:1rem;flex-wrap:wrap;"><span><i class="fas fa-users"></i> 12
+                        spots left</span><span><i class="fas fa-coffee"></i> 8 farms</span></div><button
+                    class="btn-product" style="width:auto;margin-top:1rem;">View Tour</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="education-section">
+        <div class="section-header">
+            <h2>Coffee Education</h2>
+            <p>Advance your skills from bean to cup</p>
+        </div>
+        <div class="courses-grid">
+            <div class="course-card" onclick="enrollCourse('Barista Foundation')">
+                <div class="course-level">Beginner • 4 weeks</div>
+                <div class="course-title">Barista Foundation</div>
+                <div class="course-desc">Master espresso extraction, milk texturing, and foundational barista skills.
+                </div>
+                <div class="course-meta"><span><i class="far fa-clock"></i> 12 hours</span><span><i
+                            class="fas fa-certificate"></i> Certificate</span></div><button class="btn-product">Enroll
+                    Now</button>
+            </div>
+            <div class="course-card" onclick="enrollCourse('Brewing Mastery')">
+                <div class="course-level">Intermediate • 6 weeks</div>
+                <div class="course-title">Brewing Mastery</div>
+                <div class="course-desc">Pour-over, French press, cold brew - understand extraction variables and
+                    perfect your technique.</div>
+                <div class="course-meta"><span><i class="far fa-clock"></i> 18 hours</span><span><i
+                            class="fas fa-certificate"></i> Certificate</span></div><button class="btn-product">Enroll
+                    Now</button>
+            </div>
+            <div class="course-card" onclick="enrollCourse('Roasting Fundamentals')">
+                <div class="course-level">Advanced • 8 weeks</div>
+                <div class="course-title">Roasting Fundamentals</div>
+                <div class="course-desc">From green analysis to roast profiles - learn the science and art of coffee
+                    roasting.</div>
+                <div class="course-meta"><span><i class="far fa-clock"></i> 24 hours</span><span><i
+                            class="fas fa-certificate"></i> Certificate</span></div><button class="btn-product">Enroll
+                    Now</button>
+            </div>
+            <div class="course-card" onclick="enrollCourse('Coffee Business Management')">
+                <div class="course-level">Professional • 10 weeks</div>
+                <div class="course-title">Coffee Business Management</div>
+                <div class="course-desc">Open and scale a successful café, manage supply chains, and build your brand.
+                </div>
+                <div class="course-meta"><span><i class="far fa-clock"></i> 30 hours</span><span><i
+                            class="fas fa-certificate"></i> Certificate</span></div><button class="btn-product">Enroll
+                    Now</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-item"><i class="fas fa-shield-alt"></i>
+                <h4>Verified Sellers</h4>
+                <p>Business verification and quality certification</p>
+            </div>
+            <div class="feature-item"><i class="fas fa-globe-africa"></i>
+                <h4>Direct Trade</h4>
+                <p>Connect directly with producers</p>
+            </div>
+            <div class="feature-item"><i class="fas fa-lock"></i>
+                <h4>Secure Payments</h4>
+                <p>Escrow protection for transactions</p>
+            </div>
+            <div class="feature-item"><i class="fas fa-truck"></i>
+                <h4>Global Logistics</h4>
+                <p>Shipping coordination support</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <h2>Stay Connected with Kahawa Space</h2>
+        <p>Weekly market intelligence, origin stories, and new opportunities</p>
+        <div class="newsletter-form"><input type="email" id="newsletterEmail" placeholder="Your email address"><button
+                id="subscribeBtn">Subscribe</button></div>
+        <div id="subscribeMsg" style="margin-top:12px;font-size:0.85rem;color:#d4a373;"></div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Buy</h4>
+                <ul>
+                    <li><a href="#">Green Coffee</a></li>
+                    <li><a href="#">Roasted Coffee</a></li>
+                    <li><a href="#">Equipment</a></li>
+                    <li><a href="#">Education</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="resources.html">Market Reports</a></li>
+                    <li><a href="#">Shipping Guide</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+            <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i
+                        class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i
+                        class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+        </div>
+    </footer>
+
+    <script>
+        function exploreCategory(c) { alert(`🔍 Exploring ${c}`); }
+        function negotiatePrice(p) { alert(`🤝 Negotiate price for ${p}`); }
+        function readNews(t) { alert(`📰 Reading: "${t}"`); }
+        function watchReel(t) { alert(`🎬 Playing reel: "${t}"`); }
+        function viewTour(t) { alert(`✈️ ${t}\n\nView full itinerary coming soon.`); }
+        function enrollCourse(c) { alert(`📚 Enrolling in "${c}"`); }
+        function performSearch() { const s = document.getElementById('searchInput').value.trim(); alert(`🔎 Searching for: "${s}"`); }
+
+        function initNewsletter() { const btn = document.getElementById('subscribeBtn'), inp = document.getElementById('newsletterEmail'), msg = document.getElementById('subscribeMsg'); if (btn && inp && msg) btn.addEventListener('click', () => { const e = inp.value.trim(); if (!e || !e.includes('@')) { msg.innerHTML = '<span style="color:#e8b4a0;">✉️ Valid email required</span>'; setTimeout(() => msg.innerHTML = '', 2500); } else { msg.innerHTML = '<span style="color:#d4a373;">✅ Thanks for subscribing!</span>'; inp.value = ''; setTimeout(() => msg.innerHTML = '', 3000); } }); }
+
+        function initMobileMenu() { const toggle = document.getElementById('mobileMenuToggle'), nav = document.getElementById('navLinks'); if (!toggle || !nav) return; const close = () => { nav.classList.remove('active'); toggle.classList.remove('active'); document.body.classList.remove('menu-open'); const icon = toggle.querySelector('i'); if (icon) icon.className = 'fas fa-bars'; }; const open = (e) => { e.stopPropagation(); if (nav.classList.contains('active')) close(); else { nav.classList.add('active'); toggle.classList.add('active'); document.body.classList.add('menu-open'); const icon = toggle.querySelector('i'); if (icon) icon.className = 'fas fa-times'; } }; toggle.addEventListener('click', open); document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', close)); document.addEventListener('click', (e) => { if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) close(); }); document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }); }
+
+        function initFooterLinks() { document.querySelectorAll('.footer-col ul li a').forEach(link => { if (link.getAttribute('onclick')) return; link.addEventListener('click', (e) => { e.preventDefault(); alert(`✨ "${link.textContent}" page coming soon!`); }); }); document.querySelectorAll('.social-links a').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); alert(`🌐 Connect with Kahawa Space on social media!`); }); }); }
+
+        function initAuthButtons() { document.querySelector('.btn-login')?.addEventListener('click', (e) => { e.preventDefault(); alert(`🔐 Login to access your dashboard.`); }); document.querySelector('.btn-signup')?.addEventListener('click', (e) => { e.preventDefault(); alert(`☕ Join Kahawa Space!`); }); document.querySelector('.logo')?.addEventListener('click', () => window.location.href = 'index.html'); }
+
+        function initSearch() { document.getElementById('searchBtn')?.addEventListener('click', performSearch); document.getElementById('searchInput')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); }); }
+
+        initNewsletter(); initMobileMenu(); initFooterLinks(); initAuthButtons(); initSearch();
+    </script>
+</body>
+
+</html>

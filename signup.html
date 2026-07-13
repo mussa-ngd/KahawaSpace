@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kahawa Space - Join the Coffee Community</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
+            <div class="mobile-menu" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="signup-container">
+        <div class="signup-card">
+            <div class="signup-header">
+                <h1>Join Kahawa Space</h1>
+                <p>Create your account and start your coffee journey</p>
+            </div>
+            <div class="signup-body">
+                <div id="alertMessage" style="display: none;"></div>
+
+                <div class="role-selector">
+                    <div class="role-option active" data-role="buyer">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Buyer</h3>
+                        <p>Roaster, Café Owner, Importer</p>
+                    </div>
+                    <div class="role-option" data-role="individual">
+                        <i class="fas fa-heart"></i>
+                        <h3>Coffee Lover</h3>
+                        <p>Individual, Enthusiast</p>
+                    </div>
+                </div>
+
+                <!-- Social Signup Buttons - Shown for Coffee Lovers -->
+                <div id="socialSignupSection" class="social-signup">
+                    <div class="social-buttons">
+                        <button class="social-btn google" id="googleSignupBtn">
+                            <i class="fab fa-google"></i> Sign up with Google
+                        </button>
+                        <button class="social-btn facebook" id="facebookSignupBtn">
+                            <i class="fab fa-facebook-f"></i> Sign up with Facebook
+                        </button>
+                    </div>
+                    <div class="divider"><span>Or continue with email</span></div>
+                </div>
+
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+255 xxx xxx xxx">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password">Password *</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="password" name="password"
+                                    placeholder="Create a strong password" required>
+                                <i class="fas fa-eye toggle-password" data-target="password"></i>
+                            </div>
+                            <div class="password-strength">
+                                <div class="strength-meter">
+                                    <div class="strength-meter-fill" id="strengthFill"></div>
+                                </div>
+                                <div class="strength-text" id="strengthText"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password *</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="confirmPassword" name="confirmPassword"
+                                    placeholder="Confirm your password" required>
+                                <i class="fas fa-eye toggle-password" data-target="confirmPassword"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="buyerFields" class="seller-fields show">
+                        <div class="form-group">
+                            <label for="companyName">Company Name</label>
+                            <input type="text" id="companyName" name="companyName" placeholder="Your company name">
+                        </div>
+                        <div class="form-group">
+                            <label for="businessType">Business Type</label>
+                            <select id="businessType" name="businessType">
+                                <option value="">Select business type</option>
+                                <option value="roaster">Coffee Roaster</option>
+                                <option value="cafe">Café Owner</option>
+                                <option value="importer">Importer/Distributor</option>
+                                <option value="wholesaler">Wholesaler</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="sellerFields" class="seller-fields">
+                        <div class="form-group"><label for="businessName">Business Name *</label><input type="text"
+                                id="businessName" name="businessName" placeholder="Your business/cooperative name">
+                        </div>
+                        <div class="form-group"><label for="businessReg">Business Registration Number (BRELA)
+                                *</label><input type="text" id="businessReg" name="businessReg"
+                                placeholder="e.g., 123456-789">
+                            <div class="help-text">For Tanzania businesses, format: XXXXXX-XXX (e.g., 123456-789)</div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label for="country">Country *</label><select id="country"
+                                    name="country">
+                                    <option value="">Select country</option>
+                                    <option value="Tanzania">Tanzania</option>
+                                    <option value="Ethiopia">Ethiopia</option>
+                                    <option value="Kenya">Kenya</option>
+                                    <option value="Uganda">Uganda</option>
+                                    <option value="Rwanda">Rwanda</option>
+                                    <option value="Brazil">Brazil</option>
+                                    <option value="Colombia">Colombia</option>
+                                    <option value="Other">Other</option>
+                                </select></div>
+                            <div class="form-group"><label for="region">Region</label><input type="text" id="region"
+                                    name="region" placeholder="e.g., Kilimanjaro, Arusha"></div>
+                        </div>
+                        <div class="form-group"><label for="farmSize">Farm Size (Hectares)</label><input type="number"
+                                id="farmSize" name="farmSize" placeholder="e.g., 50"></div>
+                        <div class="form-group"><label for="altitude">Altitude (meters)</label><input type="text"
+                                id="altitude" name="altitude" placeholder="e.g., 1200-1800"></div>
+                        <div class="form-group"><label for="varieties">Coffee Varieties</label><select id="varieties"
+                                name="varieties" multiple>
+                                <option value="bourbon">Bourbon</option>
+                                <option value="typica">Typica</option>
+                                <option value="kent">Kent</option>
+                                <option value="sl28">SL28</option>
+                                <option value="sl34">SL34</option>
+                                <option value="ruiru11">Ruiru 11</option>
+                            </select>
+                            <div class="help-text">Hold Ctrl/Cmd to select multiple</div>
+                        </div>
+                        <div class="form-group"><label for="processing">Processing Methods</label><select
+                                id="processing" name="processing" multiple>
+                                <option value="washed">Washed</option>
+                                <option value="natural">Natural</option>
+                                <option value="honey">Honey</option>
+                                <option value="pulped">Pulped Natural</option>
+                            </select></div>
+                        <div class="form-group"><label>Business Registration Document *</label>
+                            <div class="document-upload" id="businessDocUpload"><i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click or drag to upload business registration</p>
+                                <p class="file-types">PDF, JPG, PNG (Max 10MB)</p><input type="file" id="businessDoc"
+                                    accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+                            </div>
+                            <div id="businessDocName" class="uploaded-file" style="display: none;"><span><i
+                                        class="fas fa-file-pdf"></i> <span id="businessDocFileName"></span></span><i
+                                    class="fas fa-trash" style="cursor: pointer; color: #d32f2f;"
+                                    data-clear="businessDoc,businessDocName"></i></div>
+                        </div>
+                        <div class="form-group"><label>Origin Documentation (Land Deed/Lease) *</label>
+                            <div class="document-upload" id="originDocUpload"><i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click or drag to upload origin documentation</p>
+                                <p class="file-types">PDF, JPG, PNG (Max 10MB)</p><input type="file" id="originDoc"
+                                    accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+                            </div>
+                            <div id="originDocName" class="uploaded-file" style="display: none;"><span><i
+                                        class="fas fa-file-pdf"></i> <span id="originDocFileName"></span></span><i
+                                    class="fas fa-trash" style="cursor: pointer; color: #d32f2f;"
+                                    data-clear="originDoc,originDocName"></i></div>
+                        </div>
+                        <div class="form-group"><label>Quality Certificates (Optional)</label>
+                            <div class="document-upload" id="qualityDocUpload"><i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click or drag to upload quality certificates</p>
+                                <p class="file-types">Organic, Fair Trade, SCA Certificates</p><input type="file"
+                                    id="qualityDoc" accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+                            </div>
+                            <div id="qualityDocName" class="uploaded-file" style="display: none;"><span><i
+                                        class="fas fa-file-pdf"></i> <span id="qualityDocFileName"></span></span><i
+                                    class="fas fa-trash" style="cursor: pointer; color: #d32f2f;"
+                                    data-clear="qualityDoc,qualityDocName"></i></div>
+                        </div>
+                    </div>
+
+                    <div id="individualFields" class="seller-fields">
+                        <div class="form-group">
+                            <label>What are your coffee interests? (Select all that apply)</label>
+                            <div class="interests-grid">
+                                <label class="interest-checkbox"><input type="checkbox" name="interests"
+                                        value="home-brewing"><span>🏠 Home Brewing</span></label>
+                                <label class="interest-checkbox"><input type="checkbox" name="interests"
+                                        value="espresso"><span>☕ Espresso</span></label>
+                                <label class="interest-checkbox"><input type="checkbox" name="interests"
+                                        value="latte-art"><span>🎨 Latte Art</span></label>
+                                <label class="interest-checkbox"><input type="checkbox" name="interests"
+                                        value="roasting"><span>🔥 Home Roasting</span></label>
+                                <label class="interest-checkbox"><input type="checkbox" name="interests"
+                                        value="cupping"><span>👃 Cupping/Tasting</span></label>
+                                <label class="interest-checkbox"><input type="checkbox" name="interests"
+                                        value="origin-tours"><span>✈️ Origin Tours</span></label>
+                                <label class="interest-checkbox"><input type="checkbox" name="interests"
+                                        value="sustainable"><span>🌱 Sustainable Coffee</span></label>
+                                <label class="interest-checkbox"><input type="checkbox" name="interests"
+                                        value="direct-trade"><span>🤝 Direct Trade</span></label>
+                            </div>
+                            <div class="help-text">Select all that interest you - we'll personalize your experience
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terms-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="termsAgree" required>
+                            <span>I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and <a
+                                    href="privacy.html" target="_blank">Privacy Policy</a>.</span>
+                        </label>
+                    </div>
+
+                    <div class="terms-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="newsletterAgree">
+                            <span>I'd like to receive coffee news, market updates, and special offers via email.</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="signup-btn" id="signupBtn">
+                        <span id="btnText">Create Account</span>
+                        <span id="btnLoader" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Creating
+                            account...</span>
+                    </button>
+                </form>
+
+                <div class="login-link">
+                    Already have an account? <a href="login.html">Log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="help.html">Help Center</a>
+        </div>
+        <div class="copyright">© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+    </footer>
+
+    <script>
+        // Mobile Menu
+        function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navLinksElem = document.getElementById('navLinks');
+            if (!mobileToggle || !navLinksElem) return;
+            const closeMenu = () => {
+                navLinksElem.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                const icon = mobileToggle.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
+            };
+            const toggleMenu = (e) => {
+                e.stopPropagation();
+                if (navLinksElem.classList.contains('active')) closeMenu();
+                else {
+                    navLinksElem.classList.add('active');
+                    mobileToggle.classList.add('active');
+                    document.body.classList.add('menu-open');
+                    const icon = mobileToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-times';
+                }
+            };
+            mobileToggle.addEventListener('click', toggleMenu);
+            document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+            document.addEventListener('click', (e) => {
+                if (navLinksElem.classList.contains('active') && !navLinksElem.contains(e.target) && !mobileToggle.contains(e.target)) closeMenu();
+            });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        }
+
+        // Toggle Password
+        document.querySelectorAll('.toggle-password').forEach(icon => {
+            icon.addEventListener('click', function () {
+                const targetId = this.getAttribute('data-target');
+                const input = document.getElementById(targetId);
+                if (input) {
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        this.classList.remove('fa-eye');
+                        this.classList.add('fa-eye-slash');
+                    } else {
+                        input.type = 'password';
+                        this.classList.remove('fa-eye-slash');
+                        this.classList.add('fa-eye');
+                    }
+                }
+            });
+        });
+
+        // Role Selection - Toggle Social Buttons Visibility
+        const roleOptions = document.querySelectorAll('.role-option');
+        const buyerFields = document.getElementById('buyerFields');
+        const sellerFields = document.getElementById('sellerFields');
+        const individualFields = document.getElementById('individualFields');
+        const socialSection = document.getElementById('socialSignupSection');
+        let selectedRole = 'buyer';
+
+        roleOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                roleOptions.forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+                selectedRole = option.dataset.role;
+
+                buyerFields.classList.remove('show');
+                sellerFields.classList.remove('show');
+                individualFields.classList.remove('show');
+
+                if (selectedRole === 'buyer') buyerFields.classList.add('show');
+                else if (selectedRole === 'seller') sellerFields.classList.add('show');
+                else if (selectedRole === 'individual') individualFields.classList.add('show');
+
+                // Show social signup only for Coffee Lovers (individual role)
+                if (selectedRole === 'individual') {
+                    socialSection.style.display = 'block';
+                } else {
+                    socialSection.style.display = 'none';
+                }
+            });
+        });
+
+        // Initially show social buttons only for Coffee Lovers? No, initial role is buyer, so hide
+        socialSection.style.display = 'none';
+
+        // Social Signup Handlers
+        function socialSignup(provider) {
+            showAlert(`Redirecting to ${provider} for secure signup...`, 'info');
+            setTimeout(() => {
+                // Simulate OAuth flow - In production, this would redirect to actual OAuth endpoints
+                showAlert(`${provider} signup is being configured. You'll be able to connect your account soon!`, 'success');
+            }, 1500);
+        }
+
+        document.getElementById('googleSignupBtn')?.addEventListener('click', () => socialSignup('Google'));
+        document.getElementById('facebookSignupBtn')?.addEventListener('click', () => socialSignup('Facebook'));
+
+        // Password Strength
+        const passwordInput = document.getElementById('password');
+        const strengthFill = document.getElementById('strengthFill');
+        const strengthText = document.getElementById('strengthText');
+
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^a-zA-Z\d]/.test(password)) strength++;
+            if (password.length === 0) return { level: 0, text: '', class: '' };
+            if (strength === 1) return { level: 1, text: 'Weak', class: 'weak' };
+            if (strength === 2) return { level: 2, text: 'Fair', class: 'fair' };
+            if (strength === 3) return { level: 3, text: 'Good', class: 'good' };
+            return { level: 4, text: 'Strong', class: 'strong' };
+        }
+
+        passwordInput?.addEventListener('input', () => {
+            const result = checkPasswordStrength(passwordInput.value);
+            strengthFill.className = `strength-meter-fill ${result.class}`;
+            strengthText.textContent = result.text ? `Password strength: ${result.text}` : '';
+        });
+
+        // Document Upload
+        function setupDocumentUpload(uploadId, fileInputId, displayId, fileNameSpanId) {
+            const uploadDiv = document.getElementById(uploadId);
+            const fileInput = document.getElementById(fileInputId);
+            const displayDiv = document.getElementById(displayId);
+            const fileNameSpan = document.getElementById(fileNameSpanId);
+            if (!uploadDiv || !fileInput) return;
+            uploadDiv.addEventListener('click', () => fileInput.click());
+            uploadDiv.addEventListener('dragover', (e) => { e.preventDefault(); uploadDiv.style.borderColor = '#c9a227'; });
+            uploadDiv.addEventListener('dragleave', () => uploadDiv.style.borderColor = '#e0d6cc');
+            uploadDiv.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadDiv.style.borderColor = '#e0d6cc';
+                if (e.dataTransfer.files.length > 0) handleFileUpload(e.dataTransfer.files[0], fileInput, displayDiv, fileNameSpan);
+            });
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) handleFileUpload(e.target.files[0], fileInput, displayDiv, fileNameSpan);
+            });
+        }
+
+        function handleFileUpload(file, fileInput, displayDiv, fileNameSpan) {
+            const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+            if (!validTypes.includes(file.type)) { showAlert('Please upload PDF, JPG, or PNG files only', 'error'); return; }
+            if (file.size > 10 * 1024 * 1024) { showAlert('File size must be less than 10MB', 'error'); return; }
+            fileNameSpan.textContent = file.name;
+            displayDiv.style.display = 'flex';
+            fileInput.file = file;
+        }
+
+        function clearFile(fileInputId, displayId) {
+            const fileInput = document.getElementById(fileInputId);
+            const displayDiv = document.getElementById(displayId);
+            if (fileInput) fileInput.value = '';
+            if (displayDiv) displayDiv.style.display = 'none';
+            if (fileInput) fileInput.file = null;
+        }
+
+        setupDocumentUpload('businessDocUpload', 'businessDoc', 'businessDocName', 'businessDocFileName');
+        setupDocumentUpload('originDocUpload', 'originDoc', 'originDocName', 'originDocFileName');
+        setupDocumentUpload('qualityDocUpload', 'qualityDoc', 'qualityDocName', 'qualityDocFileName');
+
+        document.querySelectorAll('[data-clear]').forEach(icon => {
+            icon.addEventListener('click', (e) => {
+                const ids = icon.getAttribute('data-clear').split(',');
+                if (ids.length >= 2) clearFile(ids[0], ids[1]);
+            });
+        });
+
+        // Alert
+        const alertMessage = document.getElementById('alertMessage');
+        function showAlert(message, type = 'error') {
+            alertMessage.style.display = 'block';
+            alertMessage.className = `alert alert-${type}`;
+            alertMessage.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i><span>${message}</span>`;
+            setTimeout(() => alertMessage.style.display = 'none', 5000);
+        }
+
+        // Form Submission
+        const signupForm = document.getElementById('signupForm');
+        const signupBtn = document.getElementById('signupBtn');
+        const btnText = document.getElementById('btnText');
+        const btnLoader = document.getElementById('btnLoader');
+
+        function isValidEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+        function validateBRELA(number) { return /^\d{6,8}-\d{3,5}$/.test(number); }
+
+        signupForm?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const termsAgree = document.getElementById('termsAgree').checked;
+
+            if (!fullName || !email || !password || !confirmPassword) { showAlert('Please fill in all required fields', 'error'); return; }
+            if (!isValidEmail(email)) { showAlert('Please enter a valid email address', 'error'); return; }
+            if (password !== confirmPassword) { showAlert('Passwords do not match', 'error'); return; }
+            if (password.length < 8) { showAlert('Password must be at least 8 characters', 'error'); return; }
+            if (!termsAgree) { showAlert('Please agree to the Terms of Service', 'error'); return; }
+
+            if (selectedRole === 'seller') {
+                const businessName = document.getElementById('businessName').value.trim();
+                const businessReg = document.getElementById('businessReg').value.trim();
+                const country = document.getElementById('country').value;
+                if (!businessName || !businessReg || !country) { showAlert('Please fill in all seller business information', 'error'); return; }
+                if (country === 'Tanzania' && !validateBRELA(businessReg)) { showAlert('Invalid BRELA number format. Should be like: 123456-789', 'error'); return; }
+                const businessDoc = document.getElementById('businessDoc').file;
+                const originDoc = document.getElementById('originDoc').file;
+                if (!businessDoc || !originDoc) { showAlert('Please upload business registration and origin documentation', 'error'); return; }
+            }
+
+            btnText.style.display = 'none';
+            btnLoader.style.display = 'inline-block';
+            signupBtn.disabled = true;
+
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                showAlert('Account created successfully! Please check your email to verify your account.', 'success');
+                setTimeout(() => window.location.href = 'login.html?verified=pending', 2000);
+            } catch (error) {
+                showAlert('Signup failed. Please try again.', 'error');
+            } finally {
+                btnText.style.display = 'inline';
+                btnLoader.style.display = 'none';
+                signupBtn.disabled = false;
+            }
+        });
+
+        // Footer links
+        document.querySelectorAll('.footer-links a').forEach(link => {
+            link.addEventListener('click', (e) => { e.preventDefault(); showAlert(`"${link.textContent}" page coming soon!`, 'info'); });
+        });
+
+        // Logo
+        document.querySelector('.logo')?.addEventListener('click', () => window.location.href = 'index.html');
+
+        initMobileMenu();
+    </script>
+</body>
+
+</html>

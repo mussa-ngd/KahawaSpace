@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kahawa Space - Coffee Education</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">   
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html" class="active"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
+            <div class="mobile-menu" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Coffee Education</h1>
+        <p>Advance your skills with expert-led courses in barista training, brewing, roasting, and coffee business</p>
+    </div>
+
+    <div class="learning-paths">
+        <div class="section-header">
+            <h2>Learning Paths</h2>
+            <p>Choose your journey in the world of coffee</p>
+        </div>
+        <div class="paths-grid">
+            <div class="path-card" onclick="selectPath('Barista Path')">
+                <div class="path-icon"><i class="fas fa-mug-hot"></i></div>
+                <h3>Barista Path</h3>
+                <p>Master espresso, milk techniques, and cafe skills</p>
+                <div class="course-count">8 courses</div>
+            </div>
+            <div class="path-card" onclick="selectPath('Brewing Path')">
+                <div class="path-icon"><i class="fas fa-tint"></i></div>
+                <h3>Brewing Path</h3>
+                <p>Perfect your pour-over, French press, and cold brew</p>
+                <div class="course-count">6 courses</div>
+            </div>
+            <div class="path-card" onclick="selectPath('Roasting Path')">
+                <div class="path-icon"><i class="fas fa-fire"></i></div>
+                <h3>Roasting Path</h3>
+                <p>From green analysis to roast profile development</p>
+                <div class="course-count">5 courses</div>
+            </div>
+            <div class="path-card" onclick="selectPath('Business Path')">
+                <div class="path-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Business Path</h3>
+                <p>Open and scale your coffee business</p>
+                <div class="course-count">7 courses</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="featured-course">
+        <div class="featured-container">
+            <div class="featured-content">
+                <span class="featured-badge">FEATURED COURSE</span>
+                <h2>Professional Barista Certification</h2>
+                <p>Comprehensive barista training covering espresso theory, milk science, workflow optimization, and
+                    customer service. Get certified and advance your career.</p>
+                <div class="instructor">
+                    <div class="instructor-img"><i class="fas fa-user-tie"></i></div>
+                    <div>
+                        <strong>James Mwangi</strong>
+                        <p style="color: #6f5c4d;">2x Tanzanian Barista Champion</p>
+                    </div>
+                </div>
+                <div class="featured-stats">
+                    <div class="stat">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Modules</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">24h</div>
+                        <div class="stat-label">Content</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">2,500+</div>
+                        <div class="stat-label">Students</div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn-signup" onclick="enrollCourse('Professional Barista Certification')">Enroll Now -
+                        $299</button>
+                    <button class="btn-login"
+                        style="background:transparent;border:2px solid #2c1810;color:#2c1810;margin-left:0.5rem;"
+                        onclick="previewCourse()">Watch Preview</button>
+                </div>
+            </div>
+            <div class="featured-image">
+                <i class="fas fa-certificate"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="courses-section">
+        <div class="section-header">
+            <h2>Popular Courses</h2>
+            <p>Start learning today with our most popular courses</p>
+        </div>
+        <div class="courses-grid" id="coursesGrid"></div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <button class="btn-outline" onclick="browseAllCourses()">Browse All Courses</button>
+        </div>
+    </div>
+
+    <div class="resources-section">
+        <div class="section-header">
+            <h2>Free Learning Resources</h2>
+            <p>Tools and guides to support your coffee journey</p>
+        </div>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="resource-icon"><i class="fas fa-calculator"></i></div>
+                <h3>Brewing Calculator</h3>
+                <p>Perfect your coffee-to-water ratios</p>
+                <a href="#" class="resource-link" onclick="useResource('Brewing Calculator')">Use Tool →</a>
+            </div>
+            <div class="resource-card">
+                <div class="resource-icon"><i class="fas fa-book-open"></i></div>
+                <h3>Flavor Wheel</h3>
+                <p>Interactive coffee flavor guide</p>
+                <a href="#" class="resource-link" onclick="useResource('Flavor Wheel')">Explore →</a>
+            </div>
+            <div class="resource-card">
+                <div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
+                <h3>Brew Guides</h3>
+                <p>Printable brewing instruction cards</p>
+                <a href="#" class="resource-link" onclick="useResource('Brew Guides')">Download →</a>
+            </div>
+            <div class="resource-card">
+                <div class="resource-icon"><i class="fas fa-glossary"></i></div>
+                <h3>Coffee Glossary</h3>
+                <p>Learn coffee terminology</p>
+                <a href="#" class="resource-link" onclick="useResource('Coffee Glossary')">Read →</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="certification-section">
+        <h2>Get Certified</h2>
+        <p>Earn recognized certificates to advance your coffee career.</p>
+        <button class="btn-signup"
+            style="background: #c9a227; color: #2c1810; border: none; padding: 0.7rem 2rem; border-radius: 30px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif;"
+            onclick="viewCertifications()">View Certification Paths</button>
+    </div>
+
+    <section class="newsletter">
+        <h2>Get Learning Updates</h2>
+        <p>New courses, workshops, and educational resources</p>
+        <div class="newsletter-form">
+            <input type="email" id="newsletterEmail" placeholder="Your email address">
+            <button id="subscribeBtn">Subscribe</button>
+        </div>
+        <div id="subscribeMsg" style="margin-top: 12px; font-size: 0.85rem; color: #d4a373;"></div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Trust & Safety</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Sell</h4>
+                <ul>
+                    <li><a href="#">List Green Coffee</a></li>
+                    <li><a href="#">Seller Verification</a></li>
+                    <li><a href="#">Pricing & Fees</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Buy</h4>
+                <ul>
+                    <li><a href="#">Green Coffee</a></li>
+                    <li><a href="#">Roasted Coffee</a></li>
+                    <li><a href="#">Equipment</a></li>
+                    <li><a href="#">Education</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Market Reports</a></li>
+                    <li><a href="#">Shipping Guide</a></li>
+                    <li><a href="#">Coffee Calculator</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Dispute Resolution</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Course Data
+        const courses = [
+            { level: 'Beginner', category: 'Barista Skills', title: 'Espresso Foundation', desc: 'Learn the fundamentals of espresso extraction, dialing in, and machine maintenance.', hours: 8, students: 1234, price: 149 },
+            { level: 'Intermediate', category: 'Brewing', title: 'Pour-Over Mastery', desc: 'Master V60, Kalita, and Chemex. Understand extraction variables and brewing ratios.', hours: 6, students: 892, price: 129 },
+            { level: 'Advanced', category: 'Roasting', title: 'Roasting Science', desc: 'Deep dive into roast profiles, bean chemistry, and developing your signature roast.', hours: 12, students: 567, price: 349 },
+            { level: 'Professional', category: 'Business', title: 'Café Management', desc: 'From business plans to daily operations. Open and run a successful café.', hours: 15, students: 423, price: 399 },
+            { level: 'Beginner', category: 'Sensory', title: 'Coffee Cupping 101', desc: 'Develop your palate, understand flavor profiles, and evaluate coffee like a pro.', hours: 5, students: 1876, price: 99 },
+            { level: 'Intermediate', category: 'Latte Art', title: 'Advanced Latte Art', desc: 'Master hearts, tulips, rosettas, and learn advanced etching techniques.', hours: 4, students: 2145, price: 89 }
+        ];
+
+        function renderCourses() {
+            const container = document.getElementById('coursesGrid');
+            if (!container) return;
+            container.innerHTML = courses.map(c => `
+            <div class="course-card">
+                <div class="course-image">
+                    <span class="course-level">${c.level}</span>
+                </div>
+                <div class="course-content">
+                    <div class="course-category">${c.category}</div>
+                    <div class="course-title">${escapeHtml(c.title)}</div>
+                    <div class="course-description">${escapeHtml(c.desc)}</div>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> ${c.hours} hours</span>
+                        <span><i class="fas fa-users"></i> ${c.students.toLocaleString()} students</span>
+                    </div>
+                    <div class="course-price">
+                        <span class="price">$${c.price}</span>
+                        <button class="btn-enroll" onclick="enrollCourse('${escapeHtml(c.title)}')">Enroll</button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function (m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // Interactive Functions
+        function enrollCourse(courseName) {
+            alert(`🎓 Enrolling in "${courseName}"\n\nYou'll receive access to course materials and a personalized learning dashboard.`);
+        }
+
+        function previewCourse() {
+            alert(`🎬 Course preview: Watch the first lesson free!\n\nThis course covers espresso fundamentals, milk texturing, and workflow optimization.`);
+        }
+
+        function browseAllCourses() {
+            alert(`📚 Browse all ${courses.length + 12}+ courses\n\nFilter by skill level, category, or instructor to find your perfect learning path.`);
+        }
+
+        function selectPath(pathName) {
+            alert(`🌟 ${pathName} selected!\n\nStart your journey with our curated curriculum designed to build expertise step by step.`);
+        }
+
+        function useResource(resourceName) {
+            alert(`📖 Opening "${resourceName}"\n\nThis free resource is available to all Kahawa Space members. Sign in for full access.`);
+        }
+
+        function viewCertifications() {
+            alert(`🎓 Certification Programs:\n\n• Professional Barista (SCA Certified)\n• Advanced Roasting Certificate\n• Coffee Business Management\n• Sensory & Quality Evaluation\n\nEarn globally recognized credentials.`);
+        }
+
+        // Newsletter Subscription
+        function initNewsletter() {
+            const subBtn = document.getElementById('subscribeBtn');
+            const emailInput = document.getElementById('newsletterEmail');
+            const msgDiv = document.getElementById('subscribeMsg');
+            if (subBtn && emailInput && msgDiv) {
+                subBtn.addEventListener('click', () => {
+                    const email = emailInput.value.trim();
+                    if (!email || !email.includes('@') || !email.includes('.')) {
+                        msgDiv.innerHTML = '<span style="color:#e8b4a0;">✉️ Please enter a valid email address.</span>';
+                        setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 2500);
+                        return;
+                    }
+                    msgDiv.innerHTML = '<span style="color:#d4a373;">✅ Thanks! You\'ll receive updates on new courses and workshops.</span>';
+                    emailInput.value = '';
+                    setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 3000);
+                });
+            }
+        }
+
+        // Mobile Menu
+        function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navLinksElem = document.getElementById('navLinks');
+            if (!mobileToggle || !navLinksElem) return;
+
+            const closeMenu = () => {
+                navLinksElem.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                const icon = mobileToggle.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
+            };
+
+            const toggleMenu = (e) => {
+                e.stopPropagation();
+                if (navLinksElem.classList.contains('active')) {
+                    closeMenu();
+                } else {
+                    navLinksElem.classList.add('active');
+                    mobileToggle.classList.add('active');
+                    document.body.classList.add('menu-open');
+                    const icon = mobileToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-times';
+                }
+            };
+
+            mobileToggle.addEventListener('click', toggleMenu);
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (navLinksElem.classList.contains('active') &&
+                    !navLinksElem.contains(e.target) &&
+                    !mobileToggle.contains(e.target)) {
+                    closeMenu();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMenu();
+            });
+        }
+
+        // Footer and Auth Handlers
+        function initFooterLinks() {
+            const footerLinks = document.querySelectorAll('.footer-col ul li a');
+            footerLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`✨ "${link.textContent}" coming soon! Stay tuned for more resources.`);
+                });
+            });
+
+            const socialLinks = document.querySelectorAll('.social-links a');
+            socialLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`🌐 Connect with Kahawa Space on social media. Join our community of coffee professionals!`);
+                });
+            });
+        }
+
+        function initAuthButtons() {
+            const loginBtn = document.querySelector('.btn-login');
+            const signupBtn = document.querySelector('.btn-signup');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`🔐 Login to track your course progress, save favorites, and earn certificates.`);
+                });
+            }
+            if (signupBtn) {
+                signupBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`☕ Join Kahawa Space! Get access to free courses, learning resources, and a global coffee community.`);
+                });
+            }
+        }
+
+        function initLogo() {
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    window.location.href = 'index.html';
+                });
+            }
+        }
+
+        // Initialize
+        function init() {
+            renderCourses();
+            initNewsletter();
+            initMobileMenu();
+            initFooterLinks();
+            initAuthButtons();
+            initLogo();
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

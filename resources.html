@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kahawa Space - Resources | Coffee Tools & Guides</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
+            <div class="mobile-menu" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Coffee Resources</h1>
+        <p>Tools, guides, market reports, and calculators to help you succeed in the coffee industry</p>
+    </div>
+
+    <div class="resources-search">
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search resources by title or topic...">
+        </div>
+    </div>
+
+    <div class="resources-container">
+        <!-- Category Tabs -->
+        <div class="category-tabs">
+            <button class="category-tab active" data-category="all">All Resources</button>
+            <button class="category-tab" data-category="calculator">Calculators</button>
+            <button class="category-tab" data-category="guide">Guides &amp; Tutorials</button>
+            <button class="category-tab" data-category="tool">Tools</button>
+            <button class="category-tab" data-category="glossary">Glossary</button>
+        </div>
+
+        <!-- Featured Resource -->
+        <div class="featured-resource">
+            <div class="featured-content">
+                <span class="featured-badge">🔥 FEATURED RESOURCE</span>
+                <h2>Coffee Profit Calculator</h2>
+                <p>Calculate your green coffee costs, roasting margins, and profitability with our interactive tool.
+                    Perfect for roasters and café owners.</p>
+                <button class="btn-featured" onclick="openResource('Coffee Profit Calculator')">Launch Calculator
+                    →</button>
+            </div>
+            <div class="featured-icon">
+                <i class="fas fa-calculator"></i>
+            </div>
+        </div>
+
+        <!-- Resources Grid -->
+        <div class="resources-grid" id="resourcesGrid"></div>
+
+        <!-- Market Reports Section -->
+        <div class="market-reports">
+            <h2>Market Reports &amp; Research</h2>
+            <div class="reports-grid" id="reportsGrid"></div>
+        </div>
+    </div>
+
+    <section class="newsletter">
+        <h2>Get Resource Updates</h2>
+        <p>New tools, market reports, and educational content delivered to your inbox</p>
+        <div class="newsletter-form">
+            <input type="email" id="newsletterEmail" placeholder="Your email address">
+            <button id="subscribeBtn">Subscribe</button>
+        </div>
+        <div id="subscribeMsg" style="margin-top: 12px; font-size: 0.85rem; color: #d4a373;"></div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Trust &amp; Safety</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Sell</h4>
+                <ul>
+                    <li><a href="#">List Green Coffee</a></li>
+                    <li><a href="#">Seller Verification</a></li>
+                    <li><a href="#">Pricing &amp; Fees</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Buy</h4>
+                <ul>
+                    <li><a href="#">Green Coffee</a></li>
+                    <li><a href="#">Roasted Coffee</a></li>
+                    <li><a href="#">Equipment</a></li>
+                    <li><a href="#">Education</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Market Reports</a></li>
+                    <li><a href="#">Shipping Guide</a></li>
+                    <li><a href="#">Coffee Calculator</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="cookiepolicy.html">Cookie Policy</a></li>
+                    <li><a href="#">Dispute Resolution</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Resources Data
+        const resources = [
+            { id: 1, title: 'Coffee Brewing Ratio Calculator', category: 'calculator', description: 'Calculate the perfect coffee-to-water ratio for any brewing method.', icon: 'fa-calculator', type: 'Interactive Tool', link: '#' },
+            { id: 2, title: 'Green Coffee Pricing Guide', category: 'guide', description: 'Understand how green coffee is priced, including FOB, CIF, and quality premiums.', icon: 'fa-file-alt', type: 'PDF Guide', link: '#' },
+            { id: 3, title: 'Roast Profile Development Tool', category: 'tool', description: 'Track and optimize your roast profiles with our interactive tool.', icon: 'fa-chart-line', type: 'Web App', link: '#' },
+            { id: 4, title: 'Coffee Tasting Flavor Wheel', category: 'glossary', description: 'Interactive flavor wheel to help identify and describe coffee tasting notes.', icon: 'fa-palette', type: 'Interactive', link: '#' },
+            { id: 5, title: 'Shipping Cost Estimator', category: 'calculator', description: 'Estimate shipping costs for green coffee from origin to destination.', icon: 'fa-ship', type: 'Calculator', link: '#' },
+            { id: 6, title: 'Coffee Cupping Protocol Guide', category: 'guide', description: 'Step-by-step guide to professional coffee cupping and scoring.', icon: 'fa-mug-hot', type: 'PDF Guide', link: '#' },
+            { id: 7, title: 'SCAA Score Calculator', category: 'calculator', description: 'Calculate SCA scores for green coffee evaluation.', icon: 'fa-star', type: 'Calculator', link: '#' },
+            { id: 8, title: 'Coffee Processing Methods Guide', category: 'guide', description: 'Comprehensive guide to washed, natural, honey, and anaerobic processing.', icon: 'fa-seedling', type: 'PDF Guide', link: '#' },
+            { id: 9, title: 'Contract Template Generator', category: 'tool', description: 'Generate professional coffee purchase contracts.', icon: 'fa-file-signature', type: 'Tool', link: '#' }
+        ];
+
+        const marketReports = [
+            { id: 1, title: 'Global Coffee Market Outlook 2026', date: 'January 2026', description: 'Comprehensive analysis of global coffee production, consumption, and price trends.', pages: 45, downloads: 1234 },
+            { id: 2, title: 'East African Specialty Coffee Report', date: 'December 2025', description: 'In-depth look at specialty coffee production in Tanzania, Kenya, and Ethiopia.', pages: 38, downloads: 892 },
+            { id: 3, title: 'Sustainability in Coffee Supply Chains', date: 'November 2025', description: 'Analysis of sustainable practices and certifications in the coffee industry.', pages: 52, downloads: 756 },
+            { id: 4, title: 'Coffee Price Volatility Analysis', date: 'October 2025', description: 'Understanding market fluctuations and hedging strategies for coffee buyers.', pages: 30, downloads: 567 }
+        ];
+
+        let currentCategory = 'all';
+        let currentSearch = '';
+
+        function renderResources() {
+            let filtered = resources.filter(r => {
+                if (currentCategory !== 'all' && r.category !== currentCategory) return false;
+                if (currentSearch && !r.title.toLowerCase().includes(currentSearch.toLowerCase()) &&
+                    !r.description.toLowerCase().includes(currentSearch.toLowerCase())) return false;
+                return true;
+            });
+
+            const container = document.getElementById('resourcesGrid');
+            if (filtered.length === 0) {
+                container.innerHTML = `<div style="text-align:center; padding:3rem; grid-column:1/-1;"><i class="fas fa-search" style="font-size:3rem; color:#6f5c4d;"></i><p style="margin-top:1rem;">No resources found matching your search.</p></div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(r => `
+            <div class="resource-card" onclick="openResource('${r.title}')">
+                <div class="resource-icon"><i class="fas ${r.icon}"></i></div>
+                <h3>${escapeHtml(r.title)}</h3>
+                <p>${escapeHtml(r.description)}</p>
+                <div class="resource-meta">
+                    <span class="resource-type">${r.type}</span>
+                    <span><i class="fas fa-arrow-right"></i> Access</span>
+                </div>
+            </div>
+        `).join('');
+        }
+
+        function renderReports() {
+            const container = document.getElementById('reportsGrid');
+            container.innerHTML = marketReports.map(r => `
+            <div class="report-card">
+                <div class="report-date"><i class="far fa-calendar-alt"></i> ${r.date}</div>
+                <h3>${escapeHtml(r.title)}</h3>
+                <p style="color: #4d3a2e; font-size: 0.85rem; margin: 0.5rem 0;">${escapeHtml(r.description)}</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #6f5c4d; margin-top: 0.5rem;">
+                    <span><i class="fas fa-file-pdf"></i> ${r.pages} pages</span>
+                    <span><i class="fas fa-download"></i> ${r.downloads} downloads</span>
+                </div>
+                <button class="download-btn" onclick="downloadReport('${r.title}')"><i class="fas fa-download"></i> Download PDF</button>
+            </div>
+        `).join('');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function (m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        function filterByCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('data-category') === category) tab.classList.add('active');
+            });
+            renderResources();
+        }
+
+        function searchResources() {
+            currentSearch = document.getElementById('searchInput').value;
+            renderResources();
+        }
+
+        function openResource(title) {
+            alert(`📚 Opening "${title}"\n\nThis resource is loading. Premium resources are available to logged-in users.`);
+        }
+
+        function downloadReport(title) {
+            alert(`📥 Downloading "${title}"\n\nThis report is available as a PDF. Please sign in for full access.`);
+        }
+
+        // Category tab event listeners
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterByCategory(tab.getAttribute('data-category'));
+            });
+        });
+
+        // Search input event listener
+        document.getElementById('searchInput').addEventListener('input', searchResources);
+
+        // Newsletter Subscription
+        function initNewsletter() {
+            const subBtn = document.getElementById('subscribeBtn');
+            const emailInput = document.getElementById('newsletterEmail');
+            const msgDiv = document.getElementById('subscribeMsg');
+            if (subBtn && emailInput && msgDiv) {
+                subBtn.addEventListener('click', () => {
+                    const email = emailInput.value.trim();
+                    if (!email || !email.includes('@') || !email.includes('.')) {
+                        msgDiv.innerHTML = '<span style="color:#e8b4a0;">✉️ Please enter a valid email address.</span>';
+                        setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 2500);
+                        return;
+                    }
+                    msgDiv.innerHTML = '<span style="color:#d4a373;">✅ Thanks for subscribing! You\'ll receive resource updates and market insights.</span>';
+                    emailInput.value = '';
+                    setTimeout(() => { if (msgDiv) msgDiv.innerHTML = ''; }, 3000);
+                });
+            }
+        }
+
+        // Mobile Menu
+        function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navLinksElem = document.getElementById('navLinks');
+            if (!mobileToggle || !navLinksElem) return;
+
+            const closeMenu = () => {
+                navLinksElem.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                const icon = mobileToggle.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
+            };
+
+            const toggleMenu = (e) => {
+                e.stopPropagation();
+                if (navLinksElem.classList.contains('active')) {
+                    closeMenu();
+                } else {
+                    navLinksElem.classList.add('active');
+                    mobileToggle.classList.add('active');
+                    document.body.classList.add('menu-open');
+                    const icon = mobileToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-times';
+                }
+            };
+
+            mobileToggle.addEventListener('click', toggleMenu);
+            document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+            document.addEventListener('click', (e) => {
+                if (navLinksElem.classList.contains('active') && !navLinksElem.contains(e.target) && !mobileToggle.contains(e.target)) closeMenu();
+            });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        }
+
+        // Footer and Auth Handlers
+        function initFooterLinks() {
+            document.querySelectorAll('.footer-col ul li a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`✨ "${link.textContent}" page coming soon! Stay tuned.`);
+                });
+            });
+            document.querySelectorAll('.social-links a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`🌐 Connect with Kahawa Space on social media. Join our coffee community!`);
+                });
+            });
+        }
+
+        function initAuthButtons() {
+            const loginBtn = document.querySelector('.btn-login');
+            const signupBtn = document.querySelector('.btn-signup');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`🔐 Login to access premium resources, save your favorite tools, and track downloads.`);
+                });
+            }
+            if (signupBtn) {
+                signupBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert(`☕ Join Kahawa Space to access free resources, calculators, and market reports!`);
+                });
+            }
+        }
+
+        function initLogo() {
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    window.location.href = 'index.html';
+                });
+            }
+        }
+
+        // Initialize
+        renderResources();
+        renderReports();
+        initNewsletter();
+        initMobileMenu();
+        initFooterLinks();
+        initAuthButtons();
+        initLogo();
+
+        window.filterByCategory = filterByCategory;
+        window.openResource = openResource;
+        window.downloadReport = downloadReport;
+    </script>
+</body>
+
+</html>

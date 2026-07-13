@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kahawa Space - Account Settings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <div class="user-menu">
+                <div class="user-avatar"><i class="fas fa-user"></i></div>
+                <span class="user-name">John Doe</span>
+                <div class="user-dropdown">
+                    <a href="user.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="profileforuser.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="ordersforuser.html"><i class="fas fa-shopping-bag"></i> Orders</a>
+                    <a href="settingsforuser.html" class="active"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="index.html" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+            <div class="mobile-menu" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Account Settings</h1>
+        <p>Manage your account preferences, privacy, and notification settings</p>
+    </div>
+
+    <div class="settings-container">
+        <div class="settings-layout">
+            <div class="settings-sidebar">
+                <ul class="settings-menu">
+                    <li><a href="#" data-section="account" class="active"><i class="fas fa-user-circle"></i> Account</a>
+                    </li>
+                    <li><a href="#" data-section="notifications"><i class="fas fa-bell"></i> Notifications</a></li>
+                    <li><a href="#" data-section="privacy"><i class="fas fa-lock"></i> Privacy &amp; Security</a></li>
+                    <li><a href="#" data-section="preferences"><i class="fas fa-globe"></i> Preferences</a></li>
+                    <li><a href="#" data-section="connected"><i class="fas fa-plug"></i> Connected Accounts</a></li>
+                    <li><a href="#" data-section="billing"><i class="fas fa-credit-card"></i> Billing</a></li>
+                </ul>
+            </div>
+
+            <div class="settings-main">
+                <!-- Account Section -->
+                <div id="account-section" class="settings-section active">
+                    <h2 class="section-title">Account Information</h2>
+                    <form id="accountForm">
+                        <div class="form-row">
+                            <div class="form-group"><label>Full Name</label><input type="text" id="fullName"
+                                    value="John Doe"></div>
+                            <div class="form-group"><label>Display Name</label><input type="text" id="displayName"
+                                    value="JohnD"></div>
+                        </div>
+                        <div class="form-group"><label>Email Address</label><input type="email" id="email"
+                                value="john.doe@example.com"><small>Your email is verified ✓</small></div>
+                        <div class="form-group"><label>Phone Number</label><input type="tel" id="phone"
+                                value="+255 123 456 789"></div>
+                        <div class="form-group"><label>Timezone</label><select id="timezone">
+                                <option value="UTC-5">Eastern Time (ET)</option>
+                                <option value="UTC-6">Central Time (CT)</option>
+                                <option value="UTC-7">Mountain Time (MT)</option>
+                                <option value="UTC-8">Pacific Time (PT)</option>
+                                <option value="UTC+3" selected>East Africa Time (EAT)</option>
+                            </select></div>
+                        <div class="form-group"><label>Language</label><select id="language">
+                                <option value="en" selected>English</option>
+                                <option value="sw">Swahili</option>
+                                <option value="fr">French</option>
+                                <option value="es">Spanish</option>
+                                <option value="pt">Portuguese</option>
+                            </select></div>
+                        <button type="submit" class="btn-save">Save Changes</button>
+                    </form>
+                </div>
+
+                <!-- Notifications Section -->
+                <div id="notifications-section" class="settings-section">
+                    <h2 class="section-title">Notification Preferences</h2>
+                    <form id="notificationsForm">
+                        <div class="form-group"><label>Email Notifications</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label"><input type="checkbox" id="emailOrderUpdates" checked>
+                                    Order confirmations and updates</label>
+                                <label class="checkbox-label"><input type="checkbox" id="emailShipping" checked>
+                                    Shipping notifications</label>
+                                <label class="checkbox-label"><input type="checkbox" id="emailMarketing"> Marketing and
+                                    promotions</label>
+                                <label class="checkbox-label"><input type="checkbox" id="emailNewsletter" checked>
+                                    Coffee news and insights</label>
+                                <label class="checkbox-label"><input type="checkbox" id="emailEvents"> Events and
+                                    webinars</label>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Push Notifications</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label"><input type="checkbox" id="pushOrderUpdates" checked>
+                                    Order updates</label>
+                                <label class="checkbox-label"><input type="checkbox" id="pushMessages" checked> New
+                                    messages</label>
+                                <label class="checkbox-label"><input type="checkbox" id="pushDeals"> Deals and
+                                    offers</label>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Order Status Updates</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label"><input type="checkbox" id="statusPending" checked> When
+                                    order is pending</label>
+                                <label class="checkbox-label"><input type="checkbox" id="statusConfirmed" checked> When
+                                    order is confirmed</label>
+                                <label class="checkbox-label"><input type="checkbox" id="statusShipped" checked> When
+                                    order is shipped</label>
+                                <label class="checkbox-label"><input type="checkbox" id="statusDelivered" checked> When
+                                    order is delivered</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-save">Save Preferences</button>
+                    </form>
+                </div>
+
+                <!-- Privacy & Security Section -->
+                <div id="privacy-section" class="settings-section">
+                    <h2 class="section-title">Privacy &amp; Security</h2>
+                    <form id="privacyForm">
+                        <div class="form-group"><label>Change Password</label>
+                            <input type="password" id="currentPassword" placeholder="Current Password">
+                            <input type="password" id="newPassword" placeholder="New Password"
+                                style="margin-top: 0.5rem;">
+                            <input type="password" id="confirmPassword" placeholder="Confirm New Password"
+                                style="margin-top: 0.5rem;">
+                        </div>
+                        <div class="form-group"><label>Two-Factor Authentication (2FA)</label>
+                            <div class="radio-group">
+                                <label class="radio-label"><input type="radio" name="2fa" value="disabled" checked>
+                                    Disabled</label>
+                                <label class="radio-label"><input type="radio" name="2fa" value="sms"> SMS
+                                    Authentication</label>
+                                <label class="radio-label"><input type="radio" name="2fa" value="app"> Authenticator
+                                    App</label>
+                            </div>
+                            <small>Add an extra layer of security to your account</small>
+                        </div>
+                        <div class="form-group"><label>Session Management</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label"><input type="checkbox" id="rememberMe" checked> Keep me
+                                    signed in</label>
+                                <label class="checkbox-label"><input type="checkbox" id="loginNotifications" checked>
+                                    Notify me of new logins</label>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Data &amp; Privacy</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label"><input type="checkbox" id="showProfile" checked> Show my
+                                    profile to other users</label>
+                                <label class="checkbox-label"><input type="checkbox" id="showOrders"> Show my purchase
+                                    history publicly</label>
+                                <label class="checkbox-label"><input type="checkbox" id="dataSharing" checked> Allow
+                                    data sharing for recommendations</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-save">Update Security Settings</button>
+                    </form>
+                    <div class="danger-zone">
+                        <h3>Danger Zone</h3>
+                        <p>Once you delete your account, there is no going back. Please be certain.</p>
+                        <button class="btn-danger" id="deleteAccountBtn">Delete Account</button>
+                    </div>
+                </div>
+
+                <!-- Preferences Section -->
+                <div id="preferences-section" class="settings-section">
+                    <h2 class="section-title">App Preferences</h2>
+                    <form id="preferencesForm">
+                        <div class="form-group"><label>Theme</label>
+                            <div class="radio-group">
+                                <label class="radio-label"><input type="radio" name="theme" value="light" checked>
+                                    Light</label>
+                                <label class="radio-label"><input type="radio" name="theme" value="dark"> Dark</label>
+                                <label class="radio-label"><input type="radio" name="theme" value="system"> System
+                                    Default</label>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Currency Display</label><select id="currency">
+                                <option value="USD" selected>USD - US Dollar ($)</option>
+                                <option value="EUR">EUR - Euro (€)</option>
+                                <option value="GBP">GBP - British Pound (£)</option>
+                                <option value="TZS">TZS - Tanzanian Shilling (TSh)</option>
+                                <option value="KES">KES - Kenyan Shilling (KSh)</option>
+                                <option value="ETB">ETB - Ethiopian Birr (Br)</option>
+                            </select></div>
+                        <div class="form-group"><label>Weight Unit</label>
+                            <div class="radio-group">
+                                <label class="radio-label"><input type="radio" name="weight" value="kg" checked>
+                                    Kilograms (kg)</label>
+                                <label class="radio-label"><input type="radio" name="weight" value="lb"> Pounds
+                                    (lb)</label>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Default View</label><select id="defaultView">
+                                <option value="grid" selected>Grid View</option>
+                                <option value="list">List View</option>
+                            </select></div>
+                        <div class="form-group"><label>Email Frequency</label><select id="emailFrequency">
+                                <option value="realtime" selected>Real-time</option>
+                                <option value="daily">Daily Digest</option>
+                                <option value="weekly">Weekly Digest</option>
+                            </select></div>
+                        <button type="submit" class="btn-save">Save Preferences</button>
+                    </form>
+                </div>
+
+                <!-- Connected Accounts Section -->
+                <div id="connected-section" class="settings-section">
+                    <h2 class="section-title">Connected Accounts</h2>
+                    <div class="connected-account">
+                        <div class="account-info"><i class="fab fa-google"></i>
+                            <div><strong>Google</strong>
+                                <div style="font-size: 0.8rem; color:#6f5c4d;">Connect your Google account for quick
+                                    login</div>
+                            </div>
+                        </div><button class="btn-connect" onclick="connectGoogle()">Connect</button>
+                    </div>
+                    <div class="connected-account">
+                        <div class="account-info"><i class="fab fa-facebook"></i>
+                            <div><strong>Facebook</strong>
+                                <div style="font-size: 0.8rem; color:#6f5c4d;">Connect your Facebook account</div>
+                            </div>
+                        </div><button class="btn-connect" onclick="connectFacebook()">Connect</button>
+                    </div>
+                    <div class="connected-account">
+                        <div class="account-info"><i class="fab fa-apple"></i>
+                            <div><strong>Apple ID</strong>
+                                <div style="font-size: 0.8rem; color:#6f5c4d;">Sign in with Apple</div>
+                            </div>
+                        </div><button class="btn-connect" onclick="connectApple()">Connect</button>
+                    </div>
+                    <div class="connected-account">
+                        <div class="account-info"><i class="fab fa-linkedin"></i>
+                            <div><strong>LinkedIn</strong>
+                                <div style="font-size: 0.8rem; color:#6f5c4d;">Connect your LinkedIn profile</div>
+                            </div>
+                        </div><button class="btn-connect" onclick="connectLinkedIn()">Connect</button>
+                    </div>
+                </div>
+
+                <!-- Billing Section -->
+                <div id="billing-section" class="settings-section">
+                    <h2 class="section-title">Billing Information</h2>
+                    <form id="billingForm">
+                        <div class="form-group"><label>Default Payment Method</label><select id="paymentMethod">
+                                <option value="visa">Visa ending in 4242</option>
+                                <option value="mastercard">Mastercard ending in 5555</option>
+                                <option value="paypal">PayPal - john.doe@example.com</option>
+                            </select></div>
+                        <div class="form-group"><label>Billing Address</label>
+                            <input type="text" id="addressLine1" placeholder="Street Address" value="123 Coffee Street">
+                            <input type="text" id="addressLine2" placeholder="Apartment, suite, etc."
+                                style="margin-top: 0.5rem;">
+                            <div class="form-row" style="margin-top: 0.5rem;"><input type="text" id="city"
+                                    placeholder="City" value="Dar es Salaam"><input type="text" id="postalCode"
+                                    placeholder="Postal Code" value="12345"></div>
+                            <div class="form-row" style="margin-top: 0.5rem;"><select id="country">
+                                    <option value="TZ" selected>Tanzania</option>
+                                    <option value="KE">Kenya</option>
+                                    <option value="ET">Ethiopia</option>
+                                    <option value="UG">Uganda</option>
+                                    <option value="US">United States</option>
+                                    <option value="GB">United Kingdom</option>
+                                </select><input type="text" id="phoneBilling" placeholder="Phone Number"
+                                    value="+255 123 456 789"></div>
+                        </div>
+                        <div class="form-group"><label>Tax Information</label><input type="text" id="taxId"
+                                placeholder="Tax ID / VAT Number (if applicable)"></div>
+                        <div class="form-group"><label>Invoice Preferences</label>
+                            <div class="checkbox-group"><label class="checkbox-label"><input type="checkbox"
+                                        id="emailInvoice" checked> Email invoices to me</label><label
+                                    class="checkbox-label"><input type="checkbox" id="paperless"> Go paperless (receive
+                                    digital invoices only)</label></div>
+                        </div>
+                        <button type="submit" class="btn-save">Save Billing Information</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Account</h4>
+                <ul>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="ordersforuser.html">Orders</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+    </footer>
+
+    <script>
+        // Section switching
+        const sections = {
+            account: document.getElementById('account-section'),
+            notifications: document.getElementById('notifications-section'),
+            privacy: document.getElementById('privacy-section'),
+            preferences: document.getElementById('preferences-section'),
+            connected: document.getElementById('connected-section'),
+            billing: document.getElementById('billing-section')
+        };
+
+        document.querySelectorAll('.settings-menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = link.dataset.section;
+                document.querySelectorAll('.settings-menu a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                Object.values(sections).forEach(s => s.classList.remove('active'));
+                if (section && sections[section]) sections[section].classList.add('active');
+            });
+        });
+
+        // Form submissions
+        document.getElementById('accountForm')?.addEventListener('submit', (e) => { e.preventDefault(); showNotification('Account information updated successfully!', 'success'); });
+        document.getElementById('notificationsForm')?.addEventListener('submit', (e) => { e.preventDefault(); showNotification('Notification preferences saved!', 'success'); });
+        document.getElementById('preferencesForm')?.addEventListener('submit', (e) => { e.preventDefault(); showNotification('Preferences saved!', 'success'); });
+        document.getElementById('billingForm')?.addEventListener('submit', (e) => { e.preventDefault(); showNotification('Billing information updated!', 'success'); });
+
+        document.getElementById('privacyForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newPass = document.getElementById('newPassword').value;
+            const confirmPass = document.getElementById('confirmPassword').value;
+            if (newPass && newPass !== confirmPass) { showNotification('Passwords do not match!', 'error'); return; }
+            if (newPass && newPass.length < 8) { showNotification('Password must be at least 8 characters', 'error'); return; }
+            showNotification('Security settings updated!', 'success');
+            document.getElementById('privacyForm').reset();
+        });
+
+        // Helper functions
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? '#2e7d32' : type === 'error' ? '#d32f2f' : '#ff9800';
+            const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
+            notification.style.cssText = `position: fixed; bottom: 20px; right: 20px; background: ${bgColor}; color: white; padding: 1rem 1.5rem; border-radius: 12px; z-index: 3000; animation: fadeInUp 0.3s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-family: 'Inter', sans-serif;`;
+            notification.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        function deleteAccount() {
+            if (confirm('Are you absolutely sure? This action cannot be undone and all your data will be permanently deleted.')) {
+                showNotification('Account deletion request submitted. You will receive a confirmation email.', 'info');
+            }
+        }
+        function connectGoogle() { showNotification('Google account connection coming soon!', 'info'); }
+        function connectFacebook() { showNotification('Facebook account connection coming soon!', 'info'); }
+        function connectApple() { showNotification('Apple ID connection coming soon!', 'info'); }
+        function connectLinkedIn() { showNotification('LinkedIn connection coming soon!', 'info'); }
+
+        // Mobile Menu
+        function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navLinksElem = document.getElementById('navLinks');
+            if (!mobileToggle || !navLinksElem) return;
+            const closeMenu = () => {
+                navLinksElem.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                const icon = mobileToggle.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
+            };
+            const toggleMenu = (e) => {
+                e.stopPropagation();
+                if (navLinksElem.classList.contains('active')) closeMenu();
+                else {
+                    navLinksElem.classList.add('active');
+                    mobileToggle.classList.add('active');
+                    document.body.classList.add('menu-open');
+                    const icon = mobileToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-times';
+                }
+            };
+            mobileToggle.addEventListener('click', toggleMenu);
+            document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+            document.addEventListener('click', (e) => {
+                if (navLinksElem.classList.contains('active') && !navLinksElem.contains(e.target) && !mobileToggle.contains(e.target)) closeMenu();
+            });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        }
+
+        function initFooterLinks() {
+            document.querySelectorAll('.footer-col ul li a').forEach(link => {
+                link.addEventListener('click', (e) => { e.preventDefault(); showNotification(`"${link.textContent}" page coming soon!`, 'info'); });
+            });
+            const logoutLink = document.getElementById('logoutLink');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (confirm('Log out from Kahawa Space?')) {
+                        localStorage.removeItem('kahawa_session');
+                        sessionStorage.removeItem('kahawa_session');
+                        showNotification('Logged out successfully!', 'success');
+                        setTimeout(() => window.location.href = 'index.html', 1000);
+                    }
+                });
+            }
+        }
+
+        function initLogo() { document.querySelector('.logo')?.addEventListener('click', () => window.location.href = 'index.html'); }
+
+        // Event listeners
+        document.getElementById('deleteAccountBtn')?.addEventListener('click', deleteAccount);
+
+        initMobileMenu();
+        initFooterLinks();
+        initLogo();
+
+        window.connectGoogle = connectGoogle;
+        window.connectFacebook = connectFacebook;
+        window.connectApple = connectApple;
+        window.connectLinkedIn = connectLinkedIn;
+    </script>
+</body>
+
+</html>
