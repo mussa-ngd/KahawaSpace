@@ -254,8 +254,9 @@
                     searchResults.classList.add('active');
                     searchResults.innerHTML = results.map(faq => `
                     <div class="search-result-item">
-                        <div style="font-weight: 600; color: #2c1810;">${escapeHtml(faq.question)}</div>
-                        <div style="color: #6f5c4d; font-size: 0.85rem; margin-top: 0.25rem;">${escapeHtml(faq.answer.substring(0, 100))}...</div>
+                        <div style="font-weight: 600; color: var(--crisp-white);">${escapeHtml(faq.question)}
+                            </div>
+                        <div style="color: var(--muted-white); font-size: 0.85rem; margin-top: 0.25rem;">${escapeHtml(faq.answer.substring(0, 100))}...</div>
                     </div>
                 `).join('');
 
@@ -276,7 +277,7 @@
                     });
                 } else {
                     searchResults.classList.add('active');
-                    searchResults.innerHTML = '<div style="background: white; border-radius: 12px; padding: 1rem; text-align: center; color: #6f5c4d;">No results found. Try a different search term.</div>';
+                    searchResults.innerHTML = '<div style="background: var(--navy-light); border-radius: 12px; padding: 1rem; text-align: center; color: var(--muted-white);">No results found. Try a different search term.</div>';
                 }
             });
 

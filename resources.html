@@ -187,7 +187,7 @@
 
             const container = document.getElementById('resourcesGrid');
             if (filtered.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding:3rem; grid-column:1/-1;"><i class="fas fa-search" style="font-size:3rem; color:#6f5c4d;"></i><p style="margin-top:1rem;">No resources found matching your search.</p></div>`;
+                container.innerHTML = `<div style="text-align:center; padding:3rem; grid-column:1/-1;"><i class="fas fa-search" style="font-size:3rem; color:var(--muted-white);"></i><p style="margin-top:1rem; color:var(--muted-white);">No resources found matching your search.</p></div>`;
                 return;
             }
 
@@ -210,8 +210,8 @@
             <div class="report-card">
                 <div class="report-date"><i class="far fa-calendar-alt"></i> ${r.date}</div>
                 <h3>${escapeHtml(r.title)}</h3>
-                <p style="color: #4d3a2e; font-size: 0.85rem; margin: 0.5rem 0;">${escapeHtml(r.description)}</p>
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #6f5c4d; margin-top: 0.5rem;">
+                <p style="color: var(--muted-white); font-size: 0.85rem; margin: 0.5rem 0;">${escapeHtml(r.description)}</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--muted-white); margin-top: 0.5rem;">
                     <span><i class="fas fa-file-pdf"></i> ${r.pages} pages</span>
                     <span><i class="fas fa-download"></i> ${r.downloads} downloads</span>
                 </div>
