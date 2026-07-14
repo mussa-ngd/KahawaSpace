@@ -148,7 +148,7 @@
         <p>Get coffee industry insights, platform updates, and stories from origin</p>
         <div class="newsletter-form"><input type="email" id="newsletterEmail" placeholder="Your email address"><button
                 id="subscribeBtn">Subscribe</button></div>
-        <div id="subscribeMsg" style="margin-top:12px;font-size:0.85rem;color:#d4a373;"></div>
+        <div id="subscribeMsg" style="margin-top:12px;font-size:0.85rem;"></div>
     </section>
 
     <footer>
@@ -184,8 +184,30 @@
     </footer>
 
     <script>
-        function initNewsletter() { const btn = document.getElementById('subscribeBtn'), inp = document.getElementById('newsletterEmail'), msg = document.getElementById('subscribeMsg'); if (btn && inp && msg) btn.addEventListener('click', () => { const e = inp.value.trim(); if (!e || !e.includes('@')) { msg.innerHTML = '<span style="color:#e8b4a0;">✉️ Valid email required</span>'; setTimeout(() => msg.innerHTML = '', 2500); } else { msg.innerHTML = '<span style="color:#d4a373;">✅ Thanks for subscribing!</span>'; inp.value = ''; setTimeout(() => msg.innerHTML = '', 3000); } }); }
-        function initMobileMenu() { const toggle = document.getElementById('mobileMenuToggle'), nav = document.getElementById('navLinks'); if (!toggle || !nav) return; const close = () => { nav.classList.remove('active'); toggle.classList.remove('active'); document.body.classList.remove('menu-open'); const icon = toggle.querySelector('i'); if (icon) icon.className = 'fas fa-bars'; }; const open = (e) => { e.stopPropagation(); if (nav.classList.contains('active')) close(); else { nav.classList.add('active'); toggle.classList.add('active'); document.body.classList.add('menu-open'); const icon = toggle.querySelector('i'); if (icon) icon.className = 'fas fa-times'; } }; toggle.addEventListener('click', open); document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', close)); document.addEventListener('click', (e) => { if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) close(); }); document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }); }
+        function initNewsletter() { 
+            const btn = document.getElementById('subscribeBtn'), 
+            inp = document.getElementById('newsletterEmail'), 
+            msg = document.getElementById('subscribeMsg'); 
+            if (btn && inp && msg) btn.addEventListener('click', () => { const e = inp.value.trim(); 
+                if (!e || !e.includes('@')) { msg.innerHTML = '<span style="color: var(--caramel-orange);">✉️ Valid email required</span>'; 
+                setTimeout(() => msg.innerHTML = '', 2500); 
+            } else { msg.innerHTML = '<span style="color: var(--caramel-green);">✅ Thanks for subscribing!</span>'; 
+            inp.value = ''; setTimeout(() => msg.innerHTML = '', 3000); 
+        } }); 
+    }
+        function initMobileMenu() { 
+            const toggle = document.getElementById('mobileMenuToggle'), 
+            nav = document.getElementById('navLinks'); 
+            if (!toggle || !nav) return; const close = () => { nav.classList.remove('active'); toggle.classList.remove('active'); 
+            document.body.classList.remove('menu-open'); const icon = toggle.querySelector('i'); 
+            if (icon) icon.className = 'fas fa-bars'; }; const open = (e) => { e.stopPropagation(); 
+                if (nav.classList.contains('active')) close(); 
+                else { nav.classList.add('active'); toggle.classList.add('active'); document.body.classList.add('menu-open'); const icon = toggle.querySelector('i'); 
+                if (icon) icon.className = 'fas fa-times'; } 
+            }; toggle.addEventListener('click', open); document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', close)); 
+            document.addEventListener('click', (e) => { if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) close(); }); 
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }); 
+        }
         function initFooterLinks() { document.querySelectorAll('.footer-col ul li a').forEach(link => { if (link.getAttribute('onclick')) return; link.addEventListener('click', (e) => { e.preventDefault(); alert(`✨ "${link.textContent}" page coming soon!`); }); }); document.querySelectorAll('.social-links a').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); alert(`🌐 Connect with Kahawa Space on social media!`); }); }); }
         function initAuthButtons() { document.querySelector('.btn-login')?.addEventListener('click', (e) => { e.preventDefault(); alert(`🔐 Login to access your account.`); }); document.querySelector('.btn-signup')?.addEventListener('click', (e) => { e.preventDefault(); alert(`☕ Join Kahawa Space!`); }); document.querySelector('.logo')?.addEventListener('click', () => window.location.href = 'index.html'); }
         initNewsletter(); initMobileMenu(); initFooterLinks(); initAuthButtons();
