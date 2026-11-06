@@ -10,13 +10,15 @@
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script src="main.js"></script>
 </head>
 
 <body>
 
     <nav class="navbar">
         <div class="logo" onclick="window.location.href='index.html'">
-            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <img src="img/Logo.png" alt="Kahawa Space Logo" loading="lazy">
             <span>KAHAWA</span>
             <span>SPACE</span>
         </div>
@@ -69,32 +71,6 @@
         <div class="copyright">© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
     </footer>
 
-    <script>
-        const mobileMenuBtns = document.querySelectorAll('.mobile-menu'), navLinks = document.querySelector('.nav-links');
-        function closeMenu() { if (navLinks) navLinks.classList.remove('active'); mobileMenuBtns.forEach(b => b.classList.remove('active')); document.body.classList.remove('menu-open'); mobileMenuBtns.forEach(b => { const icon = b.querySelector('i'); if (icon) icon.className = 'fas fa-bars'; }); }
-        function toggleMenu() { if (navLinks) navLinks.classList.toggle('active'); mobileMenuBtns.forEach(b => b.classList.toggle('active')); document.body.classList.toggle('menu-open'); mobileMenuBtns.forEach(b => { const icon = b.querySelector('i'); if (icon) icon.className = b.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars'; }); }
-        mobileMenuBtns.forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); }));
-        document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
-        document.addEventListener('click', (e) => { if (navLinks && navLinks.classList.contains('active') && !navLinks.contains(e.target) && !e.target.closest('.mobile-menu')) closeMenu(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
-
-        const loginForm = document.getElementById('loginForm'), loginBtn = document.getElementById('loginBtn'), btnText = document.getElementById('btnText'), btnLoader = document.getElementById('btnLoader'), alertMessage = document.getElementById('alertMessage');
-        function showAlert(message, type = 'error') { alertMessage.style.display = 'block'; alertMessage.className = `alert alert-${type}`; alertMessage.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i><span>${escapeHtml(message)}</span>`; setTimeout(() => alertMessage.style.display = 'none', 5000); }
-        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
-        function isValidEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
-        async function handleLogin(email, password, rememberMe) { await new Promise(r => setTimeout(r, 1000)); if (!password || password.length < 1) throw new Error('Password cannot be empty'); const sessionData = { user: { email: email, fullName: email.split('@')[0].replace(/[.]/g, ' ') }, token: 'demo_token_' + Math.random().toString(36).substr(2, 32), expires: new Date().getTime() + (rememberMe ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000) }; if (rememberMe) localStorage.setItem('kahawa_session', JSON.stringify(sessionData)); else sessionStorage.setItem('kahawa_session', JSON.stringify(sessionData)); return sessionData; }
-        loginForm.addEventListener('submit', async (e) => { e.preventDefault(); const email = document.getElementById('email').value.trim(), password = document.getElementById('password').value, rememberMe = document.getElementById('rememberMe').checked; if (!email || !password) { showAlert('Please fill in all fields'); return; } if (!isValidEmail(email)) { showAlert('Please enter a valid email address'); return; } btnText.style.display = 'none'; btnLoader.style.display = 'inline-block'; loginBtn.disabled = true; try { const session = await handleLogin(email, password, rememberMe); showAlert(`Welcome back, ${session.user.fullName}! Redirecting...`, 'success'); setTimeout(() => window.location.href = 'index.html', 1500); } catch (error) { showAlert(error.message || 'Login failed. Please try again.'); btnText.style.display = 'inline'; btnLoader.style.display = 'none'; loginBtn.disabled = false; } });
-        function socialLogin(provider) { showAlert(`${provider} login coming soon! We're integrating this feature.`, 'info'); }
-        document.getElementById('googleLoginBtn')?.addEventListener('click', () => socialLogin('Google'));
-        document.getElementById('facebookLoginBtn')?.addEventListener('click', () => socialLogin('Facebook'));
-        function checkExistingSession() { try { const session = localStorage.getItem('kahawa_session') || sessionStorage.getItem('kahawa_session'); if (session) { const data = JSON.parse(session); if (data.expires && data.expires > new Date().getTime()) window.location.href = 'index.html'; else { localStorage.removeItem('kahawa_session'); sessionStorage.removeItem('kahawa_session'); } } } catch (e) { localStorage.removeItem('kahawa_session'); sessionStorage.removeItem('kahawa_session'); } }
-        checkExistingSession();
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('verified') === 'true') showAlert('Email verified successfully! You can now log in.', 'success');
-        else if (urlParams.get('message')) showAlert(decodeURIComponent(urlParams.get('message')), 'info');
-        document.querySelectorAll('.footer-links a').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); showAlert(`"${link.textContent}" page coming soon!`, 'info'); }); });
-        document.querySelector('.logo')?.addEventListener('click', () => window.location.href = 'index.html');
-    </script>
 </body>
 
 </html>

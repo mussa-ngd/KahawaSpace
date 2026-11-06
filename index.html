@@ -9,14 +9,20 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">   
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script> 
+    <script src="main.js"></script>  
 </head>
 
 <body>
 
     <nav class="navbar">
         <div class="logo" onclick="window.location.href='index.html'">
-            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <img src="img/Logo.png" alt="Kahawa Space Logo" loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+            <span class="logo-fallback" style="display:none; color:var(--caramel-orange); font-size:1.6rem;">
+                <i class="fas fa-mug-hot"></i>
+            </span>
             <span>KAHAWA</span>
             <span>SPACE</span>
         </div>
@@ -24,14 +30,15 @@
             <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
             <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
             <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
             <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
             <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
         </div>
-        <div class="auth-buttons">
-            <div class="mobile-menu" id="mobileMenuToggle">
+        <div class="auth-buttons">                    
             <a href="login.html" class="btn-login">Log In</a>
             <a href="signup.html" class="btn-signup">Join</a>
-            <i class="fas fa-bars"></i>
+            <div class="mobile-menu" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
             </div>
         </div>
     </nav>
@@ -255,51 +262,6 @@
         </div>
     </section>
 
-    <section class="education-section">
-        <div class="section-header">
-            <h2>Coffee Education</h2>
-            <p>Advance your skills from bean to cup</p>
-        </div>
-        <div class="courses-grid">
-            <div class="course-card" onclick="enrollCourse('Barista Foundation')">
-                <div class="course-level">Beginner • 4 weeks</div>
-                <div class="course-title">Barista Foundation</div>
-                <div class="course-desc">Master espresso extraction, milk texturing, and foundational barista skills.
-                </div>
-                <div class="course-meta"><span><i class="far fa-clock"></i> 12 hours</span><span><i
-                            class="fas fa-certificate"></i> Certificate</span></div><button class="btn-product">Enroll
-                    Now</button>
-            </div>
-            <div class="course-card" onclick="enrollCourse('Brewing Mastery')">
-                <div class="course-level">Intermediate • 6 weeks</div>
-                <div class="course-title">Brewing Mastery</div>
-                <div class="course-desc">Pour-over, French press, cold brew - understand extraction variables and
-                    perfect your technique.</div>
-                <div class="course-meta"><span><i class="far fa-clock"></i> 18 hours</span><span><i
-                            class="fas fa-certificate"></i> Certificate</span></div><button class="btn-product">Enroll
-                    Now</button>
-            </div>
-            <div class="course-card" onclick="enrollCourse('Roasting Fundamentals')">
-                <div class="course-level">Advanced • 8 weeks</div>
-                <div class="course-title">Roasting Fundamentals</div>
-                <div class="course-desc">From green analysis to roast profiles - learn the science and art of coffee
-                    roasting.</div>
-                <div class="course-meta"><span><i class="far fa-clock"></i> 24 hours</span><span><i
-                            class="fas fa-certificate"></i> Certificate</span></div><button class="btn-product">Enroll
-                    Now</button>
-            </div>
-            <div class="course-card" onclick="enrollCourse('Coffee Business Management')">
-                <div class="course-level">Professional • 10 weeks</div>
-                <div class="course-title">Coffee Business Management</div>
-                <div class="course-desc">Open and scale a successful café, manage supply chains, and build your brand.
-                </div>
-                <div class="course-meta"><span><i class="far fa-clock"></i> 30 hours</span><span><i
-                            class="fas fa-certificate"></i> Certificate</span></div><button class="btn-product">Enroll
-                    Now</button>
-            </div>
-        </div>
-    </section>
-
     <section class="features">
         <div class="features-grid">
             <div class="feature-item"><i class="fas fa-shield-alt"></i>
@@ -335,24 +297,24 @@
                 <h4>About</h4>
                 <ul>
                     <li><a href="about.html">Our Story</a></li>
-                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#" data-coming-soon="How It Works">How It Works</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Buy</h4>
                 <ul>
-                    <li><a href="#">Green Coffee</a></li>
-                    <li><a href="#">Roasted Coffee</a></li>
-                    <li><a href="#">Equipment</a></li>
-                    <li><a href="#">Education</a></li>
+                    <li><a href="marketplace.html">Green Coffee</a></li>
+                    <li><a href="marketplace.html">Roasted Coffee</a></li>
+                    <li><a href="marketplace.html">Equipment</a></li>
+                    <li><a href="education.html">Education</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Resources</h4>
                 <ul>
                     <li><a href="resources.html">Market Reports</a></li>
-                    <li><a href="#">Shipping Guide</a></li>
+                    <li><a href="#" data-coming-soon="Shipping Guide">Shipping Guide</a></li>
                     <li><a href="blog.html">Blog</a></li>
                 </ul>
             </div>
@@ -371,28 +333,6 @@
                         class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
         </div>
     </footer>
-
-    <script>
-        function exploreCategory(c) { alert(`🔍 Exploring ${c}`); }
-        function negotiatePrice(p) { alert(`🤝 Negotiate price for ${p}`); }
-        function readNews(t) { alert(`📰 Reading: "${t}"`); }
-        function watchReel(t) { alert(`🎬 Playing reel: "${t}"`); }
-        function viewTour(t) { alert(`✈️ ${t}\n\nView full itinerary coming soon.`); }
-        function enrollCourse(c) { alert(`📚 Enrolling in "${c}"`); }
-        function performSearch() { const s = document.getElementById('searchInput').value.trim(); alert(`🔎 Searching for: "${s}"`); }
-
-        function initNewsletter() { const btn = document.getElementById('subscribeBtn'), inp = document.getElementById('newsletterEmail'), msg = document.getElementById('subscribeMsg'); if (btn && inp && msg) btn.addEventListener('click', () => { const e = inp.value.trim(); if (!e || !e.includes('@')) { msg.innerHTML = '<span style="color:#e8b4a0;">✉️ Valid email required</span>'; setTimeout(() => msg.innerHTML = '', 2500); } else { msg.innerHTML = '<span style="color:#d4a373;">✅ Thanks for subscribing!</span>'; inp.value = ''; setTimeout(() => msg.innerHTML = '', 3000); } }); }
-
-        function initMobileMenu() { const toggle = document.getElementById('mobileMenuToggle'), nav = document.getElementById('navLinks'); if (!toggle || !nav) return; const close = () => { nav.classList.remove('active'); toggle.classList.remove('active'); document.body.classList.remove('menu-open'); const icon = toggle.querySelector('i'); if (icon) icon.className = 'fas fa-bars'; }; const open = (e) => { e.stopPropagation(); if (nav.classList.contains('active')) close(); else { nav.classList.add('active'); toggle.classList.add('active'); document.body.classList.add('menu-open'); const icon = toggle.querySelector('i'); if (icon) icon.className = 'fas fa-times'; } }; toggle.addEventListener('click', open); document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', close)); document.addEventListener('click', (e) => { if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) close(); }); document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }); }
-
-        function initFooterLinks() { document.querySelectorAll('.footer-col ul li a').forEach(link => { if (link.getAttribute('onclick')) return; link.addEventListener('click', (e) => { e.preventDefault(); alert(`✨ "${link.textContent}" page coming soon!`); }); }); document.querySelectorAll('.social-links a').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); alert(`🌐 Connect with Kahawa Space on social media!`); }); }); }
-
-        function initAuthButtons() { document.querySelector('.btn-login')?.addEventListener('click', (e) => { e.preventDefault(); alert(`🔐 Login to access your dashboard.`); }); document.querySelector('.btn-signup')?.addEventListener('click', (e) => { e.preventDefault(); alert(`☕ Join Kahawa Space!`); }); document.querySelector('.logo')?.addEventListener('click', () => window.location.href = 'index.html'); }
-
-        function initSearch() { document.getElementById('searchBtn')?.addEventListener('click', performSearch); document.getElementById('searchInput')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); }); }
-
-        initNewsletter(); initMobileMenu(); initFooterLinks(); initAuthButtons(); initSearch();
-    </script>
 </body>
 
 </html>

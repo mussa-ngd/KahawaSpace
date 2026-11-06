@@ -4,19 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Kahawa Space - Privacy Policy</title>
+    <title>Kahawa Space - Privacy &amp; Cookie Policy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script src="main.js"></script>
 </head>
 
 <body>
 
     <nav class="navbar">
         <div class="logo" onclick="window.location.href='index.html'">
-            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <img src="img/Logo.png" alt="Kahawa Space Logo" loading="lazy"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+            <span class="logo-fallback" style="display:none;"><i class="fas fa-mug-hot"></i></span>
             <span>KAHAWA</span>
             <span>SPACE</span>
         </div>
@@ -24,6 +28,7 @@
             <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
             <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
             <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
             <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
             <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
         </div>
@@ -34,48 +39,194 @@
         </div>
     </nav>
 
+    <div id="cookieBanner" class="cookie-banner">
+        <p>🍪 We use cookies to enhance your experience, analyze site traffic, and personalize content. By continuing to
+            use our site, you consent to our use of cookies. <a href="#cookies">Learn more</a></p>
+        <div class="cookie-buttons">
+            <button class="cookie-btn cookie-settings" onclick="openCookieSettings()">Cookie Settings</button>
+            <button class="cookie-btn cookie-accept" onclick="acceptAllCookies()">Accept All</button>
+        </div>
+    </div>
+
     <div class="page-header">
-        <h1>Privacy Policy</h1>
-        <p>How we collect, use, and protect your information</p>
+        <h1>Privacy &amp; Cookie Policy</h1>
+        <p>How we collect, use, and protect your information — and your cookie choices</p>
         <div class="last-updated">Last Updated: March 28, 2026</div>
     </div>
 
     <div class="privacy-container">
         <div class="privacy-content">
             <div class="effective-date"><i class="fas fa-shield-alt"></i> Effective Date: March 28, 2026</div>
-            <div class="privacy-section">
-                <h2>1. Introduction</h2>
-                <p>At Kahawa Space, we take your privacy seriously. This Privacy Policy explains how we collect, use,
-                    disclose, and safeguard your information when you use our platform.</p>
+
+            <div class="highlight" style="margin-bottom: 2rem;">
+                <p><strong>Jump to:</strong>
+                    <a href="#overview" style="color: var(--caramel-orange);">Overview</a> ·
+                    <a href="#data-we-collect" style="color: var(--caramel-orange);">Data We Collect</a> ·
+                    <a href="#how-we-use" style="color: var(--caramel-orange);">How We Use It</a> ·
+                    <a href="#cookies" style="color: var(--caramel-orange);">Cookies</a> ·
+                    <a href="#cookie-preferences" style="color: var(--caramel-orange);">Preferences</a> ·
+                    <a href="#your-rights" style="color: var(--caramel-orange);">Your Rights</a> ·
+                    <a href="#contact" style="color: var(--caramel-orange);">Contact</a>
+                </p>
             </div>
-            <div class="privacy-section">
+
+            <section id="overview" class="privacy-section">
+                <h2>1. Introduction</h2>
+                <p>At Kahawa Space, we take your privacy seriously. This Privacy &amp; Cookie Policy explains how we
+                    collect, use, disclose, and safeguard your information when you use our platform, and how you can
+                    control the cookies we set on your device.</p>
+            </section>
+
+            <section id="data-we-collect" class="privacy-section">
                 <h2>2. Information We Collect</h2>
                 <p>We collect information you voluntarily provide when you create an account, make a purchase, subscribe
-                    to newsletters, or contact customer support.</p>
+                    to newsletters, or contact customer support. This includes:</p>
+                <ul>
+                    <li><strong>Account data:</strong> name, email address, phone number, business details (for sellers).</li>
+                    <li><strong>Transaction data:</strong> purchases, invoices, shipping addresses.</li>
+                    <li><strong>Technical data:</strong> IP address, browser type, device identifiers (via cookies — see §5).</li>
+                    <li><strong>Communication data:</strong> messages sent via contact forms or support.</li>
+                </ul>
                 <div class="highlight">
                     <p><i class="fas fa-lock"></i> <strong>Your Privacy Matters:</strong> We never sell your personal
                         information to third parties.</p>
                 </div>
-            </div>
-            <div class="privacy-section">
+            </section>
+
+            <section id="how-we-use" class="privacy-section">
                 <h2>3. How We Use Your Information</h2>
                 <p>We use your information to provide and improve our services, process transactions, communicate with
                     you, and ensure platform security.</p>
-            </div>
-            <div class="privacy-section">
+            </section>
+
+            <section id="data-security" class="privacy-section">
                 <h2>4. Data Security</h2>
                 <p>We implement appropriate technical and organizational security measures to protect your personal
                     information, including SSL/TLS encryption and secure data storage.</p>
-            </div>
-            <div class="privacy-section">
-                <h2>5. Your Rights</h2>
-                <p>You have the right to access, correct, or delete your personal information. Contact us at
-                    privacy@kahawaspace.com to exercise these rights.</p>
-            </div>
-            <div class="privacy-section">
-                <h2>6. Contact Us</h2>
-                <p>If you have questions about this Privacy Policy, contact us at privacy@kahawaspace.com.</p>
-            </div>
+            </section>
+
+            <section id="cookies" class="privacy-section">
+                <h2>5. Cookies &amp; Similar Technologies</h2>
+                <p>Cookies are small text files that are placed on your computer, smartphone, or other device when you
+                    visit a website. They are widely used to make websites work more efficiently, as well as to provide
+                    information to the owners of the site.</p>
+                <p>Cookies help us remember your preferences, understand how you interact with our platform, and improve
+                    your overall experience. They do not contain personal information unless you have provided it to us.</p>
+
+                <h3 style="margin-top: 1.5rem; color: var(--crisp-white);">5.1 How We Use Cookies</h3>
+                <ul>
+                    <li><strong>Essential Cookies:</strong> Required for the platform to function properly (login,
+                        shopping cart, checkout).</li>
+                    <li><strong>Preference Cookies:</strong> Remember your settings and preferences (language, currency,
+                        region).</li>
+                    <li><strong>Analytics Cookies:</strong> Help us understand how visitors use our platform and improve
+                        performance.</li>
+                    <li><strong>Marketing Cookies:</strong> Used to deliver relevant advertisements and track campaign
+                        effectiveness.</li>
+                    <li><strong>Security Cookies:</strong> Help protect your account and detect suspicious activity.</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; color: var(--crisp-white);">5.2 Types of Cookies We Use</h3>
+                <div class="cookie-table-wrap">
+                    <table class="cookie-table">
+                        <thead>
+                            <tr><th>Cookie Type</th><th>Purpose</th><th>Duration</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>session_id</td><td>Essential - Maintains your session while logged in</td><td>Session</td></tr>
+                            <tr><td>cart_items</td><td>Essential - Stores items in your shopping cart</td><td>30 days</td></tr>
+                            <tr><td>preferences</td><td>Preference - Saves your language and currency settings</td><td>1 year</td></tr>
+                            <tr><td>_ga</td><td>Analytics - Google Analytics tracking</td><td>2 years</td></tr>
+                            <tr><td>_fbp</td><td>Marketing - Facebook pixel tracking</td><td>90 days</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; color: var(--crisp-white);">5.3 Third-Party Cookies</h3>
+                <p>We use trusted third-party services that may place cookies on your device: Google Analytics (traffic
+                    analysis), Facebook Pixel (advertising effectiveness), Stripe (payments), Intercom (support chat).
+                    These third parties have their own privacy policies.</p>
+            </section>
+
+            <section id="cookie-preferences" class="privacy-section">
+                <h2>6. Your Cookie Preferences</h2>
+                <p>You have the right to choose which cookies you accept. Manage your preferences at any time using the
+                    Cookie Preference Center below.</p>
+
+                <div class="preference-center">
+                    <h3 style="margin-bottom: 1rem;">Cookie Preference Center</h3>
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <h4>Essential Cookies</h4>
+                            <p>Required for the platform to function. Cannot be disabled.</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="essentialCookies" checked disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <h4>Preference Cookies</h4>
+                            <p>Remember your settings like language and currency.</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="preferenceCookies" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <h4>Analytics Cookies</h4>
+                            <p>Help us improve our platform by understanding usage patterns.</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="analyticsCookies" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <h4>Marketing Cookies</h4>
+                            <p>Used to deliver relevant advertisements and offers.</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="marketingCookies" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <button class="btn-save-preferences" onclick="saveCookiePreferences()">Save Preferences</button>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; color: var(--crisp-white);">6.1 Managing Cookies in Your Browser</h3>
+                <p>Most browsers allow you to control cookies through their settings. Learn how:</p>
+                <ul>
+                    <li><a href="#" onclick="showBrowserGuide('chrome'); return false;">Google Chrome</a></li>
+                    <li><a href="#" onclick="showBrowserGuide('firefox'); return false;">Mozilla Firefox</a></li>
+                    <li><a href="#" onclick="showBrowserGuide('safari'); return false;">Safari</a></li>
+                    <li><a href="#" onclick="showBrowserGuide('edge'); return false;">Microsoft Edge</a></li>
+                </ul>
+            </section>
+
+            <section id="your-rights" class="privacy-section">
+                <h2>7. Your Rights</h2>
+                <p>You have the right to access, correct, or delete your personal information, and to object to or
+                    restrict certain processing. Contact us at privacy@kahawaspace.com to exercise these rights.</p>
+            </section>
+
+            <section id="contact" class="privacy-section">
+                <h2>8. Contact Us</h2>
+                <p>If you have questions about this Privacy &amp; Cookie Policy, contact us:</p>
+                <ul>
+                    <li><strong>Email:</strong> privacy@kahawaspace.com</li>
+                    <li><strong>Address:</strong> Kahawa Space Headquarters, Plot 123, Kijitonyama, Dar es Salaam, Tanzania</li>
+                    <li><strong>Phone:</strong> +255 123 456 789</li>
+                </ul>
+                <div class="highlight">
+                    <p><i class="fas fa-shield-alt"></i> <strong>Your Privacy Matters:</strong> You can change your cookie
+                        preferences at any time using the Cookie Preference Center above or through your browser settings.</p>
+                </div>
+            </section>
         </div>
     </div>
 
@@ -107,7 +258,7 @@
                 <h4>Legal</h4>
                 <ul>
                     <li><a href="terms.html">Terms of Service</a></li>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="privacy.html">Privacy &amp; Cookie Policy</a></li>
                 </ul>
             </div>
         </div>
@@ -119,13 +270,6 @@
         </div>
     </footer>
 
-    <script>
-        function initNewsletter() { const btn = document.getElementById('subscribeBtn'), inp = document.getElementById('newsletterEmail'), msg = document.getElementById('subscribeMsg'); if (btn && inp && msg) btn.addEventListener('click', () => { const e = inp.value.trim(); if (!e || !e.includes('@')) { msg.innerHTML = '<span style="color:#e8b4a0;">✉️ Valid email required</span>'; setTimeout(() => msg.innerHTML = '', 2500); } else { msg.innerHTML = '<span style="color:#d4a373;">✅ Thanks for subscribing!</span>'; inp.value = ''; setTimeout(() => msg.innerHTML = '', 3000); } }); }
-        function initMobileMenu() { const toggle = document.getElementById('mobileMenuToggle'), nav = document.getElementById('navLinks'); if (!toggle || !nav) return; const close = () => { nav.classList.remove('active'); toggle.classList.remove('active'); document.body.classList.remove('menu-open'); const icon = toggle.querySelector('i'); if (icon) icon.className = 'fas fa-bars'; }; const open = (e) => { e.stopPropagation(); if (nav.classList.contains('active')) close(); else { nav.classList.add('active'); toggle.classList.add('active'); document.body.classList.add('menu-open'); const icon = toggle.querySelector('i'); if (icon) icon.className = 'fas fa-times'; } }; toggle.addEventListener('click', open); document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', close)); document.addEventListener('click', (e) => { if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) close(); }); document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }); }
-        function initFooterLinks() { document.querySelectorAll('.footer-col ul li a').forEach(link => { if (link.getAttribute('onclick')) return; link.addEventListener('click', (e) => { e.preventDefault(); alert(`✨ "${link.textContent}" page coming soon!`); }); }); document.querySelectorAll('.social-links a').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); alert(`🌐 Connect with Kahawa Space on social media!`); }); }); }
-        function initAuthButtons() { document.querySelector('.btn-login')?.addEventListener('click', (e) => { e.preventDefault(); alert(`🔐 Login to access your account.`); }); document.querySelector('.btn-signup')?.addEventListener('click', (e) => { e.preventDefault(); alert(`☕ Join Kahawa Space!`); }); document.querySelector('.logo')?.addEventListener('click', () => window.location.href = 'index.html'); }
-        initNewsletter(); initMobileMenu(); initFooterLinks(); initAuthButtons();
-    </script>
 </body>
 
 </html>

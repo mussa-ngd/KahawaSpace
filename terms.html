@@ -9,14 +9,16 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">    
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script src="main.js"></script>
 </head>
 
 <body>
 
     <nav class="navbar">
         <div class="logo" onclick="window.location.href='index.html'">
-            <img src="img/Logo.png" alt="Kahawa Space Logo">
+            <img src="img/Logo.png" alt="Kahawa Space Logo" loading="lazy">
             <span>KAHAWA</span>
             <span>SPACE</span>
         </div>
@@ -24,6 +26,7 @@
             <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
             <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
             <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
             <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
             <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
         </div>
@@ -128,13 +131,6 @@
         </div>
     </footer>
 
-    <script>
-        function initNewsletter() { const btn = document.getElementById('subscribeBtn'), inp = document.getElementById('newsletterEmail'), msg = document.getElementById('subscribeMsg'); if (btn && inp && msg) btn.addEventListener('click', () => { const e = inp.value.trim(); if (!e || !e.includes('@')) { msg.innerHTML = '<span style="color:#e8b4a0;">✉️ Valid email required</span>'; setTimeout(() => msg.innerHTML = '', 2500); } else { msg.innerHTML = '<span style="color:#d4a373;">✅ Thanks for subscribing!</span>'; inp.value = ''; setTimeout(() => msg.innerHTML = '', 3000); } }); }
-        function initMobileMenu() { const toggle = document.getElementById('mobileMenuToggle'), nav = document.getElementById('navLinks'); if (!toggle || !nav) return; const close = () => { nav.classList.remove('active'); toggle.classList.remove('active'); document.body.classList.remove('menu-open'); const icon = toggle.querySelector('i'); if (icon) icon.className = 'fas fa-bars'; }; const open = (e) => { e.stopPropagation(); if (nav.classList.contains('active')) close(); else { nav.classList.add('active'); toggle.classList.add('active'); document.body.classList.add('menu-open'); const icon = toggle.querySelector('i'); if (icon) icon.className = 'fas fa-times'; } }; toggle.addEventListener('click', open); document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', close)); document.addEventListener('click', (e) => { if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) close(); }); document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }); }
-        function initFooterLinks() { document.querySelectorAll('.footer-col ul li a').forEach(link => { if (link.getAttribute('onclick')) return; link.addEventListener('click', (e) => { e.preventDefault(); alert(`✨ "${link.textContent}" page coming soon!`); }); }); document.querySelectorAll('.social-links a').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); alert(`🌐 Connect with Kahawa Space on social media!`); }); }); }
-        function initAuthButtons() { document.querySelector('.btn-login')?.addEventListener('click', (e) => { e.preventDefault(); alert(`🔐 Login to access your account.`); }); document.querySelector('.btn-signup')?.addEventListener('click', (e) => { e.preventDefault(); alert(`☕ Join Kahawa Space!`); }); document.querySelector('.logo')?.addEventListener('click', () => window.location.href = 'index.html'); }
-        initNewsletter(); initMobileMenu(); initFooterLinks(); initAuthButtons();
-    </script>
 </body>
 
 </html>
