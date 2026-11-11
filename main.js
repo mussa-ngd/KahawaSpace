@@ -15,9 +15,66 @@ function initCommonFeatures() {
     initMobileMenu();
     initNewsletter();
     initGlobalInteractions();
+    injectHelpCenterLink();
+    injectHowItWorksLink();
     checkExistingSession();
     checkCookieConsent();
     initCountryCurrency();
+}
+
+function injectHelpCenterLink() {
+    document.querySelectorAll('footer .footer-col, footer .footer-grid > div').forEach((col) => {
+        const heading = col.querySelector('h4');
+        if (!heading) return;
+
+        const label = (heading.textContent || '').trim().toLowerCase();
+        if (!['about', 'support', 'resources', 'help'].includes(label)) return;
+
+        const ul = col.querySelector('ul');
+        if (!ul) return;
+
+        const existingLink = Array.from(ul.querySelectorAll('a')).find((link) =>
+            link.textContent.trim().toLowerCase() === 'help center'
+        );
+        if (existingLink) {
+            existingLink.href = 'help.html';
+            existingLink.removeAttribute('data-coming-soon');
+            return;
+        }
+
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = 'help.html';
+        link.textContent = 'Help Center';
+        li.appendChild(link);
+        ul.appendChild(li);
+    });
+}
+
+function injectHowItWorksLink() {
+    document.querySelectorAll('footer .footer-col, footer .footer-grid > div').forEach((col) => {
+        const heading = col.querySelector('h4');
+        if (!heading || (heading.textContent || '').trim().toLowerCase() !== 'about') return;
+
+        const ul = col.querySelector('ul');
+        if (!ul) return;
+
+        const existingLink = Array.from(ul.querySelectorAll('a')).find((link) =>
+            link.textContent.trim().toLowerCase() === 'how it works'
+        );
+        if (existingLink) {
+            existingLink.href = 'how-it-works.html';
+            existingLink.removeAttribute('data-coming-soon');
+            return;
+        }
+
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = 'how-it-works.html';
+        link.textContent = 'How It Works';
+        li.appendChild(link);
+        ul.appendChild(li);
+    });
 }
 
 /**
@@ -1760,7 +1817,7 @@ function initResourcesPage() {
         const container = document.getElementById('reportsGrid');
         if(container) {
             container.innerHTML = reports.map(r => `
-            <div class="report-card" style="background:var(--navy-light); border:1px solid var(--navy-border); padding:1.5rem; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
+            <div class="report-card">
                 <div>
                     <div class="report-date"><i class="far fa-calendar-alt"></i> ${r.date}</div>
                     <h3 style="margin:0.5rem 0;">${escapeHtml(r.title)}</h3>
@@ -1914,7 +1971,8 @@ function initSignupPage() {
     const buyerFields = document.getElementById('buyerFields');
     const sellerFields = document.getElementById('sellerFields');
     const individualFields = document.getElementById('individualFields');
-    const socialSection = document.getElementById('socialSignupSection');
+    const signupForm = document.getElementById('signupForm');
+    const signupCard = document.querySelector('.signup-card');
     let selectedRole = 'buyer';
 
     if(roleOptions && buyerFields && sellerFields) {
@@ -1923,6 +1981,9 @@ function initSignupPage() {
                 roleOptions.forEach(opt => opt.classList.remove('active'));
                 option.classList.add('active');
                 selectedRole = option.dataset.role;
+                const isIndividual = selectedRole === 'individual';
+                signupForm?.classList.toggle('individual-signup', isIndividual);
+                signupCard?.classList.toggle('individual-signup', isIndividual);
 
                 buyerFields.classList.remove('show');
                 sellerFields.classList.remove('show');
@@ -1935,26 +1996,7 @@ function initSignupPage() {
                 buyerFields.querySelectorAll('input, select, textarea').forEach(field => {
                     field.required = selectedRole === 'buyer';
                 });
-
-                if (socialSection) {
-                    if (selectedRole === 'individual') socialSection.style.display = 'block';
-                        else socialSection.style.display = 'none';
-                }
             });
-        });
-    }
-
-    // Keep email-friendly placeholders only when the OAuth module did not load.
-    if (document.documentElement.dataset.oauthReady !== 'true' &&
-        typeof window.handleGoogleSignup !== 'function') {
-        document.getElementById('googleSignupBtn')?.addEventListener('click', () => {
-            showGlobalNotification('Google sign-up coming soon. Please use email for now.', 'info');
-        });
-    }
-    if (document.documentElement.dataset.oauthReady !== 'true' &&
-        typeof window.handleFacebookSignup !== 'function') {
-        document.getElementById('facebookSignupBtn')?.addEventListener('click', () => {
-            showGlobalNotification('Facebook sign-up coming soon. Please use email for now.', 'info');
         });
     }
 
@@ -2000,7 +2042,6 @@ function initSignupPage() {
         });
     });
 
-    const signupForm = document.getElementById('signupForm');
     signupForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = document.getElementById('email').value.trim();
@@ -2365,7 +2406,8 @@ function initBlogPage() {
         const container = document.getElementById('blogGrid');
         if (!container) return;
 
-        const postsToRender = filteredPosts || blogPosts.slice(0, visibleCount);
+        const loadBtn = document.getElementById('loadMoreBlogBtn');
+        const postsToRender = filteredPosts || (loadBtn ? blogPosts.slice(0, visibleCount) : blogPosts);
         const totalPosts = filteredPosts ? filteredPosts.length : blogPosts.length;
         const hasMore = filteredPosts ? false : (visibleCount < totalPosts);
 
@@ -2377,9 +2419,8 @@ function initBlogPage() {
                     <p style="color:var(--muted-white);">Try adjusting your filters or search terms.</p>
                 </div>
             `;
-            const loadBtn = document.getElementById('loadMoreBlogBtn');
             if (loadBtn) loadBtn.style.display = 'none';
-                const blogCountEl = document.getElementById('blogResultCount');
+            const blogCountEl = document.getElementById('blogResultCount');
             if (blogCountEl) blogCountEl.textContent = `Showing ${postsToRender.length} post${postsToRender.length > 1 ? 's' : ''}`;
             return;
         }
@@ -2413,9 +2454,9 @@ function initBlogPage() {
             </div>
         `).join('');
 
-        document.getElementById('blogResultCount').textContent = `Showing ${postsToRender.length} post${postsToRender.length > 1 ? 's' : ''}`;
+        const blogCountEl = document.getElementById('blogResultCount');
+        if (blogCountEl) blogCountEl.textContent = `Showing ${postsToRender.length} post${postsToRender.length > 1 ? 's' : ''}`;
 
-        const loadBtn = document.getElementById('loadMoreBlogBtn');
         if (loadBtn) {
             if (filteredPosts) {
                 loadBtn.style.display = 'none';
