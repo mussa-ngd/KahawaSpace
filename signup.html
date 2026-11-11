@@ -4,14 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Kahawa Space - Join the Coffee Community</title>
+    <title>Create Account | Kahawa Space</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-    <script src="main.js"></script>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- Facebook JavaScript SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script src="oauth.js" defer></script>
+    <script src="main.js" defer></script>
 </head>
 
 <body>
@@ -41,7 +46,7 @@
         <div class="signup-card">
             <div class="signup-header">
                 <h1>Join Kahawa Space</h1>
-                <p>Create your account and start your coffee journey</p>
+                <p>Create an account to track orders, book tours, and connect with the global coffee community.</p>
             </div>
             <div class="signup-body">
                 <div id="alertMessage" style="display: none;"></div>
@@ -62,10 +67,10 @@
                 <!-- Social Signup Buttons - Shown for Coffee Lovers -->
                 <div id="socialSignupSection" class="social-signup" style="display: none;">
                     <div class="social-buttons">
-                        <button class="social-btn google" id="googleSignupBtn">
+                        <button type="button" class="social-btn google" id="googleSignupBtn">
                             <i class="fab fa-google"></i> Sign up with Google
                         </button>
-                        <button class="social-btn facebook" id="facebookSignupBtn">
+                        <button type="button" class="social-btn facebook" id="facebookSignupBtn">
                             <i class="fab fa-facebook-f"></i> Sign up with Facebook
                         </button>
                     </div>
@@ -85,7 +90,15 @@
 
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+255 xxx xxx xxx">
+                        <input type="tel" id="phone" name="phone" placeholder="Include your country calling code">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country">Country *</label>
+                        <select id="country" name="country" data-country-select required>
+                            <option value="TZ" selected>Tanzania</option>
+                        </select>
+                        <small>Your prices will display in <span id="signupCurrencyDisplay">TZS</span>.</small>
                     </div>
 
                     <div class="form-row">
@@ -94,7 +107,10 @@
                             <div class="password-wrapper">
                                 <input type="password" id="password" name="password"
                                     placeholder="Create a strong password" required>
-                                <i class="fas fa-eye toggle-password" data-target="password"></i>
+                                <button type="button" class="toggle-password" data-target="password"
+                                    aria-label="Show password" aria-pressed="false">
+                                    <i class="fas fa-eye" aria-hidden="true"></i>
+                                </button>
                             </div>
                             <div class="password-strength">
                                 <div class="strength-meter">
@@ -102,25 +118,31 @@
                                 </div>
                                 <div class="strength-text" id="strengthText"></div>
                             </div>
+                            <small class="password-hint">
+                                Example of a strong password: <strong>Kilimanjaro#Coffee99!</strong>
+                            </small>
                         </div>
                         <div class="form-group">
                             <label for="confirmPassword">Confirm Password *</label>
                             <div class="password-wrapper">
                                 <input type="password" id="confirmPassword" name="confirmPassword"
                                     placeholder="Confirm your password" required>
-                                <i class="fas fa-eye toggle-password" data-target="confirmPassword"></i>
+                                <button type="button" class="toggle-password" data-target="confirmPassword"
+                                    aria-label="Show confirm password" aria-pressed="false">
+                                    <i class="fas fa-eye" aria-hidden="true"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <div id="buyerFields" class="seller-fields show">
                         <div class="form-group">
-                            <label for="companyName">Company Name</label>
-                            <input type="text" id="companyName" name="companyName" placeholder="Your company name">
+                            <label for="companyName">Company Name *</label>
+                            <input type="text" id="companyName" name="companyName" placeholder="Your company name" required>
                         </div>
                         <div class="form-group">
-                            <label for="businessType">Business Type</label>
-                            <select id="businessType" name="businessType">
+                            <label for="businessType">Business Type *</label>
+                            <select id="businessType" name="businessType" required>
                                 <option value="">Select business type</option>
                                 <option value="roaster">Coffee Roaster</option>
                                 <option value="cafe">Café Owner</option>
@@ -135,26 +157,14 @@
                         <div class="form-group"><label for="businessName">Business Name *</label><input type="text"
                                 id="businessName" name="businessName" placeholder="Your business/cooperative name">
                         </div>
-                        <div class="form-group"><label for="businessReg">Business Registration Number (BRELA)
+                        <div class="form-group"><label for="businessReg">Business Registration Number
                                 *</label><input type="text" id="businessReg" name="businessReg"
-                                placeholder="e.g., 123456-789">
-                            <div class="help-text">For Tanzania businesses, format: XXXXXX-XXX (e.g., 123456-789)</div>
+                                placeholder="Enter your local registration number">
+                            <div class="help-text">Enter the business registration number issued in your country.</div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group"><label for="country">Country *</label><select id="country"
-                                    name="country">
-                                    <option value="">Select country</option>
-                                    <option value="Tanzania">Tanzania</option>
-                                    <option value="Ethiopia">Ethiopia</option>
-                                    <option value="Kenya">Kenya</option>
-                                    <option value="Uganda">Uganda</option>
-                                    <option value="Rwanda">Rwanda</option>
-                                    <option value="Brazil">Brazil</option>
-                                    <option value="Colombia">Colombia</option>
-                                    <option value="Other">Other</option>
-                                </select></div>
-                            <div class="form-group"><label for="region">Region</label><input type="text" id="region"
-                                    name="region" placeholder="e.g., Kilimanjaro, Arusha"></div>
+                        <div class="form-group">
+                            <label for="region">Region</label>
+                            <input type="text" id="region" name="region" placeholder="e.g., Kilimanjaro, Arusha">
                         </div>
                         <div class="form-group"><label for="farmSize">Farm Size (Hectares)</label><input type="number"
                                 id="farmSize" name="farmSize" placeholder="e.g., 50"></div>

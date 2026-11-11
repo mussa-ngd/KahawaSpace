@@ -11,7 +11,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-    <script src="main.js"></script>
+    <script src="main.js" defer></script>
 </head>
 
 <body>
@@ -40,18 +40,20 @@
     </nav>
 
     <div id="cookieBanner" class="cookie-banner">
-        <p>🍪 We use cookies to enhance your experience, analyze site traffic, and personalize content. By continuing to
-            use our site, you consent to our use of cookies. <a href="#cookies">Learn more</a></p>
-        <div class="cookie-buttons">
-            <button class="cookie-btn cookie-settings" onclick="openCookieSettings()">Cookie Settings</button>
-            <button class="cookie-btn cookie-accept" onclick="acceptAllCookies()">Accept All</button>
+        <div class="cookie-banner-content">
+            <p>🍪 We use cookies to enhance your experience, analyze site traffic, and personalize content. Manage your
+                choices with Cookie Settings, or <a href="#cookies">learn more</a>.</p>
+            <div class="cookie-banner-buttons">
+                <button class="btn-prefs" onclick="openCookieSettings()">Cookie Settings</button>
+                <button class="btn-accept-all" onclick="acceptAllCookies()">Accept All</button>
+            </div>
         </div>
     </div>
 
     <div class="page-header">
         <h1>Privacy &amp; Cookie Policy</h1>
         <p>How we collect, use, and protect your information — and your cookie choices</p>
-        <div class="last-updated">Last Updated: March 28, 2026</div>
+        <div class="last-updated">Last Updated: October 2026</div>
     </div>
 
     <div class="privacy-container">
@@ -79,12 +81,14 @@
 
             <section id="data-we-collect" class="privacy-section">
                 <h2>2. Information We Collect</h2>
-                <p>We collect information you voluntarily provide when you create an account, make a purchase, subscribe
-                    to newsletters, or contact customer support. This includes:</p>
+                <p>We collect personal information you voluntarily provide when registering an account, booking coffee
+                    tours, making a purchase, subscribing to our newsletter, or contacting customer support. This
+                    includes your name, email address, phone number, business details, and local preferences.</p>
                 <ul>
                     <li><strong>Account data:</strong> name, email address, phone number, business details (for sellers).</li>
-                    <li><strong>Transaction data:</strong> purchases, invoices, shipping addresses.</li>
+                    <li><strong>Tour and transaction data:</strong> tour bookings, purchases, invoices, and shipping addresses.</li>
                     <li><strong>Technical data:</strong> IP address, browser type, device identifiers (via cookies — see §5).</li>
+                    <li><strong>Preference data:</strong> your selected country and display currency, stored in your browser.</li>
                     <li><strong>Communication data:</strong> messages sent via contact forms or support.</li>
                 </ul>
                 <div class="highlight">
@@ -95,14 +99,16 @@
 
             <section id="how-we-use" class="privacy-section">
                 <h2>3. How We Use Your Information</h2>
-                <p>We use your information to provide and improve our services, process transactions, communicate with
-                    you, and ensure platform security.</p>
+                <p>We use your information to process tour bookings and transactions, manage your user profile, provide
+                    personalized coffee recommendations, communicate important updates about your account or
+                    transactions, improve our services, and help ensure platform security.</p>
             </section>
 
             <section id="data-security" class="privacy-section">
                 <h2>4. Data Security</h2>
-                <p>We implement appropriate technical and organizational security measures to protect your personal
-                    information, including SSL/TLS encryption and secure data storage.</p>
+                <p>We use technical and organizational safeguards to protect your personal information against
+                    unauthorized access, alteration, or disclosure. These include encrypted authentication tokens and
+                    secure data storage practices.</p>
             </section>
 
             <section id="cookies" class="privacy-section">
@@ -146,6 +152,11 @@
                 <p>We use trusted third-party services that may place cookies on your device: Google Analytics (traffic
                     analysis), Facebook Pixel (advertising effectiveness), Stripe (payments), Intercom (support chat).
                     These third parties have their own privacy policies.</p>
+
+                <h3 style="margin-top: 1.5rem; color: var(--crisp-white);">5.4 Currency Conversion</h3>
+                <p>Currency conversion requests live exchange rates from ExchangeRate-API. The request is made by your
+                    browser and may expose your IP address to that provider; your selected country and account details
+                    are not included in the request.</p>
             </section>
 
             <section id="cookie-preferences" class="privacy-section">
@@ -219,6 +230,7 @@
                 <p>If you have questions about this Privacy &amp; Cookie Policy, contact us:</p>
                 <ul>
                     <li><strong>Email:</strong> privacy@kahawaspace.com</li>
+                    <li><strong>Support:</strong> support@kahawaspace.com</li>
                     <li><strong>Address:</strong> Kahawa Space Headquarters, Plot 123, Kijitonyama, Dar es Salaam, Tanzania</li>
                     <li><strong>Phone:</strong> +255 123 456 789</li>
                 </ul>

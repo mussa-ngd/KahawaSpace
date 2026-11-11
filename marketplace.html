@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="stripe-publishable-key" content="">
     <title>Kahawa Space - Coffee Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link
@@ -11,7 +12,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-    <script src="main.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="main.js" defer></script>
 </head>
 
 <body>
@@ -88,11 +90,6 @@
                 <select class="filter-select" id="originFilter">
                     <option value="all">All Origins</option>
                     <option value="Tanzania">Tanzania</option>
-                    <option value="Ethiopia">Ethiopia</option>
-                    <option value="Kenya">Kenya</option>
-                    <option value="Brazil">Brazil</option>
-                    <option value="Colombia">Colombia</option>
-                    <option value="Rwanda">Rwanda</option>
                 </select>
                 <select class="filter-select" id="processFilter">
                     <option value="all">Processing Method</option>
@@ -161,9 +158,9 @@
             
             <!-- Shared Price Range -->
             <div class="price-range" id="priceRangeFilter">
-                <input type="number" id="minPrice" placeholder="Min $">
+                <input type="number" id="minPrice" placeholder="Min TSh">
                 <span>-</span>
-                <input type="number" id="maxPrice" placeholder="Max $">
+                <input type="number" id="maxPrice" placeholder="Max TSh">
             </div>
             <button class="btn-primary" id="applyFiltersBtn">Apply Filters</button>
         </div>
@@ -193,6 +190,37 @@
             <p>Connect with trusted cooperatives and exporters</p>
         </div>
         <div class="seller-grid" id="sellerGrid"></div>
+    </div>
+
+    <div id="marketCheckoutModal" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="marketCheckoutTitle">
+            <div class="modal-header">
+                <h3 id="marketCheckoutTitle">Complete Your Order</h3>
+                <button type="button" class="modal-close" id="closeMarketCheckout" aria-label="Close checkout">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="marketCheckoutProduct"></p>
+                <p id="marketCheckoutPrice"></p>
+                <label for="paymentGateway">Select Payment Method:</label>
+                <select id="paymentGateway" class="filter-select" style="width:100%;margin:0.5rem 0 1rem;">
+                    <option value="mpesa">M-Pesa / Mobile Money (TZS)</option>
+                    <option value="stripe">Credit / Debit Card (USD)</option>
+                </select>
+
+                <div id="mpesaFields" class="checkout-payment-group">
+                    <label for="mpesaPhone">Mobile money phone number</label>
+                    <input type="tel" id="mpesaPhone" class="filter-select" style="width:100%;margin:0.5rem 0 1rem;"
+                        placeholder="2557XXXXXXXX" autocomplete="tel" />
+                    <button type="button" id="mpesaPayBtn" class="btn-primary">Pay via M-Pesa</button>
+                </div>
+
+                <div id="stripeFields" class="checkout-payment-group" hidden>
+                    <div id="card-element" style="padding:0.8rem;border:1px solid var(--navy-border);border-radius:8px;"></div>
+                    <button type="button" id="stripePayBtn" class="btn-primary" style="margin-top:10px;">Pay with Card</button>
+                </div>
+                <p id="checkoutPaymentMessage" role="status" aria-live="polite" style="margin-top:1rem;"></p>
+            </div>
+        </div>
     </div>
 
     <section class="newsletter">

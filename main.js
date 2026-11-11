@@ -16,6 +16,8 @@ function initCommonFeatures() {
     initNewsletter();
     initGlobalInteractions();
     checkExistingSession();
+    checkCookieConsent();
+    initCountryCurrency();
 }
 
 /**
@@ -27,8 +29,222 @@ function escapeHtml(str) {
         if (m === '&') return '&amp;';
         if (m === '<') return '&lt;';
         if (m === '>') return '&gt;';
+        if (m === '"') return '&quot;';
+        if (m === "'") return '&#39;';
         return m;
     });
+}
+
+const EXCHANGE_CACHE_KEY = 'kahawa_exchange_rates_tzs';
+const FALLBACK_EXCHANGE_RATES_FROM_TZS = {
+    TZS: 1,
+    USD: 1 / 2600,
+    EUR: 0.92 / 2600,
+    KES: 130 / 2600
+};
+const PREFERRED_COUNTRY_KEY = 'kahawa_preferred_country';
+const COUNTRY_CURRENCY_PAIRS = `
+AD:EUR,AE:AED,AF:AFN,AG:XCD,AI:XCD,AL:ALL,AM:AMD,AO:AOA,AR:ARS,AS:USD
+AT:EUR,AU:AUD,AW:AWG,AX:EUR,AZ:AZN,BA:BAM,BB:BBD,BD:BDT,BE:EUR,BF:XOF
+BG:EUR,BH:BHD,BI:BIF,BJ:XOF,BL:EUR,BM:BMD,BN:BND,BO:BOB,BQ:USD,BR:BRL
+BS:BSD,BT:BTN,BW:BWP,BY:BYN,BZ:BZD,CA:CAD,CC:AUD,CD:CDF,CF:XAF,CG:XAF
+CH:CHF,CI:XOF,CK:NZD,CL:CLP,CM:XAF,CN:CNY,CO:COP,CR:CRC,CU:CUP,CV:CVE
+CW:ANG,CX:AUD,CY:EUR,CZ:CZK,DE:EUR,DJ:DJF,DK:DKK,DM:XCD,DO:DOP,DZ:DZD
+EC:USD,EE:EUR,EG:EGP,ER:ERN,ES:EUR,ET:ETB,FI:EUR,FJ:FJD,FK:FKP,FM:USD
+FO:DKK,FR:EUR,GA:XAF,GB:GBP,GD:XCD,GE:GEL,GF:EUR,GG:GBP,GH:GHS,GI:GIP
+GL:DKK,GM:GMD,GN:GNF,GP:EUR,GQ:XAF,GR:EUR,GT:GTQ,GU:USD,GW:XOF,GY:GYD
+HK:HKD,HN:HNL,HR:EUR,HT:HTG,HU:HUF,ID:IDR,IE:EUR,IL:ILS,IM:GBP,IN:INR
+IO:USD,IQ:IQD,IR:IRR,IS:ISK,IT:EUR,JE:GBP,JM:JMD,JO:JOD,JP:JPY,KE:KES
+KG:KGS,KH:KHR,KI:AUD,KM:KMF,KN:XCD,KP:KPW,KR:KRW,KW:KWD,KY:KYD,KZ:KZT
+LA:LAK,LB:LBP,LC:XCD,LI:CHF,LK:LKR,LR:LRD,LS:LSL,LT:EUR,LU:EUR,LV:EUR
+LY:LYD,MA:MAD,MC:EUR,MD:MDL,ME:EUR,MF:EUR,MG:MGA,MH:USD,MK:MKD,ML:XOF
+MM:MMK,MN:MNT,MO:MOP,MP:USD,MQ:EUR,MR:MRU,MS:XCD,MT:EUR,MU:MUR,MV:MVR
+MW:MWK,MX:MXN,MY:MYR,MZ:MZN,NA:NAD,NC:XPF,NE:XOF,NF:AUD,NG:NGN,NI:NIO
+NL:EUR,NO:NOK,NP:NPR,NR:AUD,NZ:NZD,OM:OMR,PA:PAB,PE:PEN,PF:XPF,PG:PGK
+PH:PHP,PK:PKR,PL:PLN,PM:EUR,PN:NZD,PR:USD,PS:ILS,PT:EUR,PW:USD,PY:PYG
+QA:QAR,RE:EUR,RO:RON,RS:RSD,RU:RUB,RW:RWF,SA:SAR,SB:SBD,SC:SCR,SD:SDG
+SE:SEK,SG:SGD,SH:SHP,SI:EUR,SJ:NOK,SK:EUR,SL:SLE,SM:EUR,SN:XOF,SO:SOS
+SR:SRD,SS:SSP,ST:STN,SV:USD,SX:ANG,SY:SYP,SZ:SZL,TC:USD,TD:XAF,TG:XOF
+TH:THB,TJ:TJS,TK:NZD,TL:USD,TM:TMT,TN:TND,TO:TOP,TR:TRY,TT:TTD,TV:AUD
+TW:TWD,TZ:TZS,UA:UAH,UG:UGX,UM:USD,US:USD,UY:UYU,UZ:UZS,VA:EUR,VC:XCD
+VE:VES,VG:USD,VI:USD,VN:VND,VU:VUV,WF:XPF,WS:WST,XK:EUR,YE:YER,YT:EUR
+ZA:ZAR,ZM:ZMW,ZW:USD,AQ:USD,BV:NOK,GS:GBP,HM:AUD,TF:EUR
+`.trim().split(/[,\s]+/);
+let countryCurrencyMap = new Map();
+let exchangeRatesFromTzs = { TZS: 1 };
+let preferredCountryCode = 'TZ';
+let preferredCurrencyCode = 'TZS';
+
+function readStoredJson(key) {
+    const stored = localStorage.getItem(key);
+    if (!stored) return null;
+    try {
+        return JSON.parse(stored);
+    } catch (error) {
+        console.error(`Ignoring invalid cached data for ${key}:`, error);
+        localStorage.removeItem(key);
+        return null;
+    }
+}
+
+function formatCurrency(amount, sourceCurrency = 'TZS') {
+    const source = String(sourceCurrency).toUpperCase();
+    const targetRate = exchangeRatesFromTzs[preferredCurrencyCode];
+    const sourceRate = exchangeRatesFromTzs[source];
+    const convertedAmount = convertCurrencyAmount(amount, source, preferredCurrencyCode);
+    const displayCurrency = sourceRate && targetRate ? preferredCurrencyCode : source;
+    const formatOptions = { style: 'currency', currency: displayCurrency };
+    if (displayCurrency === 'TZS') {
+        formatOptions.minimumFractionDigits = 0;
+        formatOptions.maximumFractionDigits = 0;
+    }
+    return new Intl.NumberFormat(navigator.language || 'en', formatOptions).format(convertedAmount);
+}
+
+function convertCurrencyAmount(amount, sourceCurrency, targetCurrency) {
+    const sourceRate = exchangeRatesFromTzs[String(sourceCurrency).toUpperCase()];
+    const targetRate = exchangeRatesFromTzs[String(targetCurrency).toUpperCase()];
+    return sourceRate && targetRate ? Number(amount) * targetRate / sourceRate : Number(amount);
+}
+
+function updateLocalizedPrices() {
+    document.querySelectorAll('[data-price-amount]').forEach((priceElement) => {
+        const amount = Number(priceElement.dataset.priceAmount);
+        const sourceCurrency = priceElement.dataset.priceCurrency || 'TZS';
+        const suffix = priceElement.dataset.priceSuffix || '';
+        if (Number.isFinite(amount)) {
+            priceElement.textContent = `${formatCurrency(amount, sourceCurrency)}${suffix}`;
+        }
+    });
+    const minPrice = document.getElementById('minPrice');
+    const maxPrice = document.getElementById('maxPrice');
+    if (minPrice) minPrice.placeholder = `Min ${preferredCurrencyCode}`;
+    if (maxPrice) maxPrice.placeholder = `Max ${preferredCurrencyCode}`;
+}
+
+function currencyDisplayName(currencyCode) {
+    try {
+        const name = new Intl.DisplayNames([navigator.language || 'en'], { type: 'currency' }).of(currencyCode);
+        return `${currencyCode} - ${name || currencyCode}`;
+    } catch (error) {
+        return currencyCode;
+    }
+}
+
+function setPreferredCountry(countryCode) {
+    const country = countryCurrencyMap.get(countryCode);
+    if (!country) return;
+
+    preferredCountryCode = countryCode;
+    preferredCurrencyCode = country.currency;
+    localStorage.setItem(PREFERRED_COUNTRY_KEY, countryCode);
+    localStorage.setItem('kahawa_preferred_currency', preferredCurrencyCode);
+
+    document.querySelectorAll('[data-country-select]').forEach((select) => {
+        select.value = countryCode;
+    });
+    const currencyDisplay = document.getElementById('currencyDisplay');
+    if (currencyDisplay) currencyDisplay.textContent = currencyDisplayName(preferredCurrencyCode);
+    const signupCurrencyDisplay = document.getElementById('signupCurrencyDisplay');
+    if (signupCurrencyDisplay) signupCurrencyDisplay.textContent = currencyDisplayName(preferredCurrencyCode);
+    updateLocalizedPrices();
+}
+
+function loadCountryCurrencyMap() {
+    let regionNames;
+    try {
+        regionNames = new Intl.DisplayNames([navigator.language || 'en'], { type: 'region' });
+    } catch (error) {
+        console.error('Could not initialize localized country names:', error);
+    }
+
+    countryCurrencyMap = new Map(COUNTRY_CURRENCY_PAIRS.map((entry) => {
+        const [code, currency] = entry.split(':');
+        let name = code;
+        try {
+            name = regionNames?.of(code) || code;
+        } catch (error) {
+            console.error(`Could not resolve country name for ${code}:`, error);
+        }
+        return [code, { code, name, currency }];
+    }));
+    populateCountrySelects();
+}
+
+function populateCountrySelects() {
+    if (countryCurrencyMap.size === 0) return;
+    const savedCountry = localStorage.getItem(PREFERRED_COUNTRY_KEY) || 'TZ';
+    const countries = Array.from(countryCurrencyMap.values()).sort((a, b) => a.name.localeCompare(b.name));
+
+    document.querySelectorAll('[data-country-select], [data-country-options]').forEach((select) => {
+        const currentCountry = countryCurrencyMap.has(select.value) ? select.value : savedCountry;
+        select.replaceChildren(...countries.map((country) => {
+            const option = document.createElement('option');
+            option.value = country.code;
+            option.textContent = country.name;
+            return option;
+        }));
+        select.value = countryCurrencyMap.has(currentCountry) ? currentCountry : 'TZ';
+        if (select.hasAttribute('data-country-select')) {
+            select.onchange = () => setPreferredCountry(select.value);
+        }
+    });
+
+    const initialCountry = countryCurrencyMap.has(savedCountry) ? savedCountry : 'TZ';
+    setPreferredCountry(initialCountry);
+}
+
+async function loadLiveExchangeRates() {
+    const cached = readStoredJson(EXCHANGE_CACHE_KEY);
+    if (cached) {
+        if (Date.now() - cached.timestamp < 60 * 60 * 1000 && cached.rates) {
+            exchangeRatesFromTzs = cached.rates;
+            updateLocalizedPrices();
+            return;
+        }
+    }
+
+    try {
+        const response = await fetch('https://open.er-api.com/v6/latest/TZS');
+        if (!response.ok) throw new Error(`Exchange-rate request failed (${response.status})`);
+        const payload = await response.json();
+        if (payload.result !== 'success' || !payload.rates || !payload.rates.TZS) {
+            throw new Error('Exchange-rate service returned invalid data');
+        }
+        exchangeRatesFromTzs = payload.rates;
+        localStorage.setItem(EXCHANGE_CACHE_KEY, JSON.stringify({
+            timestamp: Date.now(),
+            rates: exchangeRatesFromTzs
+        }));
+        updateLocalizedPrices();
+        if (!exchangeRatesFromTzs[preferredCurrencyCode]) {
+            showGlobalNotification(`Live rates for ${preferredCurrencyCode} are unavailable; prices remain in their listed currency.`, 'error');
+        }
+    } catch (error) {
+        if (cached) {
+            exchangeRatesFromTzs = cached.rates || { TZS: 1 };
+            updateLocalizedPrices();
+            showGlobalNotification('Using saved exchange rates because live rates are unavailable.', 'info');
+        } else {
+            console.error('Could not load live exchange rates:', error);
+            exchangeRatesFromTzs = FALLBACK_EXCHANGE_RATES_FROM_TZS;
+            updateLocalizedPrices();
+            showGlobalNotification('Live exchange rates are unavailable; using approximate fallback rates for USD, EUR, and KES.', 'info');
+        }
+    }
+}
+
+function initCountryCurrency() {
+    const savedCountry = localStorage.getItem(PREFERRED_COUNTRY_KEY);
+    const savedCurrency = localStorage.getItem('kahawa_preferred_currency');
+    if (savedCountry) preferredCountryCode = savedCountry;
+    if (savedCurrency) preferredCurrencyCode = savedCurrency;
+
+    if (document.querySelector('[data-country-select], #country')) loadCountryCurrencyMap();
+    updateLocalizedPrices();
+    if (document.querySelector('[data-price-amount], #productGrid, #coursesGrid, #allCoursesGrid, #toursGrid, #ordersList')) {
+        loadLiveExchangeRates();
+    }
 }
 
 /**
@@ -84,7 +300,7 @@ function initMobileMenu() {
 
     if (!mobileToggle || !navLinksElem) return;
 
-    const isMobileViewport = () => window.innerWidth <= 768;
+    const isMobileViewport = () => window.innerWidth <= 1200;
 
     mobileToggle.setAttribute('role', 'button');
     mobileToggle.setAttribute('tabindex', '0');
@@ -96,6 +312,7 @@ function initMobileMenu() {
         mobileToggle.classList.toggle('active', isOpen);
         mobileToggle.setAttribute('aria-expanded', String(isOpen));
         document.body.classList.toggle('menu-open', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : ''; // Locks background scroll
 
         if (isMobileViewport() && !isOpen) {
             navLinksElem.setAttribute('inert', '');
@@ -144,6 +361,28 @@ function initMobileMenu() {
             setMenuOpen(false);
         }
     });
+    
+        // Toggle the user dropdown on tap (mobile) / click (all sizes)
+    const userMenu = document.querySelector('.user-menu');
+    if (userMenu) {
+        const userAvatar = userMenu.querySelector('.user-avatar');
+        const chevron = userMenu.querySelector('.fa-chevron-down');
+        const toggleUserDropdown = (e) => {
+            // Let real links inside the dropdown work normally
+            if (e.target.closest('.user-dropdown a')) return;
+            e.stopPropagation();
+            userMenu.classList.toggle('active');
+        };
+        userAvatar?.addEventListener('click', toggleUserDropdown);
+        chevron?.addEventListener('click', toggleUserDropdown);
+
+        document.addEventListener('click', (e) => {
+            if (userMenu.classList.contains('active') && !userMenu.contains(e.target)) {
+                userMenu.classList.remove('active');
+            }
+        });
+    }
+
 }
 
 /**
@@ -252,7 +491,6 @@ window.toggleMobileFilters = function() {
 function initPageSpecificFeatures() {
     if (document.querySelector('.dashboard-wrapper')) initBuyerDashboard();
     if (document.getElementById('contactForm')) initContactForm();
-    if (document.getElementById('cookieBanner')) checkCookieConsent();
     if (document.getElementById('coursesGrid')) initEducationPage();
     if (document.getElementById('faqGrid')) initHelpPage();
     if (document.getElementById('searchInput') && document.querySelector('.hero')) initHomePage();
@@ -328,48 +566,135 @@ function initContactForm() {
     });
 
     document.querySelectorAll('.faq-item').forEach(item => { 
+        const question = item.querySelector('.faq-question');
+        if (!question) return;
+            question.addEventListener('click', (e) => {
+             e.stopPropagation();
+        item.classList.toggle('open');
+        });
         item.addEventListener('click', () => { item.classList.toggle('open'); }); 
     });
 }
 
 /* --- COOKIES --- */
+function showCookieBanner() {
+    let banner = document.getElementById('cookieBanner');
+
+    if (!banner) {
+        banner = document.createElement('div');
+        banner.id = 'cookieBanner';
+        banner.className = 'cookie-banner';
+        banner.innerHTML = `
+            <div class="cookie-banner-content">
+                <p>We use cookies to enhance your browsing experience, analyze site traffic, and personalize content.
+                    Read our <a href="cookies.html">Cookie Policy</a>.</p>
+                <div class="cookie-banner-buttons">
+                    <button type="button" class="btn-prefs">Manage Preferences</button>
+                    <button type="button" class="btn-accept-all">Accept All</button>
+                </div>
+            </div>`;
+        document.body.appendChild(banner);
+
+        banner.querySelector('.btn-prefs').addEventListener('click', window.openCookieSettings);
+        banner.querySelector('.btn-accept-all').addEventListener('click', window.acceptAllCookies);
+    }
+
+    banner.classList.add('active');
+}
+
 function checkCookieConsent() {
-    const consent = localStorage.getItem('cookie_consent');
+    let consent;
+    try {
+        const storedConsent = localStorage.getItem('kahawa_cookie_consent') || localStorage.getItem('cookie_consent');
+        const parsedConsent = storedConsent ? JSON.parse(storedConsent) : null;
+        if (parsedConsent && typeof parsedConsent === 'object' && !Array.isArray(parsedConsent) &&
+            typeof parsedConsent.analytics === 'boolean' && typeof parsedConsent.marketing === 'boolean') {
+            consent = {
+                ...parsedConsent,
+                essential: true,
+                preference: typeof parsedConsent.preference === 'boolean' ? parsedConsent.preference : true
+            };
+        } else if (storedConsent) {
+            console.warn('Saved cookie preferences are invalid; showing the consent banner again.');
+        }
+    } catch (error) {
+        console.error('Unable to read saved cookie preferences:', error);
+    }
+
     if (!consent) {
-        document.getElementById('cookieBanner').classList.add('active');
+        showCookieBanner();
     } else {
-        applyCookiePreferences(JSON.parse(consent));
+        applyCookiePreferences(consent);
     }
 }
+function storeCookiePreferences(preferences) {
+    const consent = {
+        essential: true,
+        preference: Boolean(preferences.preference),
+        analytics: Boolean(preferences.analytics),
+        marketing: Boolean(preferences.marketing),
+        timestamp: new Date().toISOString()
+    };
+
+    try {
+        localStorage.setItem('kahawa_cookie_consent', JSON.stringify(consent));
+    } catch (error) {
+        console.error('Unable to save cookie preferences:', error);
+        showGlobalNotification('Unable to save cookie preferences. Please check your browser storage settings.', 'error');
+        return null;
+    }
+
+    try {
+        localStorage.removeItem('cookie_consent');
+    } catch (error) {
+        console.warn('Unable to remove legacy cookie preferences:', error);
+    }
+    return consent;
+}
 window.acceptAllCookies = function() {
-    const preferences = { essential: true, preference: true, analytics: true, marketing: true };
-    localStorage.setItem('cookie_consent', JSON.stringify(preferences));
-    document.getElementById('cookieBanner').classList.remove('active');
+    const preferences = storeCookiePreferences({ preference: true, analytics: true, marketing: true });
+    if (!preferences) return;
+    document.getElementById('cookieBanner')?.classList.remove('active');
     applyCookiePreferences(preferences);
     showGlobalNotification('Cookie preferences saved!', 'success');
 };
 window.openCookieSettings = function() {
     const prefCenter = document.querySelector('.preference-center');
-    if(prefCenter) prefCenter.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    document.getElementById('cookieBanner').classList.remove('active');
+    document.getElementById('cookieBanner')?.classList.remove('active');
+    if (prefCenter) {
+        prefCenter.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+    }
+    window.location.href = 'privacy.html#cookie-preferences';
 };
 window.saveCookiePreferences = function() {
-    const preferences = {
-        essential: true,
-        preference: document.getElementById('preferenceCookies').checked,
-        analytics: document.getElementById('analyticsCookies').checked,
-        marketing: document.getElementById('marketingCookies').checked
-    };
-    localStorage.setItem('cookie_consent', JSON.stringify(preferences));
+    const preferenceCookies = document.getElementById('preferenceCookies');
+    const analyticsCookies = document.getElementById('analyticsCookies');
+    const marketingCookies = document.getElementById('marketingCookies');
+    if (!preferenceCookies || !analyticsCookies || !marketingCookies) {
+        showGlobalNotification('Cookie preference controls are unavailable on this page.', 'error');
+        return;
+    }
+
+    const preferences = storeCookiePreferences({
+        preference: preferenceCookies.checked,
+        analytics: analyticsCookies.checked,
+        marketing: marketingCookies.checked
+    });
+    if (!preferences) return;
+
     applyCookiePreferences(preferences);
+    document.getElementById('cookieBanner')?.classList.remove('active');
     showGlobalNotification('Cookie preferences saved!', 'success');
 };
 function applyCookiePreferences(preferences) {
-    if (document.getElementById('preferenceCookies')) {
-        document.getElementById('preferenceCookies').checked = preferences.preference;
-        document.getElementById('analyticsCookies').checked = preferences.analytics;
-        document.getElementById('marketingCookies').checked = preferences.marketing;
-    }
+    const preferenceCookies = document.getElementById('preferenceCookies');
+    const analyticsCookies = document.getElementById('analyticsCookies');
+    const marketingCookies = document.getElementById('marketingCookies');
+
+    if (preferenceCookies) preferenceCookies.checked = Boolean(preferences.preference);
+    if (analyticsCookies) analyticsCookies.checked = Boolean(preferences.analytics);
+    if (marketingCookies) marketingCookies.checked = Boolean(preferences.marketing);
 }
 window.showBrowserGuide = function(browser) {
     const guides = {
@@ -418,8 +743,8 @@ function initEducationPage() {
                     <span><i class="fas fa-users"></i> ${c.students.toLocaleString()} students</span>
                 </div>
                 <div class="course-price">
-                    <span class="price">$${c.price}</span>
-                    <button class="btn-enroll" onclick="enrollCourse('${escapeHtml(c.title)}')">Enroll</button>
+                    <span class="price" data-price-amount="${c.price}" data-price-currency="USD">${formatCurrency(c.price, 'USD')}</span>
+                    <button class="btn-enroll" onclick="enrollCourse('${escapeHtml(c.title.replace(/'/g, "\\'"))}')">Enroll</button>
                 </div>
             </div>
         </div>
@@ -459,8 +784,8 @@ function initEducationPage() {
                         <span><i class="fas fa-users"></i> ${c.students.toLocaleString()} students</span>
                     </div>
                     <div class="course-price">
-                        <span class="price">$${c.price}</span>
-                        <button class="btn-enroll" onclick="enrollCourse('${escapeHtml(c.title)}')">Enroll</button>
+                        <span class="price" data-price-amount="${c.price}" data-price-currency="USD">${formatCurrency(c.price, 'USD')}</span>
+                        <button class="btn-enroll" onclick="enrollCourse('${escapeHtml(c.title).replace(/'/g, "\\'")}')">Enroll</button>
                     </div>
                 </div>
             </div>
@@ -559,12 +884,28 @@ function initHelpPage() {
 
     function renderFaqs(filterCategory = null) {
         const container = document.getElementById('faqGrid');
-        if(!container) return;
+        if (!container) return;
+
         let filteredFaqs = faqsData;
-        if (filterCategory && filterCategory !== 'all' && filterCategory !== 'getting-started1' && filterCategory !== 'getting-started2') {
+        const isFilteringByCategory = filterCategory && filterCategory !== 'all';
+
+        if (isFilteringByCategory) {
             filteredFaqs = faqsData.filter(f => f.category === filterCategory);
         }
-        container.innerHTML = filteredFaqs.slice(0, 6).map(faq => `
+
+        // Only cap the list when showing the default "all" view.
+        const visibleFaqs = isFilteringByCategory ? filteredFaqs : filteredFaqs.slice(0, 6);
+
+        if (visibleFaqs.length === 0) {
+            container.innerHTML = `
+                <div style="grid-column:1/-1; text-align:center; padding: 2rem; color: var(--muted-white);">
+                    <i class="fas fa-search" style="font-size:2rem; margin-bottom:0.5rem; display:block;"></i>
+                    No FAQs found in this category.
+                </div>`;
+            return;
+        }
+
+        container.innerHTML = visibleFaqs.map(faq => `
             <div class="faq-item" data-category="${faq.category}">
                 <div class="faq-question">
                     <span>${escapeHtml(faq.question)}</span>
@@ -574,9 +915,9 @@ function initHelpPage() {
             </div>
         `).join('');
 
-        document.querySelectorAll('.faq-item').forEach(item => {
+        container.querySelectorAll('.faq-item').forEach(item => {
             item.addEventListener('click', (e) => {
-                if (e.target === item.querySelector('.faq-question') || e.target.closest('.faq-question') || !e.target.closest('.faq-answer')) {
+                if (!e.target.closest('.faq-answer')) {
                     item.classList.toggle('open');
                 }
             });
@@ -737,37 +1078,41 @@ let marketCurrentEquipmentSub = 'all';
 let marketCurrentApparelSub = 'all';
 
 function initMarketplace() {
+    const approximateTzsPerUsd = 2600;
+    const usdToTzs = price => Math.round(price * approximateTzsPerUsd);
     const marketProducts = {
         green: [
-            { id: 1, name: 'Tanzania Peaberry AA Reserve', origin: 'Tanzania', process: 'Washed', grade: 'Specialty', price: 8.50, sca: 86, lot: 350, seller: 'Kilimanjaro Cooperative', verified: true, image: 'coffee-bean' },
-            { id: 2, name: 'Ethiopia Yirgacheffe Natural G1', origin: 'Ethiopia', process: 'Natural', grade: 'Specialty', price: 9.20, sca: 88, lot: 500, seller: 'Yirgacheffe Farmers', verified: true, image: 'coffee-bean' },
-            { id: 3, name: 'Brazil Yellow Bourbon', origin: 'Brazil', process: 'Pulped Natural', grade: 'Premium', price: 7.80, sca: 84, lot: 1200, seller: 'Minas Gerais Estate', verified: true, image: 'coffee-bean' },
-            { id: 4, name: 'Kenya AA SL28 & SL34', origin: 'Kenya', process: 'Washed', grade: 'Micro-lot', price: 10.20, sca: 90, lot: 280, seller: 'Nyeri Hill Estate', verified: true, image: 'coffee-bean' }
+            { id: 1, name: 'Tanzania Peaberry AA Reserve', origin: 'Tanzania', process: 'Washed', grade: 'Specialty', price: 22000, sca: 86, lot: 350, seller: 'Kilimanjaro Cooperative', verified: true, image: 'coffee-bean' },
+            { id: 2, name: 'Tanzania Kilimanjaro AA', origin: 'Tanzania', process: 'Washed', grade: 'Specialty', price: 24000, sca: 88, lot: 500, seller: 'Kilimanjaro Cooperative', verified: true, image: 'coffee-bean' },
+            { id: 3, name: 'Tanzania Mbeya Peaberry', origin: 'Tanzania', process: 'Pulped Natural', grade: 'Premium', price: 20000, sca: 84, lot: 1200, seller: 'Mbeya Coffee Estate', verified: true, image: 'coffee-bean' },
+            { id: 4, name: 'Tanzania Arusha AA', origin: 'Tanzania', process: 'Washed', grade: 'Micro-lot', price: 26000, sca: 90, lot: 280, seller: 'Arusha Highland Estate', verified: true, image: 'coffee-bean' }
         ],
         roasted: [
-            { id: 101, name: 'Kilimanjaro Espresso Blend', roaster: 'Moshi Roasters', roast: 'Medium', price: 18.50, weight: '250g', verified: true, image: 'fire' },
-            { id: 102, name: 'Ethiopia Sidama Natural', roaster: 'Addis Coffee', roast: 'Light', price: 22.00, weight: '250g', verified: true, image: 'fire' }
+            { id: 101, name: 'Kilimanjaro Espresso Blend', roaster: 'Moshi Roasters', roast: 'Medium', price: 18500, weight: '250g', verified: true, image: 'fire' },
+            { id: 102, name: 'Tanzania Peaberry Natural', roaster: 'Moshi Roasters', roast: 'Light', price: 22000, weight: '250g', verified: true, image: 'fire' }
         ],
         equipment: [
-            { id: 201, name: 'La Marzocco Linea PB 3-Group', brand: 'La Marzocco', type: 'Espresso Machine', subcategory: 'espresso-machines', condition: 'New', price: 21500, warranty: 3, verified: true, image: 'blender', seller: 'La Marzocco Commercial' },
-            { id: 202, name: 'La Marzocco Linea Mini', brand: 'La Marzocco', type: 'Espresso Machine', subcategory: 'espresso-machines', condition: 'New', price: 5900, warranty: 2, verified: true, image: 'blender', seller: 'La Marzocco Home' },
-            { id: 203, name: 'Fellow Ode Brew Grinder', brand: 'Fellow', type: 'Grinder', subcategory: 'grinders', condition: 'New', price: 349, warranty: 2, verified: true, image: 'cog', seller: 'Fellow Products' },
-            { id: 204, name: 'Baratza Sette 270', brand: 'Baratza', type: 'Grinder', subcategory: 'grinders', condition: 'New', price: 449, warranty: 1, verified: true, image: 'cog', seller: 'Baratza' }
+            { id: 201, name: 'La Marzocco Linea PB 3-Group', brand: 'La Marzocco', type: 'Espresso Machine', subcategory: 'espresso-machines', condition: 'New', price: 55000000, warranty: 3, verified: true, image: 'blender', seller: 'La Marzocco Commercial' },
+            { id: 202, name: 'La Marzocco Linea Mini', brand: 'La Marzocco', type: 'Espresso Machine', subcategory: 'espresso-machines', condition: 'New', price: usdToTzs(5900), warranty: 2, verified: true, image: 'blender', seller: 'La Marzocco Home' },
+            { id: 203, name: 'Fellow Ode Brew Grinder', brand: 'Fellow', type: 'Grinder', subcategory: 'grinders', condition: 'New', price: usdToTzs(349), warranty: 2, verified: true, image: 'cog', seller: 'Fellow Products' },
+            { id: 204, name: 'Baratza Sette 270', brand: 'Baratza', type: 'Grinder', subcategory: 'grinders', condition: 'New', price: usdToTzs(449), warranty: 1, verified: true, image: 'cog', seller: 'Baratza' }
         ],
         apparel: [
-            { id: 601, name: 'Kahawa Space Logo T-Shirt', brand: 'Kahawa Space', type: 'T-Shirt', subcategory: 't-shirts', size: 'M', color: 'Black', price: 29, condition: 'New', verified: true, image: 'tshirt', seller: 'Kahawa Space Merch' },
-            { id: 602, name: 'Barista Canvas Apron', brand: 'Kahawa Space', type: 'Apron', subcategory: 'aprons', size: 'L', color: 'Brown', price: 49, condition: 'New', verified: true, image: 'tshirt', seller: 'Kahawa Space Merch' }
+            { id: 601, name: 'Kahawa Space Logo T-Shirt', brand: 'Kahawa Space', type: 'T-Shirt', subcategory: 't-shirts', size: 'M', color: 'Black', price: usdToTzs(29), condition: 'New', verified: true, image: 'tshirt', seller: 'Kahawa Space Merch' },
+            { id: 602, name: 'Barista Canvas Apron', brand: 'Kahawa Space', type: 'Apron', subcategory: 'aprons', size: 'L', color: 'Brown', price: usdToTzs(49), condition: 'New', verified: true, image: 'tshirt', seller: 'Kahawa Space Merch' }
         ],
         books: [
-            { id: 701, name: 'The World Atlas of Coffee', author: 'James Hoffmann', price: 35, format: 'Hardcover', verified: true, image: 'book' }
+            { id: 701, name: 'The World Atlas of Coffee', author: 'James Hoffmann', price: usdToTzs(35), format: 'Hardcover', verified: true, image: 'book' }
         ]
     };
 
     const marketSellers = [
         { name: 'Kilimanjaro Native Cooperative', location: 'Moshi, Tanzania', lots: 12, rating: 4.9, description: 'Direct from 2,500 smallholder farmers' },
-        { name: 'Yirgacheffe Women Producers', location: 'Yirgacheffe, Ethiopia', lots: 8, rating: 5.0, description: 'Women-led cooperative' },
-        { name: 'Nyeri Hill Estate', location: 'Nyeri, Kenya', lots: 15, rating: 4.8, description: 'Multi-generation farm' }
+        { name: 'Mbeya Coffee Estate', location: 'Mbeya, Tanzania', lots: 8, rating: 5.0, description: 'Highland estate cooperative' },
+        { name: 'Arusha Highland Estate', location: 'Arusha, Tanzania', lots: 15, rating: 4.8, description: 'Multi-generation farm' }
     ];
+    initMarketplaceCheckout(Object.values(marketProducts).reduce((products, categoryProducts) => products.concat(categoryProducts), []));
+
 
     // Keep filters and subcategories in sync with the selected category.
     function updateMarketplaceUIState(category) {
@@ -837,8 +1182,9 @@ function initMarketplace() {
 
         const minValue = document.getElementById('minPrice')?.value;
         const maxValue = document.getElementById('maxPrice')?.value;
-        const minPrice = minValue ? Number.parseFloat(minValue) : null;
-        const maxPrice = maxValue ? Number.parseFloat(maxValue) : null;
+        const filterBaseCurrency = document.getElementById('productGrid') ? 'TZS' : 'USD';
+        const minPrice = minValue ? convertCurrencyAmount(Number.parseFloat(minValue), preferredCurrencyCode, filterBaseCurrency) : null;
+        const maxPrice = maxValue ? convertCurrencyAmount(Number.parseFloat(maxValue), preferredCurrencyCode, filterBaseCurrency) : null;
         if (minPrice !== null && Number.isFinite(minPrice)) list = list.filter(product => product.price >= minPrice);
         if (maxPrice !== null && Number.isFinite(maxPrice)) list = list.filter(product => product.price <= maxPrice);
 
@@ -912,9 +1258,11 @@ function initMarketplace() {
                         </div>
                         <div class="product-title">${safeName}</div>
                         <div class="product-meta">${escapeHtml(metaText)}</div>
-                        <div class="product-price">$${product.price.toLocaleString()}<small>${priceUnit}</small></div>
+                        <div class="product-price"><span data-price-amount="${product.price}" data-price-currency="TZS">${formatCurrency(product.price)}</span><small>${escapeHtml(priceUnit)}</small></div>
                         <div class="product-actions">
-                            <button class="btn-primary" onclick="contactMarketSeller('${inlineName}')">${category === 'green' ? 'Contact Seller' : 'View Details'}</button>
+                            ${category === 'green'
+                                ? `<button class="btn-primary" onclick="contactMarketSeller('${inlineName}')">Contact Seller</button>`
+                                : `<button class="btn-primary" data-market-product-id="${product.id}">Buy Now</button>`}
                             <button class="btn-secondary" onclick="saveMarketItem('${inlineName}')"><i class="far fa-heart"></i></button>
                         </div>
                     </div>
@@ -995,6 +1343,153 @@ window.contactMarketSeller = function(p) { showGlobalNotification(`Contacting se
 window.saveMarketItem = function(p) { showGlobalNotification(`"${p}" saved to wishlist`, 'info'); };
 window.viewMarketSeller = function(s) { showGlobalNotification(`Viewing profile of ${s}`, 'info'); };
 
+function initMarketplaceCheckout(products) {
+    const modal = document.getElementById('marketCheckoutModal');
+    const productGrid = document.getElementById('productGrid');
+    const paymentGateway = document.getElementById('paymentGateway');
+    const mpesaFields = document.getElementById('mpesaFields');
+    const stripeFields = document.getElementById('stripeFields');
+    const phoneInput = document.getElementById('mpesaPhone');
+    const message = document.getElementById('checkoutPaymentMessage');
+    const mpesaButton = document.getElementById('mpesaPayBtn');
+    const stripeButton = document.getElementById('stripePayBtn');
+    if (!modal || !productGrid || !paymentGateway || !mpesaFields || !stripeFields || !message) return;
+
+    const productsById = new Map(products.map(product => [String(product.id), product]));
+    let selectedProduct = null;
+    let stripe = null;
+    let cardElement = null;
+
+    function showPaymentMessage(text, isError = false) {
+        message.textContent = text;
+        message.style.color = isError ? '#ff8b8b' : 'var(--muted-white)';
+    }
+
+    function togglePaymentFields() {
+        const useStripe = paymentGateway.value === 'stripe';
+        mpesaFields.hidden = useStripe;
+        stripeFields.hidden = !useStripe;
+        showPaymentMessage('');
+        if (useStripe && !stripe) {
+            showPaymentMessage('Card payments are not configured. Add the Stripe publishable key to marketplace.html.', true);
+        }
+    }
+
+    function closeCheckout() {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        showPaymentMessage('');
+    }
+
+    productGrid.addEventListener('click', event => {
+        const button = event.target.closest('[data-market-product-id]');
+        if (!button) return;
+        selectedProduct = productsById.get(button.dataset.marketProductId);
+        if (!selectedProduct) {
+            showGlobalNotification('This product is not available for checkout.', 'error');
+            return;
+        }
+        document.getElementById('marketCheckoutProduct').textContent = selectedProduct.name;
+        document.getElementById('marketCheckoutPrice').textContent =
+            new Intl.NumberFormat(navigator.language || 'en', {
+                style: 'currency',
+                currency: 'TZS',
+                maximumFractionDigits: 0
+            }).format(selectedProduct.price);
+        paymentGateway.value = 'mpesa';
+        togglePaymentFields();
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        phoneInput?.focus();
+    });
+
+    paymentGateway.addEventListener('change', togglePaymentFields);
+    document.getElementById('closeMarketCheckout')?.addEventListener('click', closeCheckout);
+    modal.addEventListener('click', event => {
+        if (event.target === modal) closeCheckout();
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && modal.classList.contains('active')) closeCheckout();
+    });
+
+    if (window.Stripe) {
+        const publishableKey = document.querySelector('meta[name="stripe-publishable-key"]')?.content.trim();
+        if (publishableKey) {
+            stripe = window.Stripe(publishableKey);
+            cardElement = stripe.elements().create('card');
+            cardElement.mount('#card-element');
+        }
+    }
+
+    mpesaButton?.addEventListener('click', async () => {
+        if (!selectedProduct) return;
+        const phone = phoneInput ? phoneInput.value.trim() : '';
+        if (!/^\+?\d{10,15}$/.test(phone)) {
+            showPaymentMessage('Enter a valid phone number including its country code.', true);
+            phoneInput.focus();
+            return;
+        }
+
+        mpesaButton.disabled = true;
+        showPaymentMessage('Sending payment request…');
+        try {
+            const formData = new FormData();
+            formData.append('phone', phone);
+            formData.append('product_id', String(selectedProduct.id));
+            formData.append('order_id', `KS-${selectedProduct.id}-${Date.now()}`);
+            const response = await fetch('mpesa_pay.php', { method: 'POST', body: formData });
+            const data = await response.json();
+            if (!response.ok || data.status !== 'success') {
+                throw new Error(data.message || 'M-Pesa payment could not be started.');
+            }
+            showPaymentMessage(data.message || 'Payment request sent. Check your phone to complete payment.');
+        } catch (error) {
+            showPaymentMessage(error.message || 'Could not contact the M-Pesa service.', true);
+        } finally {
+            mpesaButton.disabled = false;
+        }
+    });
+
+    stripeButton?.addEventListener('click', async () => {
+        if (!selectedProduct) return;
+        if (!stripe || !cardElement) {
+            showPaymentMessage('Card payments are not configured. Add the Stripe publishable key to marketplace.html.', true);
+            return;
+        }
+
+        stripeButton.disabled = true;
+        showPaymentMessage('Preparing secure card payment…');
+        try {
+            const response = await fetch('stripe_create_intent.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    product_id: selectedProduct.id,
+                    order_id: `KS-${selectedProduct.id}-${Date.now()}`
+                })
+            });
+            const data = await response.json();
+            if (!response.ok || data.status !== 'success' || !data.clientSecret) {
+                throw new Error(data.error || 'Card payment could not be initialized.');
+            }
+
+            const result = await stripe.confirmCardPayment(data.clientSecret, {
+                payment_method: { card: cardElement }
+            });
+            if (result.error) throw new Error(result.error.message || 'Card payment failed.');
+            if (result.paymentIntent?.status === 'succeeded') {
+                showPaymentMessage('Payment successful. Thank you for your order.');
+            } else {
+                showPaymentMessage(`Payment status: ${result.paymentIntent?.status || 'pending'}.`);
+            }
+        } catch (error) {
+            showPaymentMessage(error.message || 'Could not complete card payment.', true);
+        } finally {
+            stripeButton.disabled = false;
+        }
+    });
+}
+
 /* --- NETWORK PAGE --- */
 function initNetworkPage() {
     window.joinWaitlist = function() {
@@ -1029,23 +1524,26 @@ function initContentViewToggle() {
     const blogView = document.getElementById('blogView');
     if (!tabs || !newsView || !blogView) return;
 
-    tabs.querySelectorAll('.view-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.querySelectorAll('.view-tab').forEach(viewTab => viewTab.classList.remove('active'));
-            tab.classList.add('active');
-
-            const view = tab.dataset.view;
-            newsView.style.display = view === 'blog' ? 'none' : '';
-            blogView.style.display = view === 'news' ? 'none' : '';
+    const setActiveView = (view) => {
+        tabs.querySelectorAll('.view-tab').forEach(viewTab => {
+            viewTab.classList.toggle('active', viewTab.dataset.view === view);
         });
+        newsView.style.display = view === 'blog' ? 'none' : '';
+        blogView.style.display = view === 'news' ? 'none' : '';
+    };
+
+    tabs.querySelectorAll('.view-tab').forEach(tab => {
+        tab.addEventListener('click', () => setActiveView(tab.dataset.view));
     });
+
+    setActiveView(tabs.querySelector('.view-tab.active')?.dataset.view || 'all');
 }
 
 function initNewsPage() {
     const articles = [
         { id: 1, title: 'Tanzania Harvest Report: Record Quality from Kilimanjaro', category: 'origin', date: 'March 5, 2026', excerpt: 'Early harvest samples show exceptional cup scores as farmers adopt new processing methods.', author: 'James Mwangi', location: 'Moshi, Tanzania', readTime: '5 min' },
         { id: 2, title: 'C-Market Analysis: Volatility and Opportunities', category: 'market', date: 'March 4, 2026', excerpt: 'Currency impacts and supply chain updates affecting green coffee prices this quarter.', author: 'Market Analyst', location: 'Global', readTime: '4 min' },
-        { id: 3, title: 'New Fermentation Techniques Reshaping Specialty Coffee', category: 'innovation', date: 'March 3, 2026', excerpt: 'How producers in Colombia and Kenya are experimenting with controlled fermentation.', author: 'Maria Santos', location: 'Bogotá', readTime: '6 min' }
+        { id: 3, title: 'New Fermentation Techniques Reshaping Specialty Coffee', category: 'innovation', date: 'March 3, 2026', excerpt: 'How producers in Tanzania are experimenting with controlled fermentation.', author: 'Maria Santos', location: 'Tanzania', readTime: '6 min' }
     ];
 
     let currentCategory = 'all';
@@ -1247,7 +1745,7 @@ function initResourcesPage() {
         const container = document.getElementById('resourcesGrid');
         if(container) {
             container.innerHTML = filtered.length ? filtered.map(r => `
-            <div class="resource-card" onclick="openResource('${escapeHtml(r.title)}')">
+            <div class="resource-card" onclick="openResource('${escapeHtml(r.title).replace(/'/g, "\\'")}')">
                 <div class="resource-meta">
                     <span class="resource-type">${r.type}</span>
                 </div>
@@ -1279,7 +1777,8 @@ function initResourcesPage() {
             tab.classList.remove('active');
             if (tab.getAttribute('data-category') === category) tab.classList.add('active');
         });
-        document.getElementById('searchInput').value = '';
+        const searchInputEl = document.getElementById('searchInput');
+            if (searchInputEl) searchInputEl.value = '';
         renderResources();
     };
 
@@ -1371,11 +1870,11 @@ function initResourcesPage() {
         const resultsDiv = document.getElementById('calcResults');
         resultsDiv.style.display = 'block';
         resultsDiv.innerHTML = `
-            <div class="calc-stat"><span>Landed Cost:</span> <strong>$${landedCost.toFixed(2)} /kg</strong></div>
-            <div class="calc-stat"><span>Roasted Cost:</span> <strong>$${roastedCostPerKg.toFixed(2)} /kg</strong></div>
+            <div class="calc-stat"><span>Landed Cost:</span> <strong><span data-price-amount="${landedCost}" data-price-currency="USD">${formatCurrency(landedCost, 'USD')}</span> /kg</strong></div>
+            <div class="calc-stat"><span>Roasted Cost:</span> <strong><span data-price-amount="${roastedCostPerKg}" data-price-currency="USD">${formatCurrency(roastedCostPerKg, 'USD')}</span> /kg</strong></div>
             <div class="calc-divider"></div>
-            <div class="calc-stat"><span>Cost to Produce (${size}g):</span> <strong style="color:var(--caramel-orange)">$${totalCostPerBag.toFixed(2)} /bag</strong></div>
-            <div class="calc-stat"><span>Suggested Retail (60% Margin):</span> <strong style="color:#4caf50">$${suggestedRetail.toFixed(2)}</strong></div>
+            <div class="calc-stat"><span>Cost to Produce (${size}g):</span> <strong style="color:var(--caramel-orange)"><span data-price-amount="${totalCostPerBag}" data-price-currency="USD">${formatCurrency(totalCostPerBag, 'USD')}</span> /bag</strong></div>
+            <div class="calc-stat"><span>Suggested Retail (60% Margin):</span> <strong style="color:#4caf50"><span data-price-amount="${suggestedRetail}" data-price-currency="USD">${formatCurrency(suggestedRetail, 'USD')}</span></strong></div>
         `;
     };
 
@@ -1433,18 +1932,31 @@ function initSignupPage() {
                 else if (selectedRole === 'seller') sellerFields.classList.add('show');
                 else if (selectedRole === 'individual') individualFields.classList.add('show');
 
-                if (selectedRole === 'individual') socialSection.style.display = 'block';
-                else socialSection.style.display = 'none';
+                buyerFields.querySelectorAll('input, select, textarea').forEach(field => {
+                    field.required = selectedRole === 'buyer';
+                });
+
+                if (socialSection) {
+                    if (selectedRole === 'individual') socialSection.style.display = 'block';
+                        else socialSection.style.display = 'none';
+                }
             });
         });
     }
 
-    window.socialSignup = function(provider) {
-        showGlobalNotification(`Redirecting to ${provider} for secure signup...`, 'info');
-    };
-
-    document.getElementById('googleSignupBtn')?.addEventListener('click', () => socialSignup('Google'));
-    document.getElementById('facebookSignupBtn')?.addEventListener('click', () => socialSignup('Facebook'));
+    // Keep email-friendly placeholders only when the OAuth module did not load.
+    if (document.documentElement.dataset.oauthReady !== 'true' &&
+        typeof window.handleGoogleSignup !== 'function') {
+        document.getElementById('googleSignupBtn')?.addEventListener('click', () => {
+            showGlobalNotification('Google sign-up coming soon. Please use email for now.', 'info');
+        });
+    }
+    if (document.documentElement.dataset.oauthReady !== 'true' &&
+        typeof window.handleFacebookSignup !== 'function') {
+        document.getElementById('facebookSignupBtn')?.addEventListener('click', () => {
+            showGlobalNotification('Facebook sign-up coming soon. Please use email for now.', 'info');
+        });
+    }
 
     // Password strength
     const passwordInput = document.getElementById('password');
@@ -1466,13 +1978,24 @@ function initSignupPage() {
         });
     }
 
-    // Pass toggle
+    // Toggle visibility for the password fields.
     document.querySelectorAll('.toggle-password').forEach(icon => {
-        icon.addEventListener('click', function () {
+        icon.addEventListener('click', function (event) {
+            event.preventDefault();
             const input = document.getElementById(this.getAttribute('data-target'));
             if (input) {
-                if (input.type === 'password') { input.type = 'text'; this.classList.replace('fa-eye', 'fa-eye-slash'); }
-                else { input.type = 'password'; this.classList.replace('fa-eye-slash', 'fa-eye'); }
+                const isVisible = input.type === 'password';
+                input.type = isVisible ? 'text' : 'password';
+                this.setAttribute('aria-pressed', String(isVisible));
+                this.setAttribute(
+                    'aria-label',
+                    `${isVisible ? 'Hide' : 'Show'} ${input.id === 'confirmPassword' ? 'confirm password' : 'password'}`
+                );
+                const icon = this.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-eye', !isVisible);
+                    icon.classList.toggle('fa-eye-slash', isVisible);
+                }
             }
         });
     });
@@ -1483,14 +2006,93 @@ function initSignupPage() {
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
+        const fullNameInput = document.getElementById('fullName');
+        const fullName = fullNameInput.value.trim();
+        const countrySelect = document.getElementById('country');
+        const phoneInput = document.getElementById('phone');
+        const phone = phoneInput ? phoneInput.value.trim() : '';
 
-        if (password !== confirmPassword) { showGlobalNotification('Passwords do not match', 'error'); return; }
+        // 1. Full name validation
+        if (!fullName || fullName.length < 2) {
+            showGlobalNotification('Please enter a valid full name', 'error');
+            fullNameInput.focus();
+            return;
+        }
+
+        // 2. Phone format validation (optional, but validated if provided)
+        if (phone && !/^\+?\d{10,15}$/.test(phone)) {
+            showGlobalNotification('Enter a valid phone number including its country code', 'error');
+            phoneInput.focus();
+            return;
+        }
+
+        // Detect the active account role
+        const activeRoleOption = document.querySelector('.role-option.active');
+        const selectedRole = activeRoleOption ? activeRoleOption.dataset.role : 'buyer';
+
+        // 3. Buyer-specific validations
+        if (selectedRole === 'buyer') {
+            const companyNameInput = document.getElementById('companyName');
+            const businessTypeSelect = document.getElementById('businessType');
+
+            if (!companyNameInput || !companyNameInput.value.trim()) {
+                showGlobalNotification('Company name is required for buyer accounts', 'error');
+                companyNameInput?.focus();
+                return;
+            }
+
+            if (!businessTypeSelect || !businessTypeSelect.value) {
+                showGlobalNotification('Please select a business type', 'error');
+                businessTypeSelect?.focus();
+                return;
+            }
+        }
+
+        // 4. Seller-specific validations
+        if (selectedRole === 'seller') {
+            const businessNameInput = document.getElementById('businessName');
+            const businessRegInput = document.getElementById('businessReg');
+            const businessDocInput = document.getElementById('businessDoc');
+            const originDocInput = document.getElementById('originDoc');
+
+            if (!businessNameInput || !businessNameInput.value.trim()) {
+                showGlobalNotification('Business name is required for sellers', 'error');
+                businessNameInput?.focus();
+                return;
+            }
+            if (!businessRegInput || !businessRegInput.value.trim()) {
+                showGlobalNotification('Business registration number is required', 'error');
+                businessRegInput?.focus();
+                return;
+            }
+            if (!businessDocInput || businessDocInput.files.length === 0) {
+                showGlobalNotification('Please upload your business registration document', 'error');
+                return;
+            }
+            if (!originDocInput || originDocInput.files.length === 0) {
+                showGlobalNotification('Please upload your origin documentation', 'error');
+                return;
+            }
+        }
+
+        // 5. Password matching and country configuration validation
+        if (password !== confirmPassword) {
+            showGlobalNotification('Passwords do not match', 'error');
+            return;
+        }
+        if (!countrySelect || !countryCurrencyMap.has(countrySelect.value)) {
+            showGlobalNotification('Country and currency information is not ready. Please wait and try again.', 'error');
+            return;
+        }
+        setPreferredCountry(countrySelect.value);
         
         const btnText = document.getElementById('btnText');
         const btnLoader = document.getElementById('btnLoader');
         const signupBtn = document.getElementById('signupBtn');
         
-        btnText.style.display = 'none'; btnLoader.style.display = 'inline-block'; signupBtn.disabled = true;
+        btnText.style.display = 'none';
+        btnLoader.style.display = 'inline-block';
+        signupBtn.disabled = true;
 
         try {
             await new Promise(resolve => setTimeout(resolve, 1500));
@@ -1498,7 +2100,9 @@ function initSignupPage() {
             setTimeout(() => window.location.href = 'user.html', 1500);
         } catch (error) {
             showGlobalNotification('Signup failed. Please try again.', 'error');
-            btnText.style.display = 'inline'; btnLoader.style.display = 'none'; signupBtn.disabled = false;
+            btnText.style.display = 'inline';
+            btnLoader.style.display = 'none';
+            signupBtn.disabled = false;
         }
     });
 }
@@ -1506,8 +2110,8 @@ function initSignupPage() {
 /* --- TOURS PAGE --- */
 function initToursPage() {
     const tours = [
-        { country: '🇹🇿 Tanzania', title: 'Kilimanjaro Coffee Trail', dates: 'Jun 15-22, 2026', days: 8, highlights: ['Farm visits', 'Cupping sessions'], desc: 'Visit cooperative farms on the slopes of Kilimanjaro.', price: 2850, spots: 8 },
-        { country: '🇪🇹 Ethiopia', title: 'Origins of Coffee: Ethiopia', dates: 'Aug 5-14, 2026', days: 10, highlights: ['Yirgacheffe', 'Sidama'], desc: 'Trace coffee\'s heritage.', price: 3250, spots: 12 }
+        { country: '🇹🇿 Tanzania', title: 'Kilimanjaro Coffee Trail', dates: 'Jun 15-22, 2026', days: 8, highlights: ['Farm visits', 'Cupping sessions'], desc: 'Visit cooperative farms on the slopes of Kilimanjaro.', price: 7500000, spots: 8 },
+        { country: '🇹🇿 Tanzania', title: 'Mbeya Highlands Tour', dates: 'Aug 5-14, 2026', days: 10, highlights: ['Mbeya farms', 'Cupping'], desc: 'Explore Tanzania\'s southern highlands.', price: 8500000, spots: 12 }
     ];
 
     window.renderTours = function(filteredTours = tours) {
@@ -1526,9 +2130,9 @@ function initToursPage() {
                 <div class="destination-meta"><span><i class="fas fa-calendar"></i> ${t.dates}</span></div>
                 <p style="margin:1rem 0;">${escapeHtml(t.desc)}</p>
                 <div class="destination-price">
-                    <div><span class="price">$${t.price}<small>/person</small></span></div>
+                    <div><span class="price"><span data-price-amount="${Number(t.price)}" data-price-currency="TZS">${formatCurrency(Number(t.price))}</span><small>/person</small></span></div>
                 </div>
-                <button class="btn-tour" onclick="bookTour('${escapeHtml(t.title)}')">Book Now</button>
+                <button class="btn-tour" onclick="bookTour('${escapeHtml(t.title).replace(/'/g, "\\'")}')">Book Now</button>
             </div>
         </div>
         `).join('');
@@ -1647,7 +2251,7 @@ function initUserOrders() {
         <div class="order-card">
             <div class="order-header">
                 <div class="order-info"><span class="order-id">Order #${o.id}</span></div>
-                <div class="order-total">Total: $${o.total.toLocaleString()}</div>
+                <div class="order-total">Total: <span data-price-amount="${o.total}" data-price-currency="USD">${formatCurrency(o.total, 'USD')}</span></div>
             </div>
             <div class="order-body">
                 <div class="order-actions">
@@ -1773,8 +2377,10 @@ function initBlogPage() {
                     <p style="color:var(--muted-white);">Try adjusting your filters or search terms.</p>
                 </div>
             `;
-            document.getElementById('loadMoreBlogBtn').style.display = 'none';
-            document.getElementById('blogResultCount').textContent = 'Showing 0 posts';
+            const loadBtn = document.getElementById('loadMoreBlogBtn');
+            if (loadBtn) loadBtn.style.display = 'none';
+                const blogCountEl = document.getElementById('blogResultCount');
+            if (blogCountEl) blogCountEl.textContent = `Showing ${postsToRender.length} post${postsToRender.length > 1 ? 's' : ''}`;
             return;
         }
 
